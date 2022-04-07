@@ -7,13 +7,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="main" />
+        <module name="main-module" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common-module" target="17" />
+      <module name="serve-module" target="16" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="main" options="-parameters" />
+      <module name="common-module" options="-parameters" />
+      <module name="main-module" options="-parameters" />
+      <module name="serve-module" options="-parameters" />
+      <module name="toolbox-serve" options="-parameters" />
     </option>
   </component>
 </project>
