@@ -1,6 +1,6 @@
 package com.lar.main.plan;
 
-import BaseUtil.ComputeUtil;
+import util.ComputeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +16,7 @@ public class PlanController {
     public List getPlanList(){
         return planService.findAll();
     }
+    @RequestMapping
     public int get(){
         return ComputeUtil.get(2,8);
     }
