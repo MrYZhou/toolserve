@@ -7,6 +7,7 @@
         <groupId>com.lar</groupId>
         <version>0.0.1-SNAPSHOT</version>
         <artifactId>toolbox</artifactId>
+        <relativePath/>
     </parent>
     <groupId>com.lar</groupId>
     <artifactId>main</artifactId>
@@ -38,16 +39,6 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.yml</include>
-                </includes>
-                <filtering>false</filtering>
-            </resource>
-        </resources>
-    </build>
+
 
 </project>
