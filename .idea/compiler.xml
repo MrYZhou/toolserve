@@ -8,11 +8,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="main-module" />
+        <module name="common-module" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="common-module" target="17" />
+      <module name="file-module" target="1.8" />
       <module name="serve-module" target="16" />
+      <module name="toolbox-serve" target="11.0.11" />
+      <module name="untitled" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
