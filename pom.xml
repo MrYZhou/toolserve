@@ -3,8 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
+
     <modules>
         <module>main-module</module>
+        <module>common-module</module>
     </modules>
 
     <parent>
@@ -46,7 +48,13 @@
             <scope>test</scope>
             <version>${test.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.76</version>
+        </dependency>
     </dependencies>
+
 
 
     <build>
