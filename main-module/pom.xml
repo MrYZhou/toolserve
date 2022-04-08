@@ -7,7 +7,7 @@
         <groupId>com.lar</groupId>
         <version>0.0.1-SNAPSHOT</version>
         <artifactId>toolbox</artifactId>
-        <relativePath/>
+<!--        <relativePath/>-->
     </parent>
     <groupId>com.lar</groupId>
     <artifactId>main</artifactId>
