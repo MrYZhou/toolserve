@@ -7,23 +7,28 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="main-module" />
+        <module name="file" />
         <module name="middleware-module" />
+        <module name="common" />
         <module name="file-module" />
         <module name="common-module" />
+        <module name="main-module" />
+        <module name="middleware" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="serve-module" target="16" />
-      <module name="toolbox-serve" target="11.0.11" />
       <module name="untitled" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="common" options="-parameters" />
       <module name="common-module" options="-parameters" />
+      <module name="file" options="-parameters" />
       <module name="file-module" options="-parameters" />
       <module name="main-module" options="-parameters" />
+      <module name="middleware" options="-parameters" />
       <module name="middleware-module" options="-parameters" />
       <module name="serve-module" options="-parameters" />
       <module name="toolbox" options="" />
