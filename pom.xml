@@ -23,8 +23,14 @@
     <name>toolbox-serve</name>
     <description>toolbox-serve</description>
     <properties>
+        <app.version>1.0.0</app.version>
+        <commmon.version>1.0.0</commmon.version>
+
         <java.version>17</java.version>
         <test.version>2.6.6</test.version>
+        <boot.version>2.6.6</boot.version>
+        <spring.version>5.3.18</spring.version>
+        <fastjson>1.2.76</fastjson>
     </properties>
 
     <dependencyManagement>
@@ -71,6 +77,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <classifier>execute</classifier>
                 </configuration>
             </plugin>
 

@@ -117,3 +117,6 @@ dist
 
 .idea/
 *.class
+*.jar
+*.jar.*
+*/target
