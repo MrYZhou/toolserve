@@ -22,7 +22,7 @@ public class FileController {
     }
 
     @PostMapping("/uploadMulti")
-    public void uploadFile(@RequestPart MultipartFile[] file){
+    public void uploadFile(@RequestPart MultipartFile[] files){
 
     }
 
