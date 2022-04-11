@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScans;
 @ComponentScans({
         @ComponentScan("com.lar"),
         @ComponentScan("common"),
+        @ComponentScan("middle"),
 })
 public class MainModuleApplication {
 
