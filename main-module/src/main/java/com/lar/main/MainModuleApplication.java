@@ -7,7 +7,8 @@ import org.springframework.context.annotation.ComponentScans;
 
 @SpringBootApplication
 @ComponentScans({
-        @ComponentScan("com.lar")
+        @ComponentScan("com.lar"),
+        @ComponentScan("common"),
 })
 public class MainModuleApplication {
 
