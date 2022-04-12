@@ -11,7 +11,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
-//@Component
+@Component
 public class EmailTask {
     @Autowired
     MailSender mailSender;
