@@ -12,6 +12,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/main-module/pom.xml" />
+        <option value="$PROJECT_DIR$/security-module/pom.xml" />
       </list>
     </option>
   </component>
@@ -23,5 +24,10 @@
   </component>
   <component name="SuppressionsComponent">
     <option name="suppComments" value="[]" />
+  </component>
+  <component name="SwUserDefinedSpecifications">
+    <option name="specTypeByUrl">
+      <map />
+    </option>
   </component>
 </project>

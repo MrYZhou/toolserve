@@ -16,7 +16,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ResponseBody
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ExceptionHandler( MethodArgumentNotValidException.class)
     public AppResult methodArgumentNotValidException(MethodArgumentNotValidException e) {
         Map<String, String> map = new HashMap<>(16);
         String message = e.getMessage();
