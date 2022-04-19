@@ -7,12 +7,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="security-module" />
         <module name="file" />
         <module name="middleware-module" />
         <module name="common" />
         <module name="file-module" />
         <module name="common-module" />
         <module name="main-module" />
+        <module name="main" />
         <module name="middleware" />
       </profile>
     </annotationProcessing>
@@ -23,9 +25,11 @@
       <module name="common-module" options="-parameters" />
       <module name="file" options="-parameters" />
       <module name="file-module" options="-parameters" />
+      <module name="main" options="-parameters" />
       <module name="main-module" options="-parameters" />
       <module name="middleware" options="-parameters" />
       <module name="middleware-module" options="-parameters" />
+      <module name="security-module" options="-parameters" />
       <module name="toolbox-serve" options="-parameters" />
     </option>
   </component>

@@ -5,5 +5,8 @@
     <file url="file://$PROJECT_DIR$/file-module/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/main-module/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/middleware-module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/security-module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

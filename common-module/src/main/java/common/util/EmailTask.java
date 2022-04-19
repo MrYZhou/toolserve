@@ -39,9 +39,7 @@ public class EmailTask {
         simpleMailMessage.setText(text);
         simpleMailMessage.setBcc();
         simpleMailMessage.setFrom("1762861715@qq.com");
-        simpleMailMessage.setTo("2271952106@qq.com");
-//        simpleMailMessage.setFrom("1762861715@qq.com");
-//        simpleMailMessage.setTo("2271952106@qq.com");
+        simpleMailMessage.setTo("");
         mailSender.send(simpleMailMessage);
         return true;
     }
@@ -52,9 +50,7 @@ public class EmailTask {
         simpleMailMessage.setText(text);
         simpleMailMessage.setSentDate(new Date());
         simpleMailMessage.setFrom("1762861715@qq.com");
-        simpleMailMessage.setTo("2271952106@qq.com");
-//        simpleMailMessage.setFrom("1762861715@qq.com");
-//        simpleMailMessage.setTo("2271952106@qq.com");
+        simpleMailMessage.setTo("");
         mailSender.send(simpleMailMessage);
         return true;
     }
