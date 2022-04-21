@@ -17,4 +17,11 @@ public class UserController {
     userService.login(userEntity);
     return null;
   }
+
+  @RequestMapping(value = "/sync")
+  public List sync() {
+    //    UserEntity userEntity = new UserEntity();
+    //    userService.login(userEntity);
+    return null;
+  }
 }
