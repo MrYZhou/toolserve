@@ -1,5 +1,6 @@
 package com.lar.security.main.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,10 +9,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+  @Autowired JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
   /**
    * 自定义密码加密
    *
@@ -45,6 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 除上面外的所有请求全部需要鉴权认证
         .anyRequest()
         .authenticated();
+
+    // 把token校验过滤器添加到过滤器链中,并且在验证账号密码之前
+    http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
   }
 
   /**
