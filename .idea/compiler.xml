@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="security-module" />
+        <module name="security" />
         <module name="file" />
         <module name="middleware-module" />
         <module name="common" />
@@ -29,6 +30,7 @@
       <module name="main-module" options="-parameters" />
       <module name="middleware" options="-parameters" />
       <module name="middleware-module" options="-parameters" />
+      <module name="security" options="-parameters" />
       <module name="security-module" options="-parameters" />
       <module name="toolbox-serve" options="-parameters" />
     </option>
