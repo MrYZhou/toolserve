@@ -1,10 +1,11 @@
 package com.lar.security.main.user;
 
+import com.lar.security.main.model.UserView;
 import common.base.AppResult;
 
 public interface UserService {
 
-  LoginUserDetail login(UserEntity user);
+  AppResult login(UserView user);
 
   UserEntity getUserByUsername(String username);
 

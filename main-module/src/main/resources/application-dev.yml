@@ -6,6 +6,9 @@ spring:
     password: root
     url: jdbc:mysql://1.116.187.129:3306/study?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     username: root
+    hikari:
+      max-lifetime: 60000
+  
   jpa:
     hibernate:
       ddl-auto: update
