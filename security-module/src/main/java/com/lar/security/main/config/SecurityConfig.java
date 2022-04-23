@@ -41,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
+        .antMatchers("/user")
+        .permitAll()
         // 对于登录接口 允许匿名访问
         .antMatchers("/user/login")
         .anonymous()

@@ -3,10 +3,7 @@ package com.lar.security.main.user;
 import com.lar.security.main.model.UserView;
 import common.base.AppResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +23,11 @@ public class UserController {
   public AppResult login(@RequestBody UserView userView) {
 
     return userService.login(userView);
+  }
+
+  @GetMapping(value = "/logout")
+  public AppResult logout() {
+
+    return userService.logout();
   }
 }
