@@ -12,7 +12,7 @@ import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginUserDetail implements UserDetails {
+public class LoginUser implements UserDetails {
   private UserEntity user;
 
   @Override
