@@ -3,7 +3,7 @@ package com.lar.security.main.config;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.jwt.JWT;
 import cn.hutool.jwt.JWTUtil;
-import com.lar.security.main.user.LoginUser;
+import com.lar.security.main.model.LoginUser;
 import common.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,14 +48,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
       throw new RuntimeException("token非法");
     }
     // 从redis中获取用户信息
-    String redisKey = "login:" + userid;
+    String redisKey = "login" + userid;
     String s = redisUtil.get(redisKey);
     LoginUser loginUser = JSONUtil.toBean(s, LoginUser.class);
-    if (Objects.isNull(loginUser)) {
+    if (Objects.isNull(loginUser.getUser())) {
       throw new RuntimeException("用户未登录");
     }
     // 存入SecurityContextHolder,后面过滤器都会从这边拿认证信息
     // TODO 获取权限信息封装到Authentication中
+
     UsernamePasswordAuthenticationToken authenticationToken =
         new UsernamePasswordAuthenticationToken(loginUser, null, null);
     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
