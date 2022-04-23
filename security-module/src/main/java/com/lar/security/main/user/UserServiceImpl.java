@@ -1,6 +1,7 @@
 package com.lar.security.main.user;
 
 import cn.hutool.jwt.JWTUtil;
+import com.lar.security.main.model.LoginUser;
 import com.lar.security.main.model.UserView;
 import common.base.AppResult;
 import common.util.RedisUtil;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -22,8 +24,6 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public AppResult login(UserView user) {
-    // 查询用户信息
-    //    UserEntity entity = this.getUserByUsername(user.getUserName());
 
     UsernamePasswordAuthenticationToken authenticationToken =
         new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
@@ -53,6 +53,10 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public AppResult logout() {
-    return null;
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    LoginUser principal = (LoginUser) authentication.getPrincipal();
+    String id = principal.getUser().getId();
+    redisUtil.delete("login" + id);
+    return AppResult.success("登出成功");
   }
 }
