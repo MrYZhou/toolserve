@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
   @ComponentScan("com.lar"),
   @ComponentScan("common"),
   @ComponentScan("middle"),
+  @ComponentScan("system")
 })
 // 允许异步
 @EnableAsync
