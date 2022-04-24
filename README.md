@@ -12,6 +12,7 @@
 3.main-module 主业务模块
 4.middleware-module 集成服务
 5.security-module 认证授权
+6.system-module 菜单，用户，角色，组织管理
 
 安装：
 1.jdk版本17

@@ -10,6 +10,7 @@
         <module>file-module</module>
         <module>middleware-module</module>
         <module>security-module</module>
+        <module>system-module</module>
     </modules>
 
     <parent>
@@ -75,7 +76,6 @@
     </dependencies>
 
 
-
     <build>
         <plugins>
             <plugin>
@@ -98,8 +98,8 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.yml</include>
-<!--                    <include>**/*.properties</include>-->
-<!--                    <include>**/*.xml</include>-->
+                    <!--                    <include>**/*.properties</include>-->
+                    <!--                    <include>**/*.xml</include>-->
                 </includes>
                 <filtering>false</filtering>
             </resource>
@@ -107,17 +107,17 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.yml</include>
-<!--                    <include>**/*.properties</include>-->
-<!--                    <include>**/*.xml</include>-->
+                    <!--                    <include>**/*.properties</include>-->
+                    <!--                    <include>**/*.xml</include>-->
                 </includes>
                 <filtering>false</filtering>
             </resource>
-<!--            <resource>-->
-<!--                <directory>lib</directory>-->
-<!--                <includes>-->
-<!--                    <include>**/*.jar</include>-->
-<!--                </includes>-->
-<!--            </resource>-->
+            <!--            <resource>-->
+            <!--                <directory>lib</directory>-->
+            <!--                <includes>-->
+            <!--                    <include>**/*.jar</include>-->
+            <!--                </includes>-->
+            <!--            </resource>-->
         </resources>
     </build>
 
