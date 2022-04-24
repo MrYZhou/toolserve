@@ -11,6 +11,7 @@
         <module name="security-module" />
         <module name="security" />
         <module name="file" />
+        <module name="system" />
         <module name="middleware-module" />
         <module name="common" />
         <module name="file-module" />
@@ -33,6 +34,7 @@
       <module name="middleware-module" options="-parameters" />
       <module name="security" options="-parameters" />
       <module name="security-module" options="-parameters" />
+      <module name="system" options="-parameters" />
       <module name="system-module" options="-parameters" />
       <module name="toolbox-serve" options="-parameters" />
     </option>
