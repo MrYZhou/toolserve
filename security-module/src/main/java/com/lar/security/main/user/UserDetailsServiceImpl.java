@@ -6,14 +6,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import system.menu.MenuRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** 此类很关键，在security认证时候会去调用获取数据库用户的方法 */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired UserService userService;
+  @Autowired MenuRepository menuRepository;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -22,14 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       throw new RuntimeException("用户不存在");
     }
     // 查询权限信息存储
-
-    // 返回值需要使用userdetail接口进行封装
-    List<String> permissions =
-        new ArrayList<>() {
-          {
-            add("test");
-          }
-        };
+    List<String> permissions = menuRepository.selectPermissionById(user.getId());
     return new LoginUser(user, permissions);
   }
 }
