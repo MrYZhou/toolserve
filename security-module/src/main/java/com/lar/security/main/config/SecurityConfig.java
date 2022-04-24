@@ -48,8 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        .antMatchers("/user")
-        .permitAll()
         // 对于登录接口 允许匿名访问
         .antMatchers("/user/login")
         .anonymous()
@@ -59,10 +57,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // 把token校验过滤器添加到过滤器链中,并且在验证账号密码之前
     http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-
+    // 配置认证授权异常处理器
     http.exceptionHandling()
         .authenticationEntryPoint(authenticationEntryPoint)
         .accessDeniedHandler(accessDeniedHandler);
+    // 允许跨域
+    http.cors();
   }
 
   /**
