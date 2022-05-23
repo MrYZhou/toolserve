@@ -53,7 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .anonymous()
         // 除上面外的所有请求全部需要鉴权认证
         .anyRequest()
-        .authenticated();
+        .anonymous(); // 测试使用
+    //        .authenticated();
 
     // 把token校验过滤器添加到过滤器链中,并且在验证账号密码之前
     http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
