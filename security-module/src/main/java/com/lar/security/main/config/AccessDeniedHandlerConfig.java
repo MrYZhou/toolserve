@@ -22,7 +22,7 @@ public class AccessDeniedHandlerConfig implements AccessDeniedHandler {
       HttpServletResponse response,
       AccessDeniedException accessDeniedException)
       throws IOException, ServletException {
-    AppResult result = new AppResult(AppResultCode.AuthorizeFail.getCode(), "权限不足");
+    AppResult result = AppResult.fail(AppResultCode.AuthorizeFail.getCode(), "权限不足");
     String json = JSON.toJSONString(result);
 
     WebUtils.renderString(response, json);
