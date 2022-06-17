@@ -22,7 +22,7 @@ public class AuthenticationEntryPointConfig implements AuthenticationEntryPoint 
       HttpServletResponse response,
       AuthenticationException authException)
       throws IOException, ServletException {
-    AppResult result = new AppResult(AppResultCode.AuthorizeFail.getCode(), "认证失败请重新登录");
+    AppResult result = AppResult.fail(AppResultCode.AuthorizeFail.getCode(), "认证失败请重新登录");
     String json = JSON.toJSONString(result);
     WebUtils.renderString(response, json);
   }
