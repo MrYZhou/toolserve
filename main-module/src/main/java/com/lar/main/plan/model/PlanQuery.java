@@ -1,4 +1,4 @@
 package com.lar.main.plan.model;
 
-public class PlanModel {
+public class PlanQuery {
 }

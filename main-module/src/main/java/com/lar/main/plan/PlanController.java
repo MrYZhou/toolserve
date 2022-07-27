@@ -7,16 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/plan")
+@RequestMapping("/plan")
 @AllArgsConstructor
 public class PlanController {
 
-  private PlanService planService;
+    private PlanService planService;
 
-  @RequestMapping(value = "/list")
-  @PreAuthorize("hasAnyAuthority('test')")
-  public AppResult getPlanList() {
-
-    return AppResult.success(planService.findAll());
-  }
+    @RequestMapping("/list")
+    @PreAuthorize("hasAnyAuthority('test')")
+    public AppResult getPlanList() {
+        return AppResult.success(planService.findAll());
+    }
 }
