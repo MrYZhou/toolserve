@@ -12,6 +12,8 @@ import javax.persistence.Table;
 @Data
 public class PlanEntity {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private String id;
+    @Column(name = "name")
+    private String name;
 }

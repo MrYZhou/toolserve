@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AppResult<T> {
@@ -20,10 +19,10 @@ public class AppResult<T> {
 
   private T data;
 
-  // public AppResult(Integer code, String msg) {
-  //   this.code = code;
-  //   this.msg = msg;
-  // }
+  public AppResult(Integer code, String msg) {
+    this.code = code;
+    this.msg = msg;
+  }
 
   // public AppResult() {}
 
