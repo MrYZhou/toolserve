@@ -45,6 +45,7 @@ class MainModuleApplicationTests {
         System.out.println(encode);
     }
 
+  
     @Test
     public void gen() throws IOException, TemplateException {
         //生成freemarker的模板对象，调用方法获取模板
