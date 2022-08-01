@@ -13,6 +13,7 @@ import java.util.List;
 
 @Slf4j
 public class DbUtil {
+    
     static void gettableinfo() {
         DataSource ds = new SimpleDataSource("jdbc:mysql://localhost:3307/study", "root", "123456");
         String sql = "SELECT\n" +
@@ -45,7 +46,7 @@ public class DbUtil {
             // 如果要算总数，可拼接后查询得到
 //            select count(*) as num,'aa'  as tableName from plan UNION all
 //            select count(*) as num,'aa1' as tableName from sys_menu
-            
+
         } catch (SQLException e) {
             log.info("错误", e);
         } finally {
