@@ -24,6 +24,7 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public Page<PlanEntity> page(PlanQuery query) {
+
         Page<PlanEntity> all = planReposity.findAll(PageRequest.of(query.getPage(), query.getSize()));
         return all;
     }
