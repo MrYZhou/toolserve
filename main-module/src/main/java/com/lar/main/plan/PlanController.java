@@ -6,10 +6,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/plan")
@@ -34,9 +33,12 @@ public class PlanController {
         return AppResult.success(planReposity.save(planEntity));
     }
 
-    @GetMapping("/page")
+    @PostMapping("/page")
     public AppResult page(@RequestBody PlanQuery query) {
         Page<PlanEntity> data = planService.page(query);
-        return AppResult.success(data);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("list", data.getContent());
+        map.put("total", data.getTotalElements());
+        return AppResult.success(map);
     }
 }
