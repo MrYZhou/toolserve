@@ -108,6 +108,6 @@ spring:
         logic-delete-value: 1 # 逻辑已删除值(默认为 1)
         logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
         tablePrefix: null #表名前缀
-        idType: ASSIGN_ID #全局默认主键类型,默认值：ASSIGN_ID
+        idType: ASSIGN_UUID #全局默认主键类型,默认值：ASSIGN_ID,雪花long类型id
 
 
