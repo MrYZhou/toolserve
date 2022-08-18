@@ -35,6 +35,7 @@
         <easyexcel>3.1.1</easyexcel>
         <hutool>5.8.5</hutool>
         <fastjson.version>1.2.83</fastjson.version>
+        <mybatis>3.5.2</mybatis>
     </properties>
 
     <dependencyManagement>
@@ -74,6 +75,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>${easyexcel}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis}</version>
         </dependency>
     </dependencies>
 
