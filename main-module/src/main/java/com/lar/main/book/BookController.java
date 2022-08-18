@@ -1,12 +1,19 @@
 package com.lar.main.book;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.read.listener.PageReadListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lar.main.book.model.BookInfo;
 import com.lar.main.book.model.BookPage;
 import common.base.AppResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -48,6 +55,28 @@ public class BookController {
     public AppResult<Object> delete(@PathVariable String id) {
         boolean b = bookService.removeById(id);
         return AppResult.success(b);
+    }
+
+    @GetMapping("excel")
+    public void download(HttpServletResponse response) throws IOException {
+        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding("utf-8");
+        String fileName = "test";
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+
+        List<BookEntity> list = bookService.list();
+
+        EasyExcel.write(response.getOutputStream(), BookInfo.class).sheet("数据").doWrite(list);
+    }
+
+    @PostMapping("excel")
+    @ResponseBody
+    public AppResult<Object> upload(@RequestPart("file") MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), BookInfo.class, new PageReadListener<BookInfo>(list -> {
+            list.forEach(System.out::println);
+        })).sheet().doRead();
+        return AppResult.success();
     }
 
     BookController(BookService bookService
