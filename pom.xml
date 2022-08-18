@@ -29,7 +29,7 @@
         <easyexcel.version>3.3.2</easyexcel.version>
         <hutool.version>5.8.5</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
-        <mybatis.version>3.5.3.1</mybatis.version>
+        <mybatisplus.version>3.5.4.1</mybatisplus.version>
         <xxl.version>2.4.0</xxl.version>
         <snack3.version>3.2.57</snack3.version>
     </properties>
@@ -59,7 +59,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis}</version>
+                <version>${mybatisplus.version}</version>
             </dependency>
             <!--            基础模块依赖版本-->
             <dependency>
