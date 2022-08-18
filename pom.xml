@@ -36,6 +36,7 @@
         <hutool>5.8.5</hutool>
         <fastjson.version>1.2.83</fastjson.version>
         <mybatis>3.5.2</mybatis>
+        <validation.version>2.7.2</validation.version>
     </properties>
 
     <dependencyManagement>
@@ -113,7 +114,7 @@
                 <includes>
                     <include>**/*.yml</include>
                     <!--                    <include>**/*.properties</include>-->
-                    <!--                    <include>**/*.xml</include>-->
+                    <include>**/*.xml</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>
@@ -123,17 +124,11 @@
                     <include>**/*.yml</include>
                     <include>**/*.ftl</include>
                     <!--                    <include>**/*.properties</include>-->
-                    <!--                    <include>**/*.xml</include>-->
+                    <include>**/*.xml</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>
 
-            <!--            <resource>-->
-            <!--                <directory>lib</directory>-->
-            <!--                <includes>-->
-            <!--                    <include>**/*.jar</include>-->
-            <!--                </includes>-->
-            <!--            </resource>-->
         </resources>
     </build>
 
