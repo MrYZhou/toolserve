@@ -33,6 +33,25 @@ spring:
   jackson: #序列化和反序列化json框架
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  mybatis-plus:
+    configuration:
+      map-underscore-to-camel-case: true
+      #缓存
+      cache-enabled: false
+      #配置日志  log-impl:日志实现
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+      #自动注入sql值
+      sql-explain-type: AGGREGATE
+    mapper-locations: classpath*:mapper/*.xml
+    global-config:
+      db-config:
+        logic-delete-field: flag # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+        logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+        logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+        tablePrefix: null #表名前缀
+        idType: ASSIGN_UUID #全局默认主键类型,默认值：ASSIGN_ID,雪花long类型id
+
+
   #   数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
