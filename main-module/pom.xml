@@ -9,7 +9,6 @@
         <artifactId>toolbox</artifactId>
         <!--        <relativePath/>-->
     </parent>
-    <groupId>com.lar</groupId>
     <artifactId>main</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>main-module</name>
@@ -40,11 +39,6 @@
         </dependency>
         <dependency>
             <groupId>com.lar</groupId>
-            <artifactId>security</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lar</groupId>
             <artifactId>file</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
@@ -64,7 +58,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <version>${boot.version}</version>
+            <version>${validation.version}</version>
         </dependency>
 
     </dependencies>
