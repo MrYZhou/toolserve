@@ -60,6 +60,11 @@
             <artifactId>spring-boot-starter-validation</artifactId>
             <version>${validation.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel}</version>
+        </dependency>
 
     </dependencies>
 
