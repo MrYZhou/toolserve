@@ -21,8 +21,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 // jpa扫描
 @EnableJpaRepositories(basePackages = {"com.lar.main", "com.lar.security", "system"})
-//  jpa实体扫描
 @EntityScan(basePackages = {"com.lar", "system"})
+
 public class MainModuleApplication {
 
     public static void main(String[] args) {
