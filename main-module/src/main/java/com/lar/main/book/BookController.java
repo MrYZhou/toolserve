@@ -59,7 +59,6 @@ public class BookController {
 
     @GetMapping("excel")
     public void download(HttpServletResponse response) throws IOException {
-        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setCharacterEncoding("utf-8");
         String fileName = "test";
@@ -67,15 +66,14 @@ public class BookController {
 
         List<BookEntity> list = bookService.list();
 
-        EasyExcel.write(response.getOutputStream(), BookInfo.class).sheet("数据").doWrite(list);
+        EasyExcel.write(response.getOutputStream(), BookEntity.class).sheet("数据").doWrite(list);
     }
 
     @PostMapping("excel")
     @ResponseBody
     public AppResult<Object> upload(@RequestPart("file") MultipartFile file) throws IOException {
-        EasyExcel.read(file.getInputStream(), BookInfo.class, new PageReadListener<BookInfo>(list -> {
-            list.forEach(System.out::println);
-        })).sheet().doRead();
+        EasyExcel.read(file.getInputStream(), BookEntity.class, new PageReadListener<BookEntity>(
+                bookService::saveBatch)).sheet().doRead();
         return AppResult.success();
     }
 
