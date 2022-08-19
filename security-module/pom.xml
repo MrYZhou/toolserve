@@ -9,7 +9,6 @@
     </parent>
     <artifactId>security</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>security</name>
     <description>security-module</description>
     <properties>
         <java.version>17</java.version>
