@@ -9,32 +9,20 @@
         <outputRelativeToContentRoot value="true" />
         <module name="system-module" />
         <module name="security-module" />
-        <module name="security" />
-        <module name="file" />
-        <module name="system" />
         <module name="middleware-module" />
-        <module name="common" />
         <module name="file-module" />
         <module name="common-module" />
         <module name="main-module" />
-        <module name="main" />
-        <module name="middleware" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="common" options="-parameters" />
       <module name="common-module" options="-parameters" />
-      <module name="file" options="-parameters" />
       <module name="file-module" options="-parameters" />
-      <module name="main" options="-parameters" />
       <module name="main-module" options="-parameters" />
-      <module name="middleware" options="-parameters" />
       <module name="middleware-module" options="-parameters" />
-      <module name="security" options="-parameters" />
       <module name="security-module" options="-parameters" />
-      <module name="system" options="-parameters" />
       <module name="system-module" options="-parameters" />
       <module name="toolbox-serve" options="-parameters" />
     </option>
