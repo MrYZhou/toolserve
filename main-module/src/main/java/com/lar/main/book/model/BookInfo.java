@@ -6,4 +6,5 @@ import lombok.Data;
 public class BookInfo {
     String id;
     String name;
+    String tag;
 }
