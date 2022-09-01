@@ -16,8 +16,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.6</version>
-        <relativePath></relativePath>
+        <version>2.7.3</version>
+        <relativePath/>
     </parent>
     <groupId>com.lar</groupId>
     <artifactId>toolbox</artifactId>
@@ -30,12 +30,14 @@
 
         <java.version>17</java.version>
         <test.version>2.6.6</test.version>
-        <boot.version>2.6.6</boot.version>
+        <boot.version>2.7.3</boot.version>
         <spring.version>5.3.18</spring.version>
+        <websocket.version>2.7.3</websocket.version>
         <easyexcel>3.1.1</easyexcel>
         <hutool>5.8.5</hutool>
         <fastjson.version>1.2.83</fastjson.version>
         <mybatis>3.5.2</mybatis>
+        <jpa.version>2.7.2</jpa.version>
         <validation.version>2.7.2</validation.version>
     </properties>
 
@@ -49,6 +51,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
+                <version>${boot.version}</version>
                 <scope>runtime</scope>
                 <optional>true</optional>
             </dependency>
@@ -70,7 +73,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-validation</artifactId>
-                <version>${boot.version}</version>
+                <version>${validation.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -79,7 +82,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <version>${test.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>

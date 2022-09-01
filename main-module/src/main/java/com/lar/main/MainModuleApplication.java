@@ -20,7 +20,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 // 允许异步
 @EnableAsync
 // jpa扫描
-@EnableJpaRepositories(basePackages = {"com.lar.main", "com.lar.security", "system"})
+@EnableJpaRepositories(basePackages = {"com.lar", "system"})
 @EntityScan(basePackages = {"com.lar", "system"})
 public class MainModuleApplication {
 
