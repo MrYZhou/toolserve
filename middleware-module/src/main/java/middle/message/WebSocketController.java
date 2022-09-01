@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/webscoket")
 public class WebSocketController {
-    private WebSocketServer webSocketServer;
+    private final WebSocketServer webSocketServer;
 
     WebSocketController(WebSocketServer webSocketServer) {
         this.webSocketServer = webSocketServer;
