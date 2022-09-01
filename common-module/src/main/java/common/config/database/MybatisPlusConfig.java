@@ -16,6 +16,9 @@ public class MybatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+
+
+        // 分页插件
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
 
 
@@ -26,6 +29,7 @@ public class MybatisPlusConfig {
             return tableName + tag;
         });
         interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor);
+
 
         return interceptor;
     }
