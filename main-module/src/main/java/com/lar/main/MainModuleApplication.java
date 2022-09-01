@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
-/** bean扫描 */
+/* bean扫描 ,默认是java包为根路径*/
 @ComponentScans({
         @ComponentScan("com.lar"),
         @ComponentScan("common"),

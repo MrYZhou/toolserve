@@ -31,7 +31,7 @@ public class SSEMsgController {
         sendMessage("77777", "hello larry");
     }
 
-    private static Map<String, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
+    private static final Map<String, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
 
     /**
      * 创建连接
