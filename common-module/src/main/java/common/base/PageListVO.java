@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class PageListVO<T>{
+public class PageListVO<T> {
     List<T> list;
-    PaginationVO pagination;
+    PaginationVO<T> pagination;
 }
