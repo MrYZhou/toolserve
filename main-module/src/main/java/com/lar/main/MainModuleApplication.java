@@ -1,5 +1,7 @@
 package com.lar.main;
 
+import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -24,12 +26,14 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EntityScan(basePackages = {"com.lar", "system"})
 public class MainModuleApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SchedulerException {
 
 
         new SpringApplicationBuilder()
                 .sources(MainModuleApplication.class)
                 .bannerMode(Banner.Mode.OFF)
                 .run(args);
+
+
     }
 }
