@@ -4,9 +4,8 @@ import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.boot.system.JavaVersion;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 // 通过classloader
 @ConditionalOnClass
 // 通过spring的beanFactory
