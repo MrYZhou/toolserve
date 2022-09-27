@@ -26,6 +26,7 @@ public class BookController {
         QueryWrapper<BookEntity> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(BookEntity::getName, page.getName());
         BookPage info = bookService.page(page, wrapper);
+//        List<BookEntity> books = bookService.getList(page);
         return AppResult.success(info);
     }
 
