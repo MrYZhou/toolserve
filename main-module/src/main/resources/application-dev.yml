@@ -9,7 +9,7 @@ spring:
     #    此处须配置自己的数据库地址和端口，否则启动失败
     url: jdbc:mysql://127.0.0.1:3306/study?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     username: root
-    password: 123456
+    password: root
     hikari:
       max-lifetime: 60000
 
@@ -32,8 +32,8 @@ spring:
       hibernate:
         ddl-auto: update
       show-sql: true
-  # quartz 调度器配置
-#  quartz:
+    # quartz 调度器配置
+    #  quartz:
     job-store-type: JDBC #数据持久化方式，可选值：MEMORY、JDBC
     auto-startup: true   #初始化后是否自动启动计划程序,默认为  true
     overwrite-existing-jobs: true #配置的作业是否应覆盖现有的作业定义
