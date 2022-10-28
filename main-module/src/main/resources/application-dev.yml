@@ -1,7 +1,9 @@
 server:
-  port: 8080
+  port: 8082
 
-
+api:
+  yangli: 3204cdf5a2a0c36778c880a461b6ea5d
+  xiaohua: 3607764bbcfbb9d0651884970d376468
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
