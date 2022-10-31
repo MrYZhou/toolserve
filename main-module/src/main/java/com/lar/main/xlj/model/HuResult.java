@@ -1,6 +1,8 @@
 package com.lar.main.xlj.model;
 
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -10,6 +12,7 @@ import java.util.Date;
  * @website http://www.json.cn/java2pojo/
  * 黄历结果
  */
+@Data
 public class HuResult {
 
     private String id;
@@ -22,6 +25,8 @@ public class HuResult {
     private String yi;
     private String xiongshen;
     private String ji;
+
+    private Object life;
 
     public void setId(String id) {
         this.id = id;
