@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8080
 
 api:
   yangli: 3204cdf5a2a0c36778c880a461b6ea5d
