@@ -30,8 +30,7 @@
 
         <java.version>17</java.version>
         <test.version>2.6.6</test.version>
-        <boot.version>2.7.3</boot.version>
-        <spring.version>5.3.18</spring.version>
+        <boot.version>2.7.5</boot.version>
         <websocket.version>2.7.3</websocket.version>
         <easyexcel>3.1.1</easyexcel>
         <hutool>5.8.5</hutool>
@@ -51,7 +50,6 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
-                <version>${boot.version}</version>
                 <scope>runtime</scope>
                 <optional>true</optional>
             </dependency>

@@ -4,11 +4,14 @@ import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import com.lar.main.xlj.model.HuResult;
 import com.lar.main.xlj.model.HuRootBean;
+import com.lar.main.xlj.model.JsonRootBeanDream;
+import com.lar.main.xlj.model.ResultDream;
 import common.base.AppResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/xlj")
@@ -27,37 +30,50 @@ public class XLJController {
         HuRootBean bean = JSONUtil.toBean(s, HuRootBean.class);
         return AppResult.success(bean.getResult());
     }
+
     // 获取天气
     @GetMapping("tianqi")
     public AppResult<Object> tianqi(String city) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("city", city);
-        map.put("key","f918860905f9963bed25b26778189c97");
+        map.put("key", "f918860905f9963bed25b26778189c97");
         String s = HttpUtil.get("http://apis.juhe.cn/simpleWeather/query", map);
         // 天气
         HuRootBean bean = JSONUtil.toBean(s, HuRootBean.class);
-
-        // 生活指数
         return AppResult.success();
     }
+
+    // 生活指数
     @GetMapping("life")
     public AppResult<Object> life(String city) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("city", city);
-        map.put("key","f918860905f9963bed25b26778189c97");
+        map.put("key", "f918860905f9963bed25b26778189c97");
         String s = HttpUtil.get("http://apis.juhe.cn/simpleWeather/life", map);
 
         HuRootBean bean = JSONUtil.toBean(s, HuRootBean.class);
         HuResult result = bean.getResult();
-        // 生活指数
         return AppResult.success(result.getLife());
     }
 
+    // 周工解梦
+    @GetMapping("dream")
+    public AppResult<Object> dream(String q) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("q", q);
+        map.put("key", "b1fb11350da7fac78428558e2739f367");
+        map.put("full", 1);
+        String s = HttpUtil.get("http://v.juhe.cn/dream/query", map);
 
+        JsonRootBeanDream bean = JSONUtil.toBean(s, JsonRootBeanDream.class);
+        List<ResultDream> result = bean.getResult();
+        return AppResult.success(result);
+    }
 
 
     /**
      * 笑话废弃,都没有更新新笑话
+     *
      * @param data
      * @return
      */
@@ -66,7 +82,7 @@ public class XLJController {
         String s = HttpUtil.get("http://v.juhe.cn/joke/content/list.php");
         HashMap<String, Object> map = new HashMap<>();
         map.put("sort", "desc");
-        map.put("time","");
+        map.put("time", "");
 
 //        最大20
 //        map.put("page",data.getPage());
@@ -75,7 +91,6 @@ public class XLJController {
         HuRootBean bean = JSONUtil.toBean(s, HuRootBean.class);
         return AppResult.success();
     }
-
 
 
 }
