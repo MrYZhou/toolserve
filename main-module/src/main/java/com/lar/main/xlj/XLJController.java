@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/xlj")
@@ -39,8 +40,8 @@ public class XLJController {
         map.put("key", "f918860905f9963bed25b26778189c97");
         String s = HttpUtil.get("http://apis.juhe.cn/simpleWeather/query", map);
         // 天气
-        HuRootBean bean = JSONUtil.toBean(s, HuRootBean.class);
-        return AppResult.success();
+//        TianRootBean bean = JSONUtil.toBean(s, TianRootBean.class);
+        return AppResult.success(s);
     }
 
     // 生活指数
@@ -69,6 +70,23 @@ public class XLJController {
         List<ResultDream> result = bean.getResult();
         return AppResult.success(result);
     }
+
+    /**
+     * 获取空气质量
+     * @param location
+     * @return
+     */
+    @GetMapping("kongqi")
+    public AppResult<Object> kongqi(String location) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("location", location);
+        map.put("key", "195e71c6381f43bba07618ac35dc3ca5");
+        map.put("lang", "zh");
+        String s = HttpUtil.get("https://devapi.qweather.com/v7/air/5d", map);
+        Map res = JSONUtil.toBean(s, Map.class);
+        return AppResult.success(res);
+    }
+
 
 
     /**

@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/file")
@@ -31,4 +34,19 @@ public class FileController {
     public String downloadFile(String fileVersionId) {
         return "";
     }
+
+
+    @RequestMapping(value = "/preview",produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] preview(String fileVersionId) throws IOException {
+
+        File file = new File("C:\\Users\\lg\\Desktop\\vue\\xlj\\static\\1.jpeg");
+        FileInputStream inputStream = new FileInputStream(file);
+        byte[] bytes = new byte[inputStream.available()];
+        inputStream.read(bytes, 0, inputStream.available());
+        return bytes;
+    }
+
+
+
 }
