@@ -23,7 +23,11 @@ public class XLJController {
     @Value("${api.xiaohua}")
     String xiaohuaKey = "";
 
-    //获取黄历
+    /**
+     * 获取黄历
+     * @param date
+     * @return
+     */
     @PostMapping("yangli")
     public AppResult<Object> yangli(String date) {
 
@@ -32,32 +36,11 @@ public class XLJController {
         return AppResult.success(bean.getResult());
     }
 
-    // 获取天气
-    @GetMapping("tianqi")
-    public AppResult<Object> tianqi(String city) {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("city", city);
-        map.put("key", "f918860905f9963bed25b26778189c97");
-        String s = HttpUtil.get("http://apis.juhe.cn/simpleWeather/query", map);
-        // 天气
-//        TianRootBean bean = JSONUtil.toBean(s, TianRootBean.class);
-        return AppResult.success(s);
-    }
-
-    // 生活指数
-    @GetMapping("life")
-    public AppResult<Object> life(String city) {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("city", city);
-        map.put("key", "f918860905f9963bed25b26778189c97");
-        String s = HttpUtil.get("http://apis.juhe.cn/simpleWeather/life", map);
-
-        HuRootBean bean = JSONUtil.toBean(s, HuRootBean.class);
-        HuResult result = bean.getResult();
-        return AppResult.success(result.getLife());
-    }
-
-    // 周工解梦
+    /**
+     * 周工解梦
+     * @param q
+     * @return
+     */
     @GetMapping("dream")
     public AppResult<Object> dream(String q) {
         HashMap<String, Object> map = new HashMap<>();
@@ -70,6 +53,59 @@ public class XLJController {
         List<ResultDream> result = bean.getResult();
         return AppResult.success(result);
     }
+
+    /**
+     * 随机头像
+     * @param q 头像类型
+     * @return 头像地址
+     */
+    @GetMapping("toux")
+    public AppResult<Object> toux(String q) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("sort", q);
+        map.put("format", "json");
+        String s="";
+        s  = HttpUtil.get("https://api.uomg.com/api/rand.avatar", map);
+
+        Map map1 = JSONUtil.toBean(s, Map.class);
+
+        return AppResult.success(map1);
+    }
+
+    /**
+     * 获取天气
+     * @param city
+     * @return
+     */
+    @GetMapping("tianqi")
+    public AppResult<Object> tianqi(String city) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("city", city);
+        map.put("key", "f918860905f9963bed25b26778189c97");
+        String s = HttpUtil.get("http://apis.juhe.cn/simpleWeather/query", map);
+        // 天气
+        Map map1 = JSONUtil.toBean(s, Map.class);
+        return AppResult.success(map1);
+    }
+
+    /**
+     * 生活指数
+     * @param city
+     * @return
+     */
+    @GetMapping("life")
+    public AppResult<Object> life(String city) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("city", city);
+        map.put("key", "f918860905f9963bed25b26778189c97");
+        String s = HttpUtil.get("http://apis.juhe.cn/simpleWeather/life", map);
+
+        HuRootBean bean = JSONUtil.toBean(s, HuRootBean.class);
+        HuResult result = bean.getResult();
+        return AppResult.success(result.getLife());
+    }
+
+
 
     /**
      * 获取空气质量
@@ -107,7 +143,7 @@ public class XLJController {
 //        map.put("pageSize",data.getPagesize());
         map.put("key", xiaohuaKey);
         HuRootBean bean = JSONUtil.toBean(s, HuRootBean.class);
-        return AppResult.success();
+        return AppResult.success(bean);
     }
 
 
