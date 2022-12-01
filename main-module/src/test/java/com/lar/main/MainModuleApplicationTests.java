@@ -1,10 +1,10 @@
 package com.lar.main;
 
-import com.lar.main.example.FreeMarkerUtil;
+import com.lar.example.FreeMarkerUtil;
 import common.util.EmailTask;
 import common.util.RedisUtil;
 import freemarker.template.TemplateException;
-import middle.task.email.MailService;
+import com.lar.middle.task.email.MailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
