@@ -1,9 +1,0 @@
-{
-    "name": "MainModuleApplication",
-    "type": "jps-run",
-    "dependsOn": ["Build"],
-    "mainClass": "com.lar.main.MainModuleApplication",
-    "module": "main",
-    "options": ["-XX:TieredStopAtLevel=1","-Dspring.output.ansi.enabled=always","-Dfile.encoding=UTF-8"],
-},
-
