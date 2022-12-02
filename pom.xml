@@ -38,6 +38,13 @@
         <mybatis>3.5.2.7-SNAPSHOT</mybatis>
         <jpa.version>3.0.0</jpa.version>
         <validation.version>3.0.0</validation.version>
+
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-boot.build-image.imageName>springboot3demo</spring-boot.build-image.imageName>
+
+
     </properties>
 
     <dependencyManagement>
@@ -45,7 +52,6 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
-                <version>${boot.version}</version>
             </dependency>
 
             <dependency>
