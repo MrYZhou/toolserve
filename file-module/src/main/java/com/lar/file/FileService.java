@@ -3,7 +3,7 @@ package com.lar.file;
 import common.base.AppResult;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface FileService {
 

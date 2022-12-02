@@ -16,7 +16,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.5</version>
+        <version>3.0.0</version>
         <relativePath/>
     </parent>
     <groupId>com.lar</groupId>
@@ -30,14 +30,14 @@
 
         <java.version>17</java.version>
         <test.version>2.6.6</test.version>
-        <boot.version>2.7.5</boot.version>
+        <boot.version>3.0.0</boot.version>
         <websocket.version>2.7.3</websocket.version>
         <easyexcel>3.1.1</easyexcel>
         <hutool>5.8.5</hutool>
         <fastjson.version>1.2.83</fastjson.version>
-        <mybatis>3.5.2</mybatis>
-        <jpa.version>2.7.2</jpa.version>
-        <validation.version>2.7.3</validation.version>
+        <mybatis>3.5.2.7-SNAPSHOT</mybatis>
+        <jpa.version>3.0.0</jpa.version>
+        <validation.version>3.0.0</validation.version>
     </properties>
 
     <dependencyManagement>
@@ -45,6 +45,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
+                <version>${boot.version}</version>
             </dependency>
 
             <dependency>
@@ -105,6 +106,21 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
+        <!-- 下载mybatis-plus SNAPSHOT 版本所需仓库 -->
+        <repository>
+            <id>ossrh</id>
+            <name>OSS Snapshot repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+
     </repositories>
 
 

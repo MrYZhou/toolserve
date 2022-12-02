@@ -5,11 +5,12 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+
 @Configuration
 public class ScheduleConfig {
 
-    @Autowired
-    private DataSource dataSource;
+//    @Autowired
+//    private DataSource dataSource;
 
     // 除了在springboot生命周期配置, 在这里配置的触发器bean会自动被触发，但是这种好像非常耗费内存。推测是quartz频繁访问同一个对象、
 //    @Bean
