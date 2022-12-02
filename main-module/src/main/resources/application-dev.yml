@@ -4,6 +4,21 @@ server:
 api:
   yangli: 3204cdf5a2a0c36778c880a461b6ea5d
   xiaohua: 3607764bbcfbb9d0651884970d376468
+mqtt:
+  #MQTT-服务器连接地址，如果有多个，用逗号隔开tcp://192.168.20.43:1883，tcp://192.168.21.43:1883
+  host: tcp://192.168.20.43:1883
+  #MQTT-连接服务器默认客户端ID
+  clientId: mqtt_id
+  #MQTT-用户名
+  username: admin
+  #MQTT-密码
+  password: admin
+  #MQTT-默认的消息推送主题，实际可在调用接口时指定
+  #  topic: test
+  #连接超时
+  timeout: 1000
+  #设置会话心跳时间
+  keepalive: 100
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
