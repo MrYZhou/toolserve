@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.net.http.WebSocket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,7 +109,7 @@ public class WebSocketServer {
     }
 
     // 此为单点消息
-    public void sendOneMessage(String userId, String message) {
+    public void sendMessage(String userId, String message) {
         Session session = sessionPool.get(userId);
         if (session != null && session.isOpen()) {
             try {
@@ -120,20 +122,11 @@ public class WebSocketServer {
     }
 
     // 此为单点消息(多人)
-    public void sendMoreMessage(String[] userIds, String message) {
+    public void sendMessageMultiUser(ArrayList<String> userIds, String message) {
         CopyOnWriteArraySet<WebSocketServer> sendWebSockets = null;
         for (String userId : userIds) {
-            Session session = sessionPool.get(userId);
-            if (session != null && session.isOpen()) {
-                try {
-                    log.info("【websocket消息】 单点消息:" + message);
-                    session.getAsyncRemote().sendText(message);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            this.sendMessage(userId,message);
         }
-
     }
 
 }
