@@ -82,48 +82,29 @@ public class WebSocketServer {
     // 此为广播消息,全部人都可以收到
     public void sendAllMessage(String message) {
         log.info("【websocket消息】广播消息:" + message);
-        this.sendAllMessage(message,webSockets);
-//        for (WebSocketServer webSocket : webSockets) {
-//
-//            try {
-//                if (webSocket.session!=null && webSocket.session.isOpen()) {
-//                    webSocket.session.getAsyncRemote().sendText(message);
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+        for (WebSocketServer webSocket : webSockets) {
+            this.sendText(webSocket.session,message);
+        }
     }
 
-    public void sendAllMessage(String message,CopyOnWriteArraySet<WebSocketServer> sendWebSockets) {
-        log.info("【websocket消息】广播消息:" + message);
-        for (WebSocketServer webSocket : sendWebSockets) {
-            try {
-                if (webSocket.session!=null && webSocket.session.isOpen()) {
-                    webSocket.session.getAsyncRemote().sendText(message);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+    public void sendText(Session session,String message) {
+        try {
+            if (session!=null && session.isOpen()) {
+                session.getAsyncRemote().sendText(message);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     // 此为单点消息
     public void sendMessage(String userId, String message) {
         Session session = sessionPool.get(userId);
-        if (session != null && session.isOpen()) {
-            try {
-                log.info("【websocket消息】 单点消息:" + message);
-                session.getAsyncRemote().sendText(message);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        this.sendText(session,message);
     }
 
     // 此为单点消息(多人)
     public void sendMessageMultiUser(ArrayList<String> userIds, String message) {
-        CopyOnWriteArraySet<WebSocketServer> sendWebSockets = null;
         for (String userId : userIds) {
             this.sendMessage(userId,message);
         }
