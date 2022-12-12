@@ -7,6 +7,7 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -79,9 +80,24 @@ public class WebSocketServer {
     // 此为广播消息,全部人都可以收到
     public void sendAllMessage(String message) {
         log.info("【websocket消息】广播消息:" + message);
-        for (WebSocketServer webSocket : webSockets) {
+        this.sendAllMessage(message,webSockets);
+//        for (WebSocketServer webSocket : webSockets) {
+//
+//            try {
+//                if (webSocket.session!=null && webSocket.session.isOpen()) {
+//                    webSocket.session.getAsyncRemote().sendText(message);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+    }
+
+    public void sendAllMessage(String message,CopyOnWriteArraySet<WebSocketServer> sendWebSockets) {
+        log.info("【websocket消息】广播消息:" + message);
+        for (WebSocketServer webSocket : sendWebSockets) {
             try {
-                if (webSocket.session.isOpen()) {
+                if (webSocket.session!=null && webSocket.session.isOpen()) {
                     webSocket.session.getAsyncRemote().sendText(message);
                 }
             } catch (Exception e) {
@@ -105,6 +121,7 @@ public class WebSocketServer {
 
     // 此为单点消息(多人)
     public void sendMoreMessage(String[] userIds, String message) {
+        CopyOnWriteArraySet<WebSocketServer> sendWebSockets = null;
         for (String userId : userIds) {
             Session session = sessionPool.get(userId);
             if (session != null && session.isOpen()) {
