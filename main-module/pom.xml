@@ -58,8 +58,6 @@
             <artifactId>easyexcel</artifactId>
             <version>${easyexcel}</version>
         </dependency>
-
     </dependencies>
-
 
 </project>
