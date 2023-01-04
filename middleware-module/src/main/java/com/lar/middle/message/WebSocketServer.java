@@ -6,7 +6,10 @@ import org.springframework.stereotype.Component;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.net.http.WebSocket;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -80,43 +83,31 @@ public class WebSocketServer {
     public void sendAllMessage(String message) {
         log.info("【websocket消息】广播消息:" + message);
         for (WebSocketServer webSocket : webSockets) {
-            try {
-                if (webSocket.session.isOpen()) {
-                    webSocket.session.getAsyncRemote().sendText(message);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            this.sendText(webSocket.session,message);
+        }
+    }
+
+    public void sendText(Session session,String message) {
+        try {
+            if (session!=null && session.isOpen()) {
+                session.getAsyncRemote().sendText(message);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     // 此为单点消息
-    public void sendOneMessage(String userId, String message) {
+    public void sendMessage(String userId, String message) {
         Session session = sessionPool.get(userId);
-        if (session != null && session.isOpen()) {
-            try {
-                log.info("【websocket消息】 单点消息:" + message);
-                session.getAsyncRemote().sendText(message);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        this.sendText(session,message);
     }
 
     // 此为单点消息(多人)
-    public void sendMoreMessage(String[] userIds, String message) {
+    public void sendMessageMultiUser(ArrayList<String> userIds, String message) {
         for (String userId : userIds) {
-            Session session = sessionPool.get(userId);
-            if (session != null && session.isOpen()) {
-                try {
-                    log.info("【websocket消息】 单点消息:" + message);
-                    session.getAsyncRemote().sendText(message);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            this.sendMessage(userId,message);
         }
-
     }
 
 }
