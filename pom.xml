@@ -109,6 +109,7 @@
 
 
     <build>
+        <finalName>main</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -120,7 +121,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    <classifier>execute</classifier>
+                    <mainClass>com.lar.MainModuleApplication</mainClass>
                 </configuration>
             </plugin>
 
