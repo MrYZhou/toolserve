@@ -6,7 +6,7 @@ import com.alibaba.excel.read.listener.PageReadListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lar.book.model.BookInfo;
 import com.lar.book.model.BookPage;
-import common.base.AppResult;
+import com.lar.common.base.AppResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,17 +21,25 @@ public class BookController {
 
     private final BookService bookService;
 
+    /**
+     * 获取列表
+     * @param page
+     * @return
+     */
     @PostMapping("list")
-    public AppResult<Object> list(@RequestBody @Validated BookPage page) {
+    public AppResult<Object> list(@RequestBody @Validated BookPage page) throws NoSuchMethodException {
         QueryWrapper<BookEntity> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(BookEntity::getName, page.getName());
         BookPage info = bookService.page(page, wrapper);
-//        List<BookEntity> books = bookService.getList(page);
         return AppResult.success(info);
     }
 
-   
 
+    /**
+     * 查询信息
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public AppResult<Object> info(@PathVariable String id) {
 
@@ -39,6 +47,11 @@ public class BookController {
         return AppResult.success(info);
     }
 
+    /**
+     * 保存信息
+     * @param info
+     * @return
+     */
     @PostMapping
     public AppResult<Object> save(@RequestBody @Validated BookInfo info) {
         BookEntity bookEntity = BeanUtil.copyProperties(info, BookEntity.class);
@@ -46,6 +59,11 @@ public class BookController {
         return AppResult.success();
     }
 
+    /**
+     * 修改信息
+     * @param info
+     * @return
+     */
     @PutMapping
     public AppResult<Object> update(@RequestBody @Validated BookInfo info) {
 
@@ -54,6 +72,11 @@ public class BookController {
         return AppResult.success();
     }
 
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public AppResult<Object> delete(@PathVariable String id) {
         boolean b = bookService.removeById(id);

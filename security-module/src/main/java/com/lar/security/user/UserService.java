@@ -1,7 +1,7 @@
 package com.lar.security.user;
 
 import com.lar.security.model.UserView;
-import common.base.AppResult;
+import com.lar.common.base.AppResult;
 
 /** 用户相关接口 */
 public interface UserService {

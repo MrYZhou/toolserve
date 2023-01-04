@@ -1,6 +1,6 @@
 package com.lar.file;
 
-import common.base.AppResult;
+import com.lar.common.base.AppResult;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

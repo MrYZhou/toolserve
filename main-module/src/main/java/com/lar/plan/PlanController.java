@@ -1,7 +1,7 @@
 package com.lar.plan;
 
 import com.lar.plan.model.PlanQuery;
-import common.base.AppResult;
+import com.lar.common.base.AppResult;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
