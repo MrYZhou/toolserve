@@ -1,8 +1,8 @@
 package com.lar.main;
 
 import com.lar.example.FreeMarkerUtil;
-import common.util.EmailTask;
-import common.util.RedisUtil;
+import com.lar.common.util.EmailTask;
+import com.lar.common.util.RedisUtil;
 import freemarker.template.TemplateException;
 import com.lar.middle.task.email.MailService;
 import org.junit.jupiter.api.Test;

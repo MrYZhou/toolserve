@@ -6,7 +6,7 @@ import com.lar.xlj.model.HuResult;
 import com.lar.xlj.model.HuRootBean;
 import com.lar.xlj.model.JsonRootBeanDream;
 import com.lar.xlj.model.ResultDream;
-import common.base.AppResult;
+import com.lar.common.base.AppResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +34,13 @@ public class XLJController {
         String s = HttpUtil.get("http://v.juhe.cn/laohuangli/d?date=" + date);
         HuRootBean bean = JSONUtil.toBean(s, HuRootBean.class);
         return AppResult.success(bean.getResult());
+    }
+
+    @GetMapping("")
+    public String gge(String date) {
+
+
+        return "";
     }
 
     /**

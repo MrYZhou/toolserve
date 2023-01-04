@@ -1,6 +1,6 @@
 package com.lar.file;
 
-import common.base.AppResult;
+import com.lar.common.base.AppResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
