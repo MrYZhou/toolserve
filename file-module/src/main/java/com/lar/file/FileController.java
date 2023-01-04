@@ -1,6 +1,6 @@
 package com.lar.file;
 
-import common.base.AppResult;
+import com.lar.common.base.AppResult;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

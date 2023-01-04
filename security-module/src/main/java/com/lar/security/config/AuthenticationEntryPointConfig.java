@@ -1,9 +1,9 @@
 package com.lar.security.config;
 
 import com.alibaba.fastjson.JSON;
-import common.base.AppResult;
-import common.enums.AppResultCode;
-import common.util.WebUtils;
+import com.lar.common.base.AppResult;
+import com.lar.common.enums.AppResultCode;
+import com.lar.common.util.WebUtils;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

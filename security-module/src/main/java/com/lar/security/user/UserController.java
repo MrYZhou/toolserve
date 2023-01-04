@@ -1,7 +1,7 @@
 package com.lar.security.user;
 
 import com.lar.security.model.UserView;
-import common.base.AppResult;
+import com.lar.common.base.AppResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
