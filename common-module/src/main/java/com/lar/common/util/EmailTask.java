@@ -3,12 +3,8 @@ package com.lar.common.util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.MimeMailMessage;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
 @Component
@@ -26,13 +22,14 @@ public class EmailTask {
 
     /**
      * 普通文字
+     *
      * @param title
      * @param text
      * @param from
      * @param to
      * @return
      */
-    public boolean sendMessge(String title,String text,String from,String to){
+    public boolean sendMessge(String title, String text, String from, String to) {
 
 
         simpleMailMessage.setSubject(title);
@@ -43,7 +40,8 @@ public class EmailTask {
         mailSender.send(simpleMailMessage);
         return true;
     }
-    public boolean sendMessge(String title,String text,String from){
+
+    public boolean sendMessge(String title, String text, String from) {
 
 
         simpleMailMessage.setSubject(title);

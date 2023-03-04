@@ -9,11 +9,11 @@ import org.springframework.context.event.ContextRefreshedEvent;
 // 通过classloader
 @ConditionalOnClass
 // 通过spring的beanFactory
-@ConditionalOnBean
+//@ConditionalOnBean
 // 在jdk版本生效
 @ConditionalOnJava(range = ConditionalOnJava.Range.EQUAL_OR_NEWER, value = JavaVersion.SEVENTEEN)
 // 通过配置文件
-@ConditionalOnProperty
+//@ConditionalOnProperty
 // 判断环境
 @ConditionalOnWebApplication
 public class AppStartListen implements ApplicationListener<ContextRefreshedEvent> {
