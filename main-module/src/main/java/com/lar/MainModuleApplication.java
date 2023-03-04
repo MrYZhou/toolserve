@@ -1,5 +1,6 @@
 package com.lar;
 
+import cn.dev33.satoken.SaManager;
 import org.mybatis.spring.annotation.MapperScan;
 import org.quartz.*;
 import org.springframework.boot.Banner;
@@ -32,5 +33,6 @@ public class MainModuleApplication {
                 .sources(MainModuleApplication.class)
                 .bannerMode(Banner.Mode.OFF)
                 .run(args);
+        System.out.println("启动成功：Sa-Token配置如下：" + SaManager.getConfig());
     }
 }
