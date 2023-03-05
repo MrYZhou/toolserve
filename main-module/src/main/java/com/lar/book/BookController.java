@@ -8,7 +8,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lar.book.model.BookInfo;
 import com.lar.book.model.BookPage;
 import com.lar.common.base.AppResult;
+import com.lar.common.util.CommonUtil;
 import jakarta.servlet.http.HttpServletResponse;
+import org.noear.snack.ONode;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -72,8 +74,11 @@ public class BookController {
      */
     @PostMapping
     public AppResult<Object> save(@RequestBody @Validated BookInfo info) {
-        BookEntity bookEntity = BeanUtil.copyProperties(info, BookEntity.class);
+        long l = System.currentTimeMillis();
+        BookEntity bookEntity = CommonUtil.toBean(info, BookEntity.class);
         bookService.save(bookEntity);
+        System.out.println(System.currentTimeMillis()-l);
+//
         return AppResult.success();
     }
 
@@ -85,7 +90,7 @@ public class BookController {
     @PutMapping
     public AppResult<Object> update(@RequestBody @Validated BookInfo info) {
 
-        BookEntity bookEntity = BeanUtil.copyProperties(info, BookEntity.class);
+        BookEntity bookEntity = CommonUtil.toBean(info, BookEntity.class);
         bookService.updateById(bookEntity);
         return AppResult.success();
     }
