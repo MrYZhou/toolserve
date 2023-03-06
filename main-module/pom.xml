@@ -18,6 +18,11 @@
     </properties>
     <dependencies>
 
+<!--        <dependency>-->
+<!--            <groupId>com.dtflys.forest</groupId>-->
+<!--            <artifactId>forest-spring-boot-starter</artifactId>-->
+<!--            <version>1.5.29-BETA3</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

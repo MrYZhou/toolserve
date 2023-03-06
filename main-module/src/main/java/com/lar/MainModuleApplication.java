@@ -33,6 +33,6 @@ public class MainModuleApplication {
                 .sources(MainModuleApplication.class)
                 .bannerMode(Banner.Mode.OFF)
                 .run(args);
-        System.out.println("启动成功：Sa-Token配置如下：" + SaManager.getConfig());
+//        System.out.println("启动成功：Sa-Token配置如下：" + SaManager.getConfig());
     }
 }
