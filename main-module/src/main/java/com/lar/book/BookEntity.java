@@ -23,6 +23,10 @@ public class BookEntity {
     private String name;
 
 
+    @TableField("type")
+    private Integer type;
+
+
     @TableField(value = "tag", fill = FieldFill.INSERT)
     private String tag;
     @TableField(value = "createTime", fill = FieldFill.INSERT)
