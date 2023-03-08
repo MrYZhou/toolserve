@@ -40,21 +40,6 @@ spring:
     hikari:
       max-lifetime: 60000
 
-    #    设置freemarker
-    freemarker:
-      allow-request-override: false
-      # 开发过程建议关闭缓存
-      cache: false
-      check-template-location: false
-      charset: UTF-8
-      content-type: text/html; charset=utf-8
-      expose-request-attributes: false
-      expose-session-attributes: false
-      expose-spring-macro-helpers: false
-      request-context-attribute:
-      # 默认后缀就是.ftl
-      suffix: .ftl
-      template-loader-path: classpath:/code/
   mybatis-plus:
     mapper-locations: classpath*:mapper/*.xml
     global-config:
@@ -77,12 +62,6 @@ spring:
 #      thread-name-prefix: "scheduling-"
 #      pool:
 #        size: 2
-  # 邮箱配置
-  mail:
-    host: smtp.qq.com
-    username: 1762861715@qq.com
-    password: vbziutonzkfgd2
-    nickname: lar
 
 
 
