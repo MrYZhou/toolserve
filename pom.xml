@@ -36,7 +36,6 @@
         <hutool>5.8.5</hutool>
         <fastjson.version>1.2.83</fastjson.version>
         <mybatis>3.5.3.1</mybatis>
-        <jpa.version>2.7.2</jpa.version>
         <validation.version>2.7.3</validation.version>
     </properties>
 

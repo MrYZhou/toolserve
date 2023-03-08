@@ -1,10 +1,8 @@
 package com.lar;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 
@@ -17,10 +15,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 // 允许异步
 @EnableAsync
-// jpa扫描
-@EnableJpaRepositories(basePackages = {"com.lar"})
-// jpa实体扫描
-@EntityScan(basePackages = {"com.lar"})
 public class MainModuleApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = new SpringApplicationBuilder()
