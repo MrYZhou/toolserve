@@ -1,27 +1,13 @@
 server:
   port: 8081
+  shutdown: graceful
 
-api:
-  yangli: 3204cdf5a2a0c36778c880a461b6ea5d
-  xiaohua: 3607764bbcfbb9d0651884970d376468
-
-
-#forest:
-#  max-connections: 1000        # 连接池最大连接数
-#  connect-timeout: 3000        # 连接超时时间，单位为毫秒
-#  read-timeout: 3000           # 数据读取超时时间，单位为毫秒
-
-mybatis-plus:
-  mapper-locations: classpath*:mapper/*.xml
-  global-config:
-    banner: false #关闭控制台LOGO
-    db-config:
-      logic-delete-field: deleted # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
-      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
-      logic-not-delete-value: 2 # 逻辑未删除值(默认为 0)
-      idType: ASSIGN_UUID #全局默认主键类型,默认值：ASSIGN_ID,雪花long类型id ,ASSIGN_UUID
-      tablePrefix: null #表名前缀
 spring:
+  main:
+    # bean懒加载
+    lazy-initialization: true
+  lifecycle:
+    timeout-per-shutdown-phase: 30s #关机缓冲时间,默认30s
   data:
     #===================== Redis配置 =====================
     redis:
@@ -61,6 +47,35 @@ spring:
 #      pool:
 #        size: 2
 
+#翻译配置
+easy-trans:
+  #启用redis缓存 如果不用redis请设置为false
+  is-enable-redis: true
+  #启用全局翻译(拦截所有responseBody进行自动翻译)，如果对于性能要求很高可关闭此配置
+  is-enable-global: true
+  #启用平铺模式
+  is-enable-tile: true
+  #字典缓存放到redis 微服务模式请开启
+  dict-use-redis: true
 
+# orm配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  global-config:
+    banner: false #关闭控制台LOGO
+    db-config:
+      logic-delete-field: deleted # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 2 # 逻辑未删除值(默认为 0)
+      idType: ASSIGN_UUID #全局默认主键类型,默认值：ASSIGN_ID,雪花long类型id ,ASSIGN_UUID
+      tablePrefix: null #表名前缀
 
+# 网络请求
+#forest:
+#  max-connections: 1000        # 连接池最大连接数
+#  connect-timeout: 3000        # 连接超时时间，单位为毫秒
+#  read-timeout: 3000           # 数据读取超时时间，单位为毫秒
 
+api:
+  yangli: 3204cdf5a2a0c36778c880a461b6ea5d
+  xiaohua: 3607764bbcfbb9d0651884970d376468
