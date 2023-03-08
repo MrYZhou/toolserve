@@ -10,26 +10,6 @@ spring:
     password: root
     hikari:
       max-lifetime: 60000
-
-    #    设置freemarker
-    freemarker:
-      allow-request-override: false
-      #    开发过程建议关闭缓存
-      cache: false
-      check-template-location: false
-      charset: UTF-8
-      content-type: text/html; charset=utf-8
-      expose-request-attributes: false
-      expose-session-attributes: false
-      expose-spring-macro-helpers: false
-      request-context-attribute:
-      # 默认后缀就是.ftl
-      suffix: .ftl
-      template-loader-path: classpath:/code/
-    jpa:
-      hibernate:
-        ddl-auto: update
-      show-sql: true
   #===================== Redis配置 =====================
   redis:
     database: 1 #缓存库编号
@@ -43,56 +23,7 @@ spring:
         max-wait: -1ms  # 连接池最大阻塞等待时间（使用负值表示没有限制）
         min-idle: 0 # 连接池中的最小空闲连接
         max-idle: 8 # 连接池中的最大空闲连接
-  # quartz 调度器配置
-  quartz:
-    job-store-type: JDBC #数据持久化方式，可选值：MEMORY、JDBC
-    auto-startup: true   #初始化后是否自动启动计划程序,默认为  true
-    overwrite-existing-jobs: true #配置的作业是否应覆盖现有的作业定义
-    scheduler-name: ClusterScheduler # 计划程序的名称
-    startup-delay: 0s #初始化完成后启动计划程序的延迟时间，默认为 0 秒
-    wait-for-jobs-to-complete-on-shutdown: false # 关闭时是否等待正在运行的作业完成
 
-    #对于 Quartz 自带的配置，即可以使用 quartz 自己的 quartz.properties 配置文件进行配置，也可以直接配置在 properties 属性下，它是一个 map
-    #quartz 完整配置：https://wangmaoxiong.blog.csdn.net/article/details/105057405#quartz.properties%20%E4%B8%8E%20QuartzProperties%20%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9
-    properties:
-      org:
-        quartz:
-          jobStore:
-            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
-            #设置数据库驱动代理，StdJDBCDelegate 是一个使用 JDBC 代码来执行其工作的代理. 其他代理可以在"org.quartz.impl.jdbcjobstore“包或其子包中找到
-            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
-            #通知 JobStore 使用的表前缀
-            tablePrefix: QRTZ_
-            misfireThreshold: 12000
-            #是否加入集群
-            isClustered: true
-            ##容许的最大作业延长时间
-            clusterCheckinInterval: 20000
-            maxMisfiresToHandleAtATime: 1
-            txIsolationLevelSerializable: false
-            useProperties: false
-          threadPool:
-            class: org.quartz.simpl.SimpleThreadPool  #quartz 使用的线程池类型，org.quartz.spi.ThreadPool
-            threadCount: 20   #线程池中的线程总个数，表示最多可以同时执行的个任务/作业个数
-            threadPriority: 5   #线程优先级
-            threadsInheritContextClassLoaderOfInitializingThread: true #线程继承初始化线程的上下文类加载器
-          scheduler:
-            #quartz 调度器实例名称，相当于微服务架构中的微服务名称，instanceId 相当于微服务多实例时的节点 id
-            #如果指定了 spring.quartz.scheduler-name 属性，则优先以它为准，此时 instanceName 不会生效.
-            instanceName: ClusterScheduler
-            #实例id设置为自动获取，集群下的所有调度器实例id 必须为唯一.
-            instanceId: AUTO
-  #  spring任务配置
-  task:
-    execution:
-      pool:
-        max-size: 16 # 最大线程数
-        queue-capacity: 100 # 任务队列
-        keep-alive: "100s" # 任务最多存在时间
-    scheduling:
-      thread-name-prefix: "scheduling-"
-      pool:
-        size: 2
   # 邮箱配置
   mail:
     host: smtp.qq.com
