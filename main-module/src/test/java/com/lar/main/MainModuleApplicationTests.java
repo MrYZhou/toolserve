@@ -1,6 +1,5 @@
 package com.lar.main;
 
-import com.lar.common.util.EmailTask;
 import com.lar.common.util.RedisUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 class MainModuleApplicationTests {
     @Autowired
     RedisUtil redisUtil;
-    @Autowired
-    EmailTask emailTask;
+
 
     @Autowired
     MockMvc mockMvc;
