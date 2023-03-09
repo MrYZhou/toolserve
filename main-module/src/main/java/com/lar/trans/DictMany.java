@@ -1,4 +1,4 @@
-package com.lar.book.model;
+package com.lar.trans;
 
 
 import java.lang.annotation.ElementType;
@@ -8,7 +8,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
-public @interface DictMan {
+public @interface DictMany {
     // 翻译解析类
     Class<?> value();
+    // 数据解析的key,默认解析res.data.list
+    String key() default "res.data.list";
 }

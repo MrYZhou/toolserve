@@ -3,6 +3,7 @@ package com.lar.book.model;
 import com.fhs.core.trans.anno.Trans;
 import com.fhs.core.trans.constant.TransType;
 import com.fhs.core.trans.vo.TransPojo;
+import com.lar.trans.DictValue;
 import lombok.Data;
 
 @Data

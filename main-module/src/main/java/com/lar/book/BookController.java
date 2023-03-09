@@ -5,9 +5,10 @@ import com.alibaba.excel.read.listener.PageReadListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lar.book.model.BookInfo;
 import com.lar.book.model.BookPage;
-import com.lar.book.model.DictMan;
 import com.lar.common.base.AppResult;
 import com.lar.common.util.CommonUtil;
+import com.lar.trans.DictMany;
+import com.lar.trans.DictOne;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,15 +30,11 @@ public class BookController {
      * @return
      */
     @PostMapping("/list")
-    @DictMan(BookInfo.class)
+    @DictMany(BookInfo.class)
     public AppResult<Object> list(@RequestBody @Validated BookPage page) throws NoSuchMethodException {
         QueryWrapper<BookEntity> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(BookEntity::getName, page.getName());
         BookPage info = bookService.page(page, wrapper);
-
-//        List<BookEntity> records = info.getRecords();
-//        List<BookInfo> bookInfos = BeanUtil.copyToList(records, BookInfo.class);
-//        info.setRecords(bookInfos);
         return AppResult.success(info);
     }
 
@@ -49,11 +46,10 @@ public class BookController {
      * @return
      */
     @GetMapping("/{id}")
-    @DictMan(BookInfo.class)
-    public AppResult<Object> info(@PathVariable String id) {
+    @DictOne(value = BookInfo.class)
+    public AppResult<Object> info(@PathVariable(value = "id") String id) {
         BookEntity info = bookService.getById(id);
-        Object o = CommonUtil.toBean(info, BookInfo.class);
-        return AppResult.success(o);
+        return AppResult.success(info);
     }
 
     /**
