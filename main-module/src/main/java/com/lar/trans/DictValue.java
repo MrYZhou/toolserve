@@ -1,4 +1,4 @@
-package com.lar.book.model;
+package com.lar.trans;
 
 
 import java.lang.annotation.ElementType;
