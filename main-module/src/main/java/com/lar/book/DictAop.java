@@ -15,6 +15,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Aspect
@@ -47,10 +48,12 @@ public class DictAop {
             // 获取解析类中需要解析的字段
             Field[] declaredFields = dictParseClass.getDeclaredFields();
             ArrayList<DictValue> list = new ArrayList<>();
-            // 解析参数,默认约定解析key名是data
-            Object data = ONode.load(proceed).get("data");
-            Object o1 = CommonUtil.toBean(data, dictParseClass);
 
+            Class<?> returnType = targetMethod.getReturnType();
+            // 解析参数,默认约定解析key名是data
+            ONode data = ONode.load(proceed);
+            // todo 如果注解有写按注解上的
+            List<?> list1 = data.select("$.data.records").toObjectList(dictParseClass);
 
             for (Field field : declaredFields) {
                 DictValue annotation = field.getAnnotation(DictValue.class);
@@ -69,17 +72,15 @@ public class DictAop {
                 Method declaredMethodSet = dictParseClass.getDeclaredMethod(getMethodSet, String.class);
 
                 // 获取字典值,并且设置
-                String invoke = (String) declaredMethod.invoke(o1);
-                String value = dictMap.get(invoke);
-                declaredMethodSet.invoke(o1, value);
-
-
+                for (Object item : list1) {
+                    String invoke = (String) declaredMethod.invoke(item);
+                    String value = dictMap.get(invoke);
+                    declaredMethodSet.invoke(item, value);
+                }
             }
-            // 获取返回值类型,设置数据
-            Class<?> returnType = targetMethod.getReturnType();
-            Object res = CommonUtil.toBean(proceed, returnType);
-            Method setData = res.getClass().getDeclaredMethod("setData", Object.class);
-            setData.invoke(proceed, o1);
+            // 设置数据
+            data.select("$.data").set("records", ONode.load(list1));
+            proceed = CommonUtil.toBean(data, returnType);
 
         } catch (Throwable e) {
             throw e;
