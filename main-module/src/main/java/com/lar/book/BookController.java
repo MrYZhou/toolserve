@@ -3,9 +3,9 @@ package com.lar.book;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.fhs.core.trans.anno.TransSett;
 import com.lar.book.model.BookInfo;
 import com.lar.book.model.BookPage;
+import com.lar.book.model.DictMan;
 import com.lar.common.base.AppResult;
 import com.lar.common.util.CommonUtil;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,11 +29,11 @@ public class BookController {
      * @return
      */
     @PostMapping("/list")
-    @TransSett
     public AppResult<Object> list(@RequestBody @Validated BookPage page) throws NoSuchMethodException {
         QueryWrapper<BookEntity> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(BookEntity::getName, page.getName());
         BookPage info = bookService.page(page, wrapper);
+
 //        List<BookEntity> records = info.getRecords();
 //        List<BookInfo> bookInfos = BeanUtil.copyToList(records, BookInfo.class);
 //        info.setRecords(bookInfos);
@@ -48,6 +48,7 @@ public class BookController {
      * @return
      */
     @GetMapping("/{id}")
+    @DictMan(BookInfo.class)
     public AppResult<Object> info(@PathVariable String id) {
         BookEntity info = bookService.getById(id);
         Object o = CommonUtil.toBean(info, BookInfo.class);
