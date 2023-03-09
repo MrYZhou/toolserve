@@ -29,6 +29,7 @@ public class BookController {
      * @return
      */
     @PostMapping("/list")
+    @DictMan(BookInfo.class)
     public AppResult<Object> list(@RequestBody @Validated BookPage page) throws NoSuchMethodException {
         QueryWrapper<BookEntity> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(BookEntity::getName, page.getName());
@@ -67,7 +68,6 @@ public class BookController {
         BookEntity bookEntity = CommonUtil.toBean(info, BookEntity.class);
         bookService.save(bookEntity);
         System.out.println(System.currentTimeMillis() - l);
-//
         return AppResult.success();
     }
 
