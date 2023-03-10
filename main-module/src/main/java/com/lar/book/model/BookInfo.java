@@ -12,8 +12,6 @@ public class BookInfo {
     String name;
 
     String tag;
-    // 字典翻译 ref为非必填
-//    @Trans(type = TransType.DICTIONARY, key = "book")
     @DictValue(ref = "book")
     String type;
 

@@ -18,7 +18,7 @@ public @interface DictValue {
     // 返回的json中要翻译的
     String sourceField() default "";
 
-    // 简单字典。是字典项的key
-    String ref() default "";
+    // 是字典类别的key
+    String ref() default "dictMan";
 
 }
