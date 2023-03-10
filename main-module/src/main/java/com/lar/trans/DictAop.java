@@ -1,36 +1,31 @@
 package com.lar.trans;
 
-import com.lar.common.util.CommonUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.noear.snack.ONode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Aspect
 @Component
 public class DictAop {
-    static Map<String, String> map = new HashMap<>() {{
-        put("1", "书籍1");
-        put("2", "书籍2");
-    }};
-    static Map<String, Map<String, String>> dictItem = new HashMap<>() {{
-        put("book", map);
-    }};
+
+    static DictHelper dictHelper = new DictHelper();
+    @Autowired
+    DictService dictService;
 
     @Around("@annotation(com.lar.trans.DictOne)")
     public Object transOne(ProceedingJoinPoint joinPoint) throws Throwable {
-        Object proceed = null;
+        Object proceed;
         try {
-            DictHelper dictHelper = new DictHelper();
             dictHelper.initParserClass(joinPoint, "1");
 
             // 获取解析类中需要解析的字段
@@ -42,12 +37,13 @@ public class DictAop {
             String key = dictHelper.key;
             Object item = data.select("$." + key).toObject(dictParseClass);
             for (Field field : declaredFields) {
+
                 DictValue annotation = field.getAnnotation(DictValue.class);
                 if (annotation == null) {
                     continue;
                 }
                 String ref = annotation.ref();
-                Map<String, String> dictMap = dictItem.get(ref);
+                Map<String, String> dictMap = dictService.getDict(ref);
                 // 字段名
                 String name = field.getName();
                 // 获取方法名
@@ -64,7 +60,7 @@ public class DictAop {
             }
             // 设置数据
             data.set("data", ONode.load(item));
-            proceed = CommonUtil.toBean(data, returnType);
+            proceed = ONode.deserialize(ONode.stringify(data), returnType);
 
         } catch (Throwable e) {
             throw new Exception("解析失败");
@@ -76,7 +72,7 @@ public class DictAop {
     public Object transMany(ProceedingJoinPoint joinPoint) throws Throwable {
         Object proceed;
         try {
-            DictHelper dictHelper = new DictHelper();
+
             dictHelper.initParserClass(joinPoint, "2");
 
             // 获取解析类中需要解析的字段
@@ -84,17 +80,19 @@ public class DictAop {
             Class<?> dictParseClass = dictHelper.dictParseClass;
             String key = dictHelper.key;
             Field[] declaredFields = dictParseClass.getDeclaredFields();
+
             proceed = joinPoint.proceed();
+
             ONode data = ONode.load(proceed);
             List<?> list1 = data.select("$." + key).toObjectList(dictParseClass);
 
             for (Field field : declaredFields) {
-                DictValue annotation = field.getAnnotation(DictValue.class);
-                if (annotation == null) {
+                if (!field.isAnnotationPresent(DictValue.class)) {
                     continue;
                 }
+                DictValue annotation = field.getAnnotation(DictValue.class);
                 String ref = annotation.ref();
-                Map<String, String> dictMap = dictItem.get(ref);
+                Map<String, String> dictMap = dictService.getDict(ref);
                 // 字段名
                 String name = field.getName();
                 // 获取方法名
@@ -111,6 +109,8 @@ public class DictAop {
                     declaredMethodSet.invoke(item, value == null ? "" : value);
                 }
             }
+
+
             // 设置数据
             int index = -1;
             for (int i = key.length() - 1; i > 0; i--) {
@@ -123,7 +123,7 @@ public class DictAop {
             String dataKey = key.substring(index + 1);
 
             data.select("$." + path).set(dataKey, ONode.load(list1));
-            proceed = CommonUtil.toBean(data, returnType);
+            proceed = ONode.deserialize(ONode.stringify(data), returnType);
 
         } catch (Throwable e) {
             throw new Exception("解析失败");
