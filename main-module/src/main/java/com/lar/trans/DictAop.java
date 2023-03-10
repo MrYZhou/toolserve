@@ -9,7 +9,6 @@ import org.noear.snack.ONode;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -20,20 +19,20 @@ import java.util.Map;
 @Aspect
 @Component
 public class DictAop {
-    Map<String, String> map = new HashMap<>() {{
+    static Map<String, String> map = new HashMap<>() {{
         put("1", "书籍1");
         put("2", "书籍2");
     }};
-    Map<String, Map<String, String>> dictItem = new HashMap<>() {{
+    static Map<String, Map<String, String>> dictItem = new HashMap<>() {{
         put("book", map);
     }};
 
     @Around("@annotation(com.lar.trans.DictOne)")
     public Object transOne(ProceedingJoinPoint joinPoint) throws Throwable {
         Object proceed = null;
-        try{
+        try {
             DictHelper dictHelper = new DictHelper();
-            dictHelper.initParserClass(joinPoint, DictOne.class);
+            dictHelper.initParserClass(joinPoint, "1");
             // 获取解析类中需要解析的字段
             ArrayList<DictValue> list = new ArrayList<>();
             Class<?> returnType = dictHelper.returnType;
@@ -46,16 +45,15 @@ public class DictAop {
         }
         return proceed;
     }
+
     @Around("@annotation(com.lar.trans.DictMany)")
     public Object transMany(ProceedingJoinPoint joinPoint) throws Throwable {
-        Object proceed = null;
-
+        Object proceed;
         try {
             DictHelper dictHelper = new DictHelper();
-            dictHelper.initParserClass(joinPoint, DictMany.class);
+            dictHelper.initParserClass(joinPoint, "2");
 
             // 获取解析类中需要解析的字段
-            ArrayList<DictValue> list = new ArrayList<>();
             Class<?> returnType = dictHelper.returnType;
             Class<?> dictParseClass = dictHelper.dictParseClass;
             Field[] declaredFields = dictParseClass.getDeclaredFields();
@@ -84,7 +82,7 @@ public class DictAop {
                 for (Object item : list1) {
                     String invoke = (String) declaredMethod.invoke(item);
                     String value = dictMap.get(invoke);
-                    declaredMethodSet.invoke(item, value);
+                    declaredMethodSet.invoke(item, value == null ? "" : value);
                 }
             }
             // 设置数据
@@ -92,12 +90,12 @@ public class DictAop {
             proceed = CommonUtil.toBean(data, returnType);
 
         } catch (Throwable e) {
-            throw e;
+            throw new Exception("解析失败");
         }
         return proceed;
     }
 
-    static class DictHelper{
+    static class DictHelper {
         ProceedingJoinPoint joinPoint;
 
         Class<?> dictParseClass;
@@ -105,8 +103,7 @@ public class DictAop {
         Class<?> returnType;
 
 
-
-        public void initParserClass(ProceedingJoinPoint joinPoint, Class<? extends Annotation> dictClass) throws NoSuchMethodException {
+        public void initParserClass(ProceedingJoinPoint joinPoint, String type) throws NoSuchMethodException {
             this.joinPoint = joinPoint;
             Class<?> targetCls = joinPoint.getTarget().getClass();
             // 得到当前方法签名上面的解析类
@@ -115,10 +112,15 @@ public class DictAop {
                     targetCls.getDeclaredMethod(
                             ms.getName(),
                             ms.getParameterTypes());
+            Class<?> dictClass;
             // 获取解析类
+            if ("1".equals(type)) {
+                dictClass = targetMethod.getAnnotation(DictOne.class).value();
+            } else {
+                dictClass = targetMethod.getAnnotation(DictMany.class).value();
+            }
 
-            Class<?> dictParseClass =null;
-            this.dictParseClass = dictParseClass;
+            this.dictParseClass = dictClass;
             this.returnType = targetMethod.getReturnType();
         }
 
