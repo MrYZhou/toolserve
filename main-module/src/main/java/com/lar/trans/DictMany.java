@@ -12,6 +12,6 @@ public @interface DictMany {
     // 翻译解析类
     Class<?> value();
 
-    // 数据解析的key,默认解析res.data.list
-    String key() default "res.data.list";
+    // 数据解析的key,默认解析data.list
+    String key() default "data.list";
 }
