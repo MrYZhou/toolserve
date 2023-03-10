@@ -11,6 +11,7 @@ import java.lang.annotation.Target;
 public @interface DictOne {
     // 翻译解析类
     Class<?> value();
-    // 数据解析的key,默认解析res.data
-    String key() default "res.data";
+
+    // 数据解析的key,默认解析data
+    String key() default "data";
 }
