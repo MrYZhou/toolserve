@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ public class DictAop {
             ONode data = ONode.load(proceed);
             String key = dictHelper.key;
             Object item = data.select("$." + key).toObject(dictParseClass);
+            Map<String, String> dictMap;
             for (Field field : declaredFields) {
 
                 DictValue annotation = field.getAnnotation(DictValue.class);
@@ -43,18 +45,15 @@ public class DictAop {
                     continue;
                 }
                 String ref = annotation.ref();
-                Map<String, String> dictMap = dictService.getDict(ref);
+                dictMap = dictService.getDict(ref);
                 // 字段名
                 String name = field.getName();
                 // 获取方法名
-                String getMethod = "get" + StringUtils.capitalize(name);
-                String getMethodSet = "set" + StringUtils.capitalize(name);
-                // 获取方法
-                Method declaredMethod = dictParseClass.getDeclaredMethod(getMethod);
-                Method declaredMethodSet = dictParseClass.getDeclaredMethod(getMethodSet, String.class);
-
+                Method declaredMethod = dictParseClass.getDeclaredMethod("get" + StringUtils.capitalize(name));
+                Method declaredMethodSet = dictParseClass.getDeclaredMethod("set" + StringUtils.capitalize(name), String.class);
                 // 获取字典值,并且设置
                 String invoke = (String) declaredMethod.invoke(item);
+                if(dictMap == null) dictMap = new HashMap<>();
                 String value = dictMap.get(invoke);
                 declaredMethodSet.invoke(item, value == null ? "" : value);
             }
@@ -85,23 +84,21 @@ public class DictAop {
 
             ONode data = ONode.load(proceed);
             List<?> list1 = data.select("$." + key).toObjectList(dictParseClass);
-
+            Map<String, String> dictMap;
             for (Field field : declaredFields) {
                 if (!field.isAnnotationPresent(DictValue.class)) {
                     continue;
                 }
                 DictValue annotation = field.getAnnotation(DictValue.class);
                 String ref = annotation.ref();
-                Map<String, String> dictMap = dictService.getDict(ref);
+                dictMap = dictService.getDict(ref);
                 // 字段名
                 String name = field.getName();
-                // 获取方法名
-                String getMethod = "get" + StringUtils.capitalize(name);
-                String getMethodSet = "set" + StringUtils.capitalize(name);
                 // 获取方法
-                Method declaredMethod = dictParseClass.getDeclaredMethod(getMethod);
-                Method declaredMethodSet = dictParseClass.getDeclaredMethod(getMethodSet, String.class);
+                Method declaredMethod = dictParseClass.getDeclaredMethod("get" + StringUtils.capitalize(name));
+                Method declaredMethodSet = dictParseClass.getDeclaredMethod("set" + StringUtils.capitalize(name), String.class);
 
+                if(dictMap == null) dictMap = new HashMap<>();
                 // 获取字典值,并且设置
                 for (Object item : list1) {
                     String invoke = (String) declaredMethod.invoke(item);
