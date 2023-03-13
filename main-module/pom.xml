@@ -17,24 +17,20 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
-        <!--         easy trans-->
-        <dependency>
-            <groupId>com.fhs-opensource</groupId>
-            <artifactId>easy-trans-spring-boot-starter</artifactId>
-            <version>2.1.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fhs-opensource</groupId>
-            <artifactId>easy-trans-mybatis-plus-extend</artifactId>
-            <version>2.1.7</version>
-        </dependency>
-
 
         <!--        <dependency>-->
         <!--            <groupId>com.dtflys.forest</groupId>-->
         <!--            <artifactId>forest-spring-boot-starter</artifactId>-->
         <!--            <version>1.5.29-BETA3</version>-->
         <!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.larry</groupId>
+            <artifactId>dict-man-spring-boot-starter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

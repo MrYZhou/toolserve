@@ -1,6 +1,6 @@
 package com.lar;
 
-import com.lar.trans.DictService;
+import com.larry.spring.MybatisDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -24,8 +24,8 @@ import java.util.Map;
 public class MainModuleApplication implements ApplicationListener<ApplicationStartedEvent> {
 
     // 初始化字典的数据
-    @Autowired
-    DictService dictService;
+    @Autowired(required = false)
+    MybatisDictService dictService;
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplicationBuilder().sources(MainModuleApplication.class).bannerMode(Banner.Mode.OFF).build(args);
