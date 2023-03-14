@@ -29,7 +29,11 @@
             <artifactId>dict-man-spring-boot-starter</artifactId>
             <version>1.0.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.5</version>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
