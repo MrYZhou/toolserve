@@ -23,6 +23,11 @@ public class BookController {
 
     private final BookService bookService;
 
+    BookController(BookService bookService
+    ) {
+        this.bookService = bookService;
+    }
+
     /**
      * 获取列表
      *
@@ -37,7 +42,6 @@ public class BookController {
         BookPage info = bookService.page(page, wrapper);
         return AppResult.success(info);
     }
-
 
     /**
      * 查询信息
@@ -111,11 +115,6 @@ public class BookController {
         EasyExcel.read(file.getInputStream(), BookEntity.class, new PageReadListener<BookEntity>(
                 bookService::saveBatch)).sheet().doRead();
         return AppResult.success();
-    }
-
-    BookController(BookService bookService
-    ) {
-        this.bookService = bookService;
     }
 
 }
