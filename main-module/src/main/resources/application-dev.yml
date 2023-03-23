@@ -1,11 +1,13 @@
 server:
   port: 8081
   shutdown: graceful
-
+#dictman:
+#  primaryKey: id    #默认表主键是解析id
+#  resultList: data.records #默认data.list
 spring:
   main:
     # bean懒加载
-    lazy-initialization: true
+    lazy-initialization: false
   lifecycle:
     timeout-per-shutdown-phase: 30s #关机缓冲时间,默认30s
   data:
