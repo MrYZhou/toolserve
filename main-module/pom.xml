@@ -7,7 +7,6 @@
         <groupId>com.lar</groupId>
         <version>2.0.0</version>
         <artifactId>toolbox</artifactId>
-        <!--        <relativePath/>-->
     </parent>
     <artifactId>main</artifactId>
     <version>2.0.0</version>
@@ -18,7 +17,7 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>io.github.mrzhou</groupId>
+            <groupId>io.github.mryzhou</groupId>
             <artifactId>dict-man-spring-boot-starter</artifactId>
             <version>1.0.0</version>
         </dependency>
