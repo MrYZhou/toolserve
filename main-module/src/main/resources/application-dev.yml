@@ -46,6 +46,14 @@ spring:
 # orm配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    #缓存
+    cache-enabled: false
+    #配置日志  log-impl:日志实现
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #自动注入sql值
+    sql-explain-type: AGGREGATE
   global-config:
     banner: false #关闭控制台LOGO
     db-config:
