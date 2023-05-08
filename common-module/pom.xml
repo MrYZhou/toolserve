@@ -11,10 +11,6 @@
 
     <artifactId>common</artifactId>
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
 
         <!--        消息-->
         <dependency>
