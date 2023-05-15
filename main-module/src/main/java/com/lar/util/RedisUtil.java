@@ -1,4 +1,4 @@
-package com.lar.common.util;
+package com.lar.util;
 
 import cn.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.lar.common.base;
+package com.lar.vo;
 
 import lombok.Data;
 

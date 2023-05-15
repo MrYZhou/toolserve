@@ -16,19 +16,11 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
-
         <dependency>
             <groupId>io.github.mryzhou</groupId>
             <artifactId>dict-man-spring-boot-starter</artifactId>
             <version>1.0.0</version>
         </dependency>
-
-
-        <!--        <dependency>-->
-        <!--            <groupId>com.dtflys.forest</groupId>-->
-        <!--            <artifactId>forest-spring-boot-starter</artifactId>-->
-        <!--            <version>1.5.29-BETA3</version>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -78,6 +70,7 @@
         <dependency>
             <groupId>com.lar</groupId>
             <artifactId>common</artifactId>
+            <version>2.0.0</version>
         </dependency>
     </dependencies>
 

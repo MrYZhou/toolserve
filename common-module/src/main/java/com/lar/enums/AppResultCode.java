@@ -1,4 +1,4 @@
-package com.lar.common.enums;
+package com.lar.enums;
 
 public enum AppResultCode {
   /** 成功 */

@@ -1,4 +1,4 @@
-package com.lar.common.util;
+package com.lar.util;
 
 import org.noear.snack.ONode;
 

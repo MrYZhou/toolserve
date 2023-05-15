@@ -2,11 +2,11 @@ package com.lar.xlj;
 
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
+import com.lar.vo.AppResult;
 import com.lar.xlj.model.HuResult;
 import com.lar.xlj.model.HuRootBean;
 import com.lar.xlj.model.JsonRootBeanDream;
 import com.lar.xlj.model.ResultDream;
-import com.lar.common.base.AppResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 

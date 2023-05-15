@@ -1,4 +1,4 @@
-package com.lar.common.config;
+package com.lar.config;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
