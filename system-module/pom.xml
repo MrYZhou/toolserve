@@ -8,19 +8,15 @@
         <version>2.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>system</artifactId>
+    <artifactId>system-module</artifactId>
+    <version>2.0.0</version>
     <description>system-module</description>
     <dependencies>
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.lar</groupId>
-            <artifactId>common</artifactId>
-            <version>2.0.0</version>
-            <scope>compile</scope>
-        </dependency>
+
     </dependencies>
 
 </project>
