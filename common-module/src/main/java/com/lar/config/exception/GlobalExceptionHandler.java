@@ -1,8 +1,8 @@
-package com.lar.common.config.exception;
+package com.lar.config.exception;
 
 import com.alibaba.fastjson.JSON;
-import com.lar.common.base.AppResult;
-import com.lar.common.enums.AppResultCode;
+import com.lar.enums.AppResultCode;
+import com.lar.vo.AppResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,11 +17,11 @@ import java.util.Map;
 public class GlobalExceptionHandler {
   @ResponseBody
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public AppResult methodArgumentNotValidException(MethodArgumentNotValidException e) {
+  public AppResult<Object> methodArgumentNotValidException(MethodArgumentNotValidException e) {
     Map<String, String> map = new HashMap<>(16);
     String message = e.getMessage();
     String json = JSON.toJSONString(message);
-    AppResult result = AppResult.fail(AppResultCode.ValidateError.getCode(), json);
+    AppResult<Object> result = AppResult.fail(AppResultCode.ValidateError.getCode(), json);
     return result;
   }
 

@@ -1,4 +1,4 @@
-package com.lar.common.config.database;
+package com.lar.config.database;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

@@ -1,4 +1,4 @@
-package com.lar.common.config;
+package com.lar.config;
 
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import org.springframework.context.annotation.Bean;
@@ -31,4 +31,3 @@ public class RedisConfig {
         return redisTemplate;
     }
 }
-

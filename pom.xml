@@ -5,8 +5,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>main-module</module>
         <module>common-module</module>
+        <module>main-module</module>
         <module>file-module</module>
         <module>middleware-module</module>
         <module>security-module</module>

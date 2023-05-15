@@ -1,4 +1,4 @@
-package com.lar.common.config;
+package com.lar.config;
 
 
 import org.springframework.context.annotation.Bean;
