@@ -5,11 +5,10 @@
     <packaging>jar</packaging>
     <parent>
         <groupId>com.lar</groupId>
-        <version>2.0.0</version>
         <artifactId>toolbox</artifactId>
+        <version>2.0.0</version>
     </parent>
-    <artifactId>main</artifactId>
-    <version>2.0.0</version>
+    <artifactId>main-module</artifactId>
     <name>main-module</name>
     <description>main-module</description>
     <properties>
@@ -19,7 +18,7 @@
         <dependency>
             <groupId>io.github.mryzhou</groupId>
             <artifactId>dict-man-spring-boot-starter</artifactId>
-            <version>1.0.0</version>
+            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -32,19 +31,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${boot.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.lar</groupId>
-            <artifactId>security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.lar</groupId>
-            <artifactId>file</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.lar</groupId>
-            <artifactId>middleware</artifactId>
         </dependency>
 
         <dependency>
@@ -66,12 +52,13 @@
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.lar</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>common-module</artifactId>
             <version>2.0.0</version>
         </dependency>
+
+
     </dependencies>
 
 </project>

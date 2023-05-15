@@ -21,13 +21,12 @@
     </parent>
     <groupId>com.lar</groupId>
     <artifactId>toolbox</artifactId>
-    <version>2.0.0</version>
+<!--    <version>${app.version}</version>-->
     <name>toolbox-serve</name>
     <description>toolbox-serve</description>
     <properties>
-        <app.version>1.0.0</app.version>
-        <commmon.version>1.0.0</commmon.version>
-
+        <app.version>2.0.0</app.version>
+        <common.version>2.0.0</common.version>
         <java.version>17</java.version>
         <test.version>2.6.6</test.version>
         <boot.version>3.0.4</boot.version>
@@ -41,7 +40,11 @@
 
     <dependencyManagement>
         <dependencies>
-
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${boot.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -58,27 +61,10 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.lar</groupId>
-                <artifactId>common</artifactId>
-                <version>2.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.lar</groupId>
-                <artifactId>security</artifactId>
-                <version>2.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.lar</groupId>
-                <artifactId>file</artifactId>
-                <version>2.0.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.lar</groupId>
-                <artifactId>middleware</artifactId>
-                <version>2.0.0</version>
+                <artifactId>system-module</artifactId>
+                <version>${common.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
