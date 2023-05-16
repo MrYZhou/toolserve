@@ -1,4 +1,4 @@
-package com.lar.minio;
+package com.lar.file.minio;
 
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
