@@ -4,9 +4,7 @@ import com.lar.security.user.domain.repository.jpa.UserRepositoty;
 import com.lar.security.user.model.UserQuery;
 import com.lar.vo.AppResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user" )
@@ -18,9 +16,9 @@ public class UserController {
     @Autowired
     private UserRepositoty userRepositoty;
 
-    @RequestMapping("/getUser" )
+    @PostMapping("/info" )
     public AppResult<Object> getUser(@RequestBody UserQuery userQuery) {
-
         return AppResult.success(userRepositoty.getUserByUserName(userQuery.getName()));
     }
+
 }
