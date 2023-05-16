@@ -1,13 +1,8 @@
 package com.lar.config.database;
 
 
-import jakarta.annotation.PostConstruct;
-import jakarta.persistence.*;
 import lombok.extern.slf4j.Slf4j;
-import jakarta.persistence.Query;
 import org.hibernate.resource.jdbc.spi.StatementInspector;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 
@@ -37,8 +32,6 @@ public class JpaInterceptor implements StatementInspector {
             }
             sb.append(" from " ).append(other);
         }
-        log.info("\n<======");
-        System.out.println(sb+"\n======>");
         return sb.toString();
     }
 
