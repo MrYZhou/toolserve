@@ -36,13 +36,6 @@ public class XLJController {
         return AppResult.success(bean.getResult());
     }
 
-    @GetMapping("")
-    public String gge(String date) {
-
-
-        return "";
-    }
-
     /**
      * 周工解梦
      * @param q

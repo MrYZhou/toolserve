@@ -35,7 +35,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+#    show-sql: true
+
+    properties:
+      hibernate:
+        session_factory:
+          statement_inspector: com.lar.config.database.JpaInterceptor
+#        format_sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    此处须配置自己的数据库地址和端口，否则启动失败
@@ -80,7 +86,7 @@ sa-token:
   # token名称 (同时也是cookie名称)
   token-name: satoken
   # token有效期，单位s 默认30天, -1代表永不过期
-  timeout: 60*60*24*3
+  timeout: 360000
   # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
   activity-timeout: -1
   # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
@@ -98,3 +104,10 @@ sa-token:
 api:
   yangli: 3204cdf5a2a0c36778c880a461b6ea5d
   xiaohua: 3607764bbcfbb9d0651884970d376468
+
+logging:
+  level:
+    org.springframework.security:
+      - debug
+      - info
+    org.springframework.web: error
