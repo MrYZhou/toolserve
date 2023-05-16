@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.HashMap;
@@ -22,6 +24,10 @@ import java.util.Map;
 @SpringBootApplication
 // 允许异步
 @EnableAsync
+// jpa扫描
+@EnableJpaRepositories(basePackages = {"com.lar"})
+// jpa实体扫描
+@EntityScan(basePackages = {"com.lar"})
 public class MainModuleApplication implements ApplicationListener<ApplicationStartedEvent> {
 
 //    // 初始化字典的数据

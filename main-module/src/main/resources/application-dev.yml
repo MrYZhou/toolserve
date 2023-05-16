@@ -32,6 +32,10 @@ spring:
   jackson: #序列化和反序列化json框架
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    此处须配置自己的数据库地址和端口，否则启动失败
