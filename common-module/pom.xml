@@ -24,7 +24,6 @@
             <artifactId>spring-boot-starter-websocket</artifactId>
             <version>${boot.version}</version>
         </dependency>
-        <!--        定时任务-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
