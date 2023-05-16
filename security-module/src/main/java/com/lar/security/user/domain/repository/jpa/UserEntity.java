@@ -1,4 +1,4 @@
-package com.lar.security.user;
+package com.lar.security.user.domain.repository.jpa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
