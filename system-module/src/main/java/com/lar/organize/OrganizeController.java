@@ -1,3 +1,3 @@
-package com.lar.system.organize;
+package com.lar.organize;
 
 public class OrganizeController {}

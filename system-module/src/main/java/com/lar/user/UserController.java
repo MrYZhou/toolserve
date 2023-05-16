@@ -1,3 +1,3 @@
-package com.lar.system.user;
+package com.lar.user;
 
 public class UserController {}

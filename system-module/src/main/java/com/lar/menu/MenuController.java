@@ -1,3 +1,3 @@
-package com.lar.system.menu;
+package com.lar.menu;
 
 public class MenuController {}
