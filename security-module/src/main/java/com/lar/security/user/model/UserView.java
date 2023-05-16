@@ -1,4 +1,4 @@
-package com.lar.security.model;
+package com.lar.security.user.model;
 
 import lombok.Data;
 
