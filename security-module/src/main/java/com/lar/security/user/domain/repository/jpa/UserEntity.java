@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 
@@ -34,21 +36,17 @@ public class UserEntity {
     /** 邮箱 */
     private String email;
     /** 手机号 */
-    private String phoneNumber;
+    private String phone;
     /** 用户性别（0男，1女，2未知） */
     private String sex;
     /** 头像 */
     private String avatar;
     /** 用户类型（0管理员，1普通用户） */
     private String userType;
-    /** 创建人的用户id */
-    private Long createBy;
     /** 创建时间 */
+    @CreatedDate
     private Date createTime;
-    /** 更新人 */
-    private Long updateBy;
     /** 更新时间 */
+    @LastModifiedDate
     private Date updateTime;
-    /** 删除标志（0代表未删除，1代表已删除） */
-    private Integer delFlag;
 }
