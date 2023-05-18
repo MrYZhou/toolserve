@@ -106,6 +106,8 @@ api:
   xiaohua: 3607764bbcfbb9d0651884970d376468
 
 logging:
+  file:
+    path: d:/toolserver/logs
   level:
     org.springframework.security:
       - debug
@@ -128,3 +130,6 @@ management:
       show-details: always
     shutdown:
       enabled: true
+
+larry:
+  log-path: C:/Users/lg/Desktop/project/java/logs
