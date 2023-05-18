@@ -8,7 +8,10 @@ import com.lar.xlj.model.HuRootBean;
 import com.lar.xlj.model.JsonRootBeanDream;
 import com.lar.xlj.model.ResultDream;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -122,29 +125,5 @@ public class XLJController {
         Map res = JSONUtil.toBean(s, Map.class);
         return AppResult.success(res);
     }
-
-
-
-    /**
-     * 笑话废弃,都没有更新新笑话
-     *
-     * @param data
-     * @return
-     */
-    @GetMapping("joker")
-    public AppResult<Object> joker(@RequestBody QueryData data) {
-        String s = HttpUtil.get("http://v.juhe.cn/joke/content/list.php");
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("sort", "desc");
-        map.put("time", "");
-
-//        最大20
-//        map.put("page",data.getPage());
-//        map.put("pageSize",data.getPagesize());
-        map.put("key", xiaohuaKey);
-        HuRootBean bean = JSONUtil.toBean(s, HuRootBean.class);
-        return AppResult.success(bean);
-    }
-
 
 }

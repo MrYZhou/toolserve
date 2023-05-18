@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class XLJImpl extends ServiceImpl<XLJMapper, XLJEntity> implements XLJService {
+public class XLJServiceImpl extends ServiceImpl<XLJMapper, XLJEntity> implements XLJService {
 
 
     @Override
