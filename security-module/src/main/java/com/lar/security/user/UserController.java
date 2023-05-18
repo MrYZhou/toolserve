@@ -7,6 +7,7 @@ import com.lar.security.user.model.UserLogin;
 import com.lar.security.user.model.UserQuery;
 import com.lar.util.RedisMan;
 import com.lar.vo.AppResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user" )
+@Slf4j
 public class UserController {
     @Autowired
     RedisMan redisMan;
@@ -61,6 +63,7 @@ public class UserController {
     @RequestMapping("logout" )
     public SaResult logout() {
         StpUtil.logout();
+        log.info("注销操作");
         return SaResult.ok();
     }
 
