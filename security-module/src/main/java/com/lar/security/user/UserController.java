@@ -5,6 +5,7 @@ import cn.dev33.satoken.util.SaResult;
 import com.lar.security.user.domain.repository.jpa.UserRepositoty;
 import com.lar.security.user.model.UserLogin;
 import com.lar.security.user.model.UserQuery;
+import com.lar.util.RedisMan;
 import com.lar.vo.AppResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user" )
 public class UserController {
+    @Autowired
+    RedisMan redisMan;
     // 复杂的业务推荐
     @Autowired
     private UserAction userServiceAction;
@@ -43,6 +46,8 @@ public class UserController {
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
     @RequestMapping("isLogin" )
     public String isLogin() {
+        String s = redisMan.get("11" );
+
         return "当前会话是否登录：" + StpUtil.isLogin();
     }
 
