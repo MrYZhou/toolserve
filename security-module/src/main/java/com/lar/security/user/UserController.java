@@ -1,5 +1,6 @@
 package com.lar.security.user;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.lar.security.user.domain.repository.jpa.UserRepositoty;
@@ -34,21 +35,20 @@ public class UserController {
 
     // 测试登录，浏览器访问： http://localhost:8081/user/login?username=zhang&password=123456
     @PostMapping("/login" )
-    public String doLogin(@RequestBody UserLogin user) {
-        // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
+    public AppResult<Object> doLogin(@RequestBody UserLogin user) {
 
         String encrptPassword = user.getPassword();
         if ("zhang".equals(user.getUsername()) && "123456".equals(user.getPassword())) {
             StpUtil.login(10001);
-            return "登录成功";
+            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+            return AppResult.success(tokenInfo);
         }
-        return "登录失败";
+        return AppResult.fail("登录失败" );
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
     @RequestMapping("isLogin" )
     public String isLogin() {
-        String s = redisMan.get("11" );
 
         return "当前会话是否登录：" + StpUtil.isLogin();
     }
