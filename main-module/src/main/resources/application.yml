@@ -4,3 +4,25 @@ spring:
   profiles:
     active: dev
 
+#日志配置
+logging:
+  config: classpath:logback-larry.xml
+  file:
+    path: d:/toolserver/logs/${spring.application.name}
+  level:
+    #    应用自身的日志等级
+    admin: info
+    #    org.springframework.security:
+    #      - debug
+    #      - info
+    org.springframework.web: error
+
+    #    com.alibaba.nacos: ERROR
+    #    com.alibaba.cloud.nacos: ERROR
+    #    io.seata: ERROR
+    #    org.apache.dubbo: ERROR
+    # 解除注释后Druid连接池打印SQL语句
+#    druid.sql.Statement: debug
+#    druid.sql.DataSource: debug
+#    druid.sql.Connection: debug
+#    druid.sql.ResultSet: debug
