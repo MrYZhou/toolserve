@@ -1,6 +1,7 @@
 server:
   port: 8081
   shutdown: graceful
+#  字典翻译
 #dictman:
 #  primaryKey: id    #默认表主键是解析id
 #  resultList: data.records #默认data.list
@@ -36,12 +37,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
     properties:
       hibernate:
         session_factory:
           statement_inspector: com.lar.config.database.JpaInterceptor
-#        format_sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    此处须配置自己的数据库地址和端口，否则启动失败
@@ -106,31 +105,20 @@ api:
   yangli: 3204cdf5a2a0c36778c880a461b6ea5d
   xiaohua: 3607764bbcfbb9d0651884970d376468
 
-logging:
-  file:
-    path: d:/toolserver/logs
-  level:
-    org.springframework.security:
-      - debug
-      - info
-    org.springframework.web: error
 
 #监控地址 127.0.0.1:8088/monitor
-management:
-  endpoints:
-    web:
-      base-path: /monitor
-      exposure:
-        include: '*'
-        # 排除端点
-  #        exclude: shutdown
-  server:
-    port: 8088
-  endpoint:
-    health:
-      show-details: always
-    shutdown:
-      enabled: true
-
-larry:
-  log-path: C:/Users/lg/Desktop/project/java/logs
+#management:
+#  endpoints:
+#    web:
+#      base-path: /monitor
+#      exposure:
+#        include: '*'
+#        # 排除端点
+#  #        exclude: shutdown
+#  server:
+#    port: 8088
+#  endpoint:
+#    health:
+#      show-details: always
+#    shutdown:
+#      enabled: true
