@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.lar.security.user.domain.repository.jpa.UserRepositoty;
+import com.lar.security.user.domain.server.UserService;
 import com.lar.security.user.model.UserLogin;
 import com.lar.security.user.model.UserQuery;
 import com.lar.util.RedisMan;
@@ -23,7 +24,7 @@ public class UserController {
     RedisMan redisMan;
     // 复杂的业务推荐
     @Autowired
-    private UserAction userServiceAction;
+    private UserService userService;
     // 简单的业务推荐
     @Autowired
     private UserRepositoty userRepositoty;

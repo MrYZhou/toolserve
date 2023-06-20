@@ -1,7 +1,7 @@
 package com.lar.security.user.domain.server;
 
-import com.lar.security.user.domain.repository.DataStore;
-import com.lar.security.user.domain.repository.UserData;
+import com.lar.security.user.domain.repository.jpa.UserEntity;
+import com.lar.security.user.domain.repository.jpa.UserRepositoty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    DataStore store;
+    UserRepositoty store;
 
     @Override
-    public UserData getUserByUserName(String username) {
+    public UserEntity getUserByUserName(String username) {
         return store.getUserByUserName(username);
     }
 }
