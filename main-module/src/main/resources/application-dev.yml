@@ -50,7 +50,10 @@ spring:
     password: root
     hikari:
       max-lifetime: 60000
-
+#  system-module模板使用配置
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    consumer.group-id: myGroup
 # orm配置
 mybatis-plus:
   # 解析mapper。xml文件位置
