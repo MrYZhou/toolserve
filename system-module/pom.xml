@@ -12,10 +12,6 @@
     <version>3.0.0</version>
     <description>system-module</description>
     <dependencies>
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-        </dependency>
 <!--        文件存储-->
         <dependency>
             <groupId>io.minio</groupId>
@@ -26,7 +22,6 @@
         <dependency>
             <groupId>com.lar</groupId>
             <artifactId>common-module</artifactId>
-            <version>3.0.0</version>
         </dependency>
         <!--        kafka-->
         <dependency>
