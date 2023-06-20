@@ -1,4 +1,4 @@
-package com.lar.security.user.domain.repository.jpa;
+package com.lar.security.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
-package com.lar.security.user.domain.server;
+package com.lar.security.user.server;
 
-import com.lar.security.user.domain.repository.jpa.UserEntity;
-import com.lar.security.user.domain.repository.jpa.UserRepositoty;
+import com.lar.security.user.repository.UserEntity;
+import com.lar.security.user.repository.UserRepositoty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
