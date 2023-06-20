@@ -15,40 +15,41 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
+<!--        字典值翻译-->
         <dependency>
             <groupId>io.github.mryzhou</groupId>
             <artifactId>dict-man-spring-boot-starter</artifactId>
             <version>1.2.0</version>
         </dependency>
+        <!--        数据库驱动-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
             <version>8.0.31</version>
         </dependency>
+        <!--        校验-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
             <version>${boot.version}</version>
         </dependency>
+        <!--        excel-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>3.1.1</version>
         </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
-        </dependency>
+        <!--        主业务模块依赖认证授权模块-->
         <dependency>
             <groupId>com.lar</groupId>
             <artifactId>security-module</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+        <!--        监控-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-actuator</artifactId>-->
+        <!--        </dependency>-->
     </dependencies>
 
 </project>
