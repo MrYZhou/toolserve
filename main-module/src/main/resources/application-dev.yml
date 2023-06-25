@@ -109,14 +109,14 @@ api:
   xiaohua: 3607764bbcfbb9d0651884970d376468
 
 #日志配置
-logging:
-  config: classpath:logback-larry.xml
-  file:
-    path: d:/toolserver/logs/${spring.application.name}
-  level:
-    #    应用自身的日志等级
-    admin: info
-    org.springframework.web: error
+#logging:
+#  config: classpath:logback-larry.xml
+#  file:
+#    path: d:/toolserver/logs/${spring.application.name}
+#  level:
+#    #    应用自身的日志等级
+#    admin: info
+#    org.springframework.web: error
 
 
 #监控地址 127.0.0.1:8088/monitor
