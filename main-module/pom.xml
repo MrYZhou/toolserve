@@ -20,43 +20,26 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-<!--        字典值翻译-->
+        <!--        字典值翻译-->
         <dependency>
             <groupId>io.github.mryzhou</groupId>
             <artifactId>dict-man-spring-boot-starter</artifactId>
             <version>1.2.0</version>
         </dependency>
-        <!--        数据库驱动-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-            <version>8.0.31</version>
-        </dependency>
         <!--        校验-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <version>${boot.version}</version>
         </dependency>
         <!--        excel-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
-            <version>3.1.1</version>
         </dependency>
         <!--        主业务模块依赖认证授权模块-->
         <dependency>
             <groupId>com.lar</groupId>
             <artifactId>security-module</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-
-        <!--        虽然security模块导入了,但是common包也要在次引入。否则会找不到。因为依赖先后没法知道，会报错-->
-        <dependency>
-            <groupId>com.lar</groupId>
-            <artifactId>common-module</artifactId>
-            <version>${app.version}</version>
         </dependency>
         <!--        监控-->
         <!--        <dependency>-->
