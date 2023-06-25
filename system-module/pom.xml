@@ -22,7 +22,6 @@
         <dependency>
             <groupId>com.lar</groupId>
             <artifactId>common-module</artifactId>
-            <version>${app.version}</version>
         </dependency>
         <!--        kafka-->
         <dependency>

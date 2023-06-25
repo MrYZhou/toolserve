@@ -1,11 +1,10 @@
-package com.lar.security.user;
+package com.lar.security.outh;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import com.lar.security.user.model.UserLogin;
-import com.lar.security.user.model.UserQuery;
-import com.lar.security.user.repository.UserRepositoty;
-import com.lar.security.user.server.UserService;
+import com.lar.security.outh.model.UserLogin;
+import com.lar.security.outh.model.UserQuery;
+import com.lar.security.outh.server.UserService;
 import com.lar.util.RedisUtil;
 import com.lar.vo.AppResult;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +25,11 @@ public class UserController {
     // 复杂的业务推荐
     @Autowired
     private UserService userService;
-    // 简单的业务推荐
-    @Autowired
-    private UserRepositoty userRepositoty;
+
 
     @PostMapping("/info" )
     public AppResult<Object> getUser(@RequestBody UserQuery userQuery) {
-        return AppResult.success(userRepositoty.getUserByUserName(userQuery.getName()));
+        return AppResult.success(null);
     }
 
     // 测试登录，浏览器访问： http://localhost:8081/user/login?username=zhang&password=123456

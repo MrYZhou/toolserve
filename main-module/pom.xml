@@ -42,6 +42,10 @@
             <groupId>com.lar</groupId>
             <artifactId>security-module</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.lar</groupId>
+            <artifactId>system-module</artifactId>
+        </dependency>
         <!--        监控-->
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.boot</groupId>-->

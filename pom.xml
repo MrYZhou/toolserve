@@ -69,6 +69,12 @@
                 <artifactId>security-module</artifactId>
                 <version>${app.version}</version>
             </dependency>
+            <!--            系统模板-->
+            <dependency>
+                <groupId>com.lar</groupId>
+                <artifactId>system-module</artifactId>
+                <version>${app.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
