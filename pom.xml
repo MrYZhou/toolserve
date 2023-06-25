@@ -52,30 +52,11 @@
                 <version>${easyexcel.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-validation</artifactId>
-            </dependency>
-            <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis}</version>
             </dependency>
-            <dependency>
-                <groupId>com.lar</groupId>
-                <artifactId>system-module</artifactId>
-                <version>${app.version}</version>
-            </dependency>
 
-            <dependency>
-                <groupId>com.lar</groupId>
-                <artifactId>common-module</artifactId>
-                <version>${app.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.lar</groupId>
-                <artifactId>security-module</artifactId>
-                <version>${app.version}</version>
-            </dependency>
         </dependencies>
 
     </dependencyManagement>
@@ -83,22 +64,18 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.5</version>
-        </dependency>
+        <!--        json包-->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>snack3</artifactId>
             <version>3.2.57</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
     </dependencies>
     <!--    优先级比配置文件高,会从这个镜像站下载-->
@@ -123,19 +100,23 @@
         <!--        <finalName> ${project.artifactId}-${project.version}-</finalName>-->
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                    <mainClass>com.lar.MainModuleApplication</mainClass>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <!-- 跳过单元测试 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
