@@ -26,6 +26,13 @@
             <artifactId>dict-man-spring-boot-starter</artifactId>
             <version>1.2.0</version>
         </dependency>
+        <!--        数据库驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+            <version>8.0.31</version>
+        </dependency>
         <!--        校验-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
