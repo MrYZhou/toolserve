@@ -1,6 +1,7 @@
 package com.lar;
 
 import com.larry.service.DictService;
+import org.mybatis.spring.annotation.MapperScan;
 import org.noear.wood.DbContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -28,6 +29,7 @@ import java.util.Map;
 @EnableJpaRepositories(basePackages = {"com.lar"})
 // jpa实体扫描
 @EntityScan(basePackages = {"com.lar"})
+@MapperScan("com.lar")
 public class MainModuleApplication implements ApplicationListener<ApplicationStartedEvent> {
 
 //    // 初始化字典的数据

@@ -31,6 +31,7 @@
         <hutool>5.8.5</hutool>
         <fastjson.version>1.2.83</fastjson.version>
         <mybatis>3.5.3.1</mybatis>
+        <mybatis-flex.version>1.4.3</mybatis-flex.version>
     </properties>
 
     <dependencyManagement>
