@@ -88,6 +88,12 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+        <!--        工具类-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.5</version>
+        </dependency>
     </dependencies>
     <!--    优先级比配置文件高,会从这个镜像站下载,多个会按顺序查找-->
     <repositories>
