@@ -49,6 +49,14 @@
         <dependency>
             <groupId>com.lar</groupId>
             <artifactId>security-module</artifactId>
+            <version>${app.version}</version>
+        </dependency>
+
+        <!--        虽然security模块导入了,但是common包也要在次引入。否则会找不到。因为依赖先后没法知道，会报错-->
+        <dependency>
+            <groupId>com.lar</groupId>
+            <artifactId>common-module</artifactId>
+            <version>${app.version}</version>
         </dependency>
         <!--        监控-->
         <!--        <dependency>-->
