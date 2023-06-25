@@ -1,7 +1,7 @@
 package com.lar.book.model;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lar.book.BookEntity;
+import com.mybatisflex.core.paginate.Page;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
