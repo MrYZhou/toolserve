@@ -20,12 +20,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--        字典值翻译-->
-        <dependency>
-            <groupId>io.github.mryzhou</groupId>
-            <artifactId>dict-man-spring-boot-starter</artifactId>
-            <version>1.2.0</version>
-        </dependency>
         <!--        数据库驱动-->
         <dependency>
             <groupId>mysql</groupId>
