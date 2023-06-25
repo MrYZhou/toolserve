@@ -3,8 +3,7 @@ package com.lar.book;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import lombok.Data;
@@ -14,23 +13,23 @@ import java.time.LocalDateTime;
 @Data
 @Table("book")
 public class BookEntity {
-    @TableField("name")
-    @ExcelProperty("名字")
-    public String name;
     @Id
     @ExcelIgnore
     private String id;
 
+    @Column("name")
+    @ExcelProperty("名字")
+    public String name;
 
-    @TableField("type")
+    @Column("type")
     private Integer type;
 
 
-    @TableField(value = "tag", fill = FieldFill.INSERT)
+    @Column(value = "tag")
     private String tag;
-    @TableField(value = "createTime", fill = FieldFill.INSERT)
+    @Column(value = "createTime")
     private LocalDateTime createTime;
-    @TableField(value = "modifyTime", fill = FieldFill.INSERT)
+    @Column(value = "modifyTime")
     private LocalDateTime modifyTime;
 
 

@@ -45,10 +45,14 @@ public class BookController {
 //        wrapper.lambda().eq(BookEntity::getName, page.getName());
 //        BookPage info = bookService.page(page, wrapper);
 
-
-        QueryWrapper query = new QueryWrapper();
-        query.where("name=" + page.getName());
-        Page<BookEntity> paginate = bookMapper.paginate(page.getPageNumber(), page.getPageSize(), query);
+        Page<BookEntity> paginate = null;
+        try {
+            QueryWrapper query = new QueryWrapper();
+            query.where("name=" + page.getName());
+            paginate = bookMapper.paginate(page.getPageNumber(), page.getPageSize(), query);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         return AppResult.success(paginate);
     }
