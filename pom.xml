@@ -14,9 +14,10 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.6</version>
+        <version>3.1.1</version>
         <relativePath/>
     </parent>
+
     <groupId>com.lar</groupId>
     <artifactId>toolbox</artifactId>
     <version>3.0.0</version>
@@ -24,16 +25,12 @@
     <description>toolbox-serve</description>
     <properties>
         <app.version>3.0.0</app.version>
-        <common.version>3.0.0</common.version>
         <java.version>17</java.version>
-        <test.version>2.6.6</test.version>
-        <boot.version>3.0.6</boot.version>
-        <websocket.version>2.7.3</websocket.version>
-        <easyexcel.version>3.1.1</easyexcel.version>
+        <boot.version>3.1.1</boot.version>
+        <easyexcel.version>3.3.2</easyexcel.version>
         <hutool>5.8.5</hutool>
         <fastjson.version>1.2.83</fastjson.version>
         <mybatis>3.5.3.1</mybatis>
-        <validation.version>2.7.3</validation.version>
     </properties>
 
     <dependencyManagement>
@@ -66,18 +63,18 @@
             <dependency>
                 <groupId>com.lar</groupId>
                 <artifactId>system-module</artifactId>
-                <version>${common.version}</version>
+                <version>${app.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.lar</groupId>
                 <artifactId>common-module</artifactId>
-                <version>${common.version}</version>
+                <version>${app.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.lar</groupId>
                 <artifactId>security-module</artifactId>
-                <version>${common.version}</version>
+                <version>${app.version}</version>
             </dependency>
         </dependencies>
 
@@ -104,13 +101,12 @@
             <version>3.2.57</version>
         </dependency>
     </dependencies>
-
+    <!--    优先级比配置文件高,会从这个镜像站下载-->
     <repositories>
         <repository>
-            <id>central</id>
+            <id>nexus-tencentyun</id>
             <name>aliyun maven</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <layout>default</layout>
+            <url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
             <!-- 是否开启发布版构件下载 -->
             <releases>
                 <enabled>true</enabled>

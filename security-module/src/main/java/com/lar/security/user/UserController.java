@@ -1,13 +1,12 @@
 package com.lar.security.user;
 
-import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.lar.security.user.model.UserLogin;
 import com.lar.security.user.model.UserQuery;
 import com.lar.security.user.repository.UserRepositoty;
 import com.lar.security.user.server.UserService;
-import com.lar.util.RedisMan;
+import com.lar.util.RedisUtil;
 import com.lar.vo.AppResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/user" )
 @Slf4j
 public class UserController {
     @Autowired
-    RedisMan redisMan;
+    RedisUtil redisUtil;
     // 复杂的业务推荐
     @Autowired
     private UserService userService;
@@ -37,12 +38,14 @@ public class UserController {
     // 测试登录，浏览器访问： http://localhost:8081/user/login?username=zhang&password=123456
     @PostMapping("/login" )
     public AppResult<Object> doLogin(@RequestBody UserLogin user) {
-
+        // 从数据库拿
         String encrptPassword = user.getPassword();
         if ("zhang".equals(user.getUsername()) && "123456".equals(user.getPassword())) {
             StpUtil.login(10001);
-            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
-            return AppResult.success(tokenInfo);
+            String token = StpUtil.getTokenValue();
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", token);
+            return AppResult.success(map);
         }
         return AppResult.fail("登录失败" );
     }
