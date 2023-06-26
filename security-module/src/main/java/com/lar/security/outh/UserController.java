@@ -9,7 +9,6 @@ import com.lar.security.outh.util.PasswordUtil;
 import com.lar.util.RedisUtil;
 import com.lar.vo.AppResult;
 import lombok.extern.slf4j.Slf4j;
-import org.noear.wood.DbContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,9 +28,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private DbContext dbContext;
-
     @PostMapping("/info")
     public AppResult<Object> getUser(@RequestBody UserQuery userQuery) {
         return AppResult.success(null);
@@ -40,9 +36,7 @@ public class UserController {
     // 测试登录，浏览器访问： http://localhost:8081/user/login?username=zhang&password=123456
     @PostMapping("/login")
     public AppResult<Object> doLogin(@RequestBody UserView user) throws SQLException {
-        UserView userView = dbContext.sql("select * from sys_user where username=?",
-                        user.getUsername())
-                .getItem(UserView.class);
+        UserView userView = userService.getUserByUserName(user.getUsername());
         String encrptPassword = PasswordUtil.encode(user.getPassword(), userView.getSalt());
         if (userView != null && encrptPassword.equals(userView.getPassword())) {
             StpUtil.login(userView.getId());
