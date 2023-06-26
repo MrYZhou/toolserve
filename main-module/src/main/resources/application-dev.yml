@@ -68,10 +68,6 @@ sa-token:
   #关闭控制台banner
   is-print: off
 
-#业务相关
-api:
-  yangli: 3204cdf5a2a0c36778c880a461b6ea5d
-  xiaohua: 3607764bbcfbb9d0651884970d376468
 
 #日志配置
 #logging:
