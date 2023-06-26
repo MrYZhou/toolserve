@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.lar.security.outh.model.UserQuery;
 import com.lar.security.outh.model.UserView;
+import com.lar.security.outh.repository.UserEntity;
 import com.lar.security.outh.server.UserService;
 import com.lar.security.outh.util.PasswordUtil;
 import com.lar.util.RedisUtil;
@@ -36,10 +37,10 @@ public class UserController {
     // 测试登录，浏览器访问： http://localhost:8081/user/login?username=zhang&password=123456
     @PostMapping("/login")
     public AppResult<Object> doLogin(@RequestBody UserView user) throws SQLException {
-        UserView userView = userService.getUserByUserName(user.getUsername());
-        String encrptPassword = PasswordUtil.encode(user.getPassword(), userView.getSalt());
-        if (userView != null && encrptPassword.equals(userView.getPassword())) {
-            StpUtil.login(userView.getId());
+        UserEntity userEntity = userService.getUserByUserName(user.getUsername());
+        String encryptPassword = PasswordUtil.encode(user.getPassword(), userEntity.getSalt());
+        if (encryptPassword.equals(userEntity.getPassword())) {
+            StpUtil.login(userEntity.getId());
             String token = StpUtil.getTokenValue();
             HashMap<String, String> map = new HashMap<>();
             map.put("token", token);

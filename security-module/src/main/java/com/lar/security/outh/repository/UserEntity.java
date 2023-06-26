@@ -25,14 +25,28 @@ public class UserEntity {
     private String email;
     /** 手机号 */
     private String phone;
-    /** 用户性别（0男，1女，2未知） */
+    /**
+     * 用户性别（0男，1女，2未知）
+     */
     private String sex;
-    /** 头像 */
+    /**
+     * 头像
+     */
     private String avatar;
-    /** 用户类型（0管理员，1普通用户） */
+    /**
+     * 用户类型（0管理员，1普通用户）
+     */
     private String userType;
-    /** 创建时间 */
+    /**
+     * 创建时间
+     */
     private Date createTime;
-    /** 更新时间 */
+    /**
+     * 更新时间
+     */
     private Date updateTime;
+    /**
+     * 盐值
+     */
+    private String salt;
 }
