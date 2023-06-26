@@ -9,4 +9,6 @@ import lombok.Data;
 public class UserView {
   private String id;
   private String username;
+  private String password;
+  private String salt;
 }
