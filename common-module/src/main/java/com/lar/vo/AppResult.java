@@ -20,8 +20,6 @@ public class AppResult<T> {
         this.msg = msg;
     }
 
-    // public AppResult() {}
-
     public static <T> AppResult<T> success() {
         AppResult<T> jsonData = new AppResult<T>();
         jsonData.setCode(200);
