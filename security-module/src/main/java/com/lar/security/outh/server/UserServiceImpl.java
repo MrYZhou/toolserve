@@ -1,6 +1,6 @@
 package com.lar.security.outh.server;
 
-import com.lar.security.outh.model.UserView;
+import com.lar.security.outh.repository.UserEntity;
 import org.noear.wood.DbContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +16,9 @@ public class UserServiceImpl implements UserService {
     private DbContext dbContext;
 
     @Override
-    public UserView getUserByUserName(String username) {
+    public UserEntity getUserByUserName(String username) {
         try {
-            return dbContext.sql("select * from sys_user where username=?", username).getItem(UserView.class);
+            return dbContext.sql("select * from sys_user where username=?", username).getItem(UserEntity.class);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
