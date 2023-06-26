@@ -33,10 +33,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        <!--orm jpa-->
+        <!--		orm-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>org.noear</groupId>
+            <artifactId>wood</artifactId>
+            <version>1.1.5</version>
         </dependency>
         <!--file操作包-->
         <dependency>
