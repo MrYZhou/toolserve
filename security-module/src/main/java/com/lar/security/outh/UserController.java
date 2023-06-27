@@ -72,6 +72,28 @@ public class UserController {
     @RequestMapping("logout")
     public SaResult logout() {
         StpUtil.logout();
+        StpUtil.logout(10001);                    // 强制指定账号注销下线
+        StpUtil.logout(10001, "PC");              // 强制指定账号指定端注销下线
+        StpUtil.logoutByTokenValue("token");      // 强制指定 Token 注销下线
+
+        log.info("注销操作");
+        return SaResult.ok();
+    }
+
+    /**
+     * 强制注销 和 踢人下线 的区别在于：
+     * 强制注销等价于对方主动调用了注销方法，再次访问会提示：Token无效。
+     * 踢人下线不会清除Token信息，而是将其打上特定标记，再次访问会提示：Token已被踢下线。
+     *
+     * @return
+     */
+    @RequestMapping("kickout")
+    public SaResult kickout() {
+        StpUtil.kickout(10001);                    // 将指定账号踢下线
+        StpUtil.kickout(10001, "PC");              // 将指定账号指定端踢下线
+        StpUtil.kickoutByTokenValue("token");      // 将指定 Token 踢下线
+
+
         log.info("注销操作");
         return SaResult.ok();
     }
