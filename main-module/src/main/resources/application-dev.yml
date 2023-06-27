@@ -69,6 +69,7 @@ sa-token:
   is-print: off
 
 xxl:
+  open: false
   job:
     # 执行器通讯TOKEN [选填]：非空时启用；
     accessToken: dasj2nd81jf9asjdkl5jk234
