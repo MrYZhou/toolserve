@@ -1,42 +1,42 @@
 package com.lar.file;
 
-import com.lar.vo.AppResult;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
 @RestController
-@RequestMapping(value = "/file")
+@RequestMapping(value = "/file" )
 @AllArgsConstructor
 public class FileController {
     @Autowired
     private FileService fileService;
 
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AppResult<Object> upload(@RequestPart("file") MultipartFile multipartFile, HttpServletRequest httpServletRequest) {
+//    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public AppResult<Object> upload(@RequestPart("file") MultipartFile multipartFile, HttpServletRequest httpServletRequest) {
+//
+//        try {
+//
+//            return fileService.upload(multipartFile, httpServletRequest);
+//        } catch (Exception e) {
+//            return AppResult.fail("上传失败");
+//        }
+//    }
 
-        try {
-
-            return fileService.upload(multipartFile, httpServletRequest);
-        } catch (Exception e) {
-            return AppResult.fail("上传失败");
-        }
-    }
-
-    @GetMapping("/downloadFile")
+    @GetMapping("/downloadFile" )
     public String downloadFile(String fileVersionId) {
         return "";
     }
 
 
-    @RequestMapping(value = "/preview",produces = MediaType.IMAGE_JPEG_VALUE)
+    @RequestMapping(value = "/preview" , produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] preview(String fileVersionId) throws IOException {
 

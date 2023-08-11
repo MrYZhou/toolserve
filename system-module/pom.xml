@@ -12,7 +12,13 @@
     <version>3.0.0</version>
     <description>system-module</description>
     <dependencies>
-<!--        文件存储-->
+        <dependency>
+            <groupId>cn.xuyanwu</groupId>
+            <artifactId>spring-file-storage</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <!--        文件存储-->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
