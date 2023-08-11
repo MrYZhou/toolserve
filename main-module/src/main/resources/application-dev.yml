@@ -1,16 +1,16 @@
 server:
+  #  端口
   port: 8081
+  #  安全关闭应用
   shutdown: graceful
 #  字典翻译
 #dictman:
 #  primaryKey: id    #默认表主键是解析id
 #  resultList: data.records #默认data.list
+
 spring:
-  main:
-    # bean懒加载
-    lazy-initialization: false
   lifecycle:
-    timeout-per-shutdown-phase: 30s #关机缓冲时间,默认30s
+    timeout-per-shutdown-phase: 60s #关机缓冲时间,默认30s
   servlet:
     multipart: #文件传输配置
       max-file-size: 100MB #单个数据大小限制
@@ -33,6 +33,7 @@ spring:
   jackson: #序列化和反序列化json框架
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  #   数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    此处须配置自己的数据库地址和端口，否则启动失败
@@ -47,7 +48,7 @@ spring:
   #    bootstrap-servers: localhost:9092
   #    consumer.group-id: myGroup
 
-
+  #  参考：https://spring-file-storage.xuyanwu.cn/
   file-storage: #文件存储配置
     default-platform: local-plus #默认使用的存储平台
     thumbnail-suffix: ".min.jpg" #缩略图后缀，例如【.min.jpg】【.png】
@@ -79,7 +80,7 @@ sa-token:
   is-log: false
   #关闭控制台banner
   is-print: off
-
+# 定时任务
 xxl:
   open: false
   job:
