@@ -1,5 +1,6 @@
 package com.lar;
 
+import cn.xuyanwu.spring.file.storage.spring.EnableFileStorage;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +17,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 // 允许异步
 @EnableAsync
+//存储
+@EnableFileStorage
 public class MainModuleApplication implements ApplicationListener<ApplicationStartedEvent> {
 
 
