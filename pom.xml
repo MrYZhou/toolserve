@@ -28,11 +28,11 @@
         <java.version>17</java.version>
         <boot.version>3.1.1</boot.version>
         <easyexcel.version>3.3.2</easyexcel.version>
-        <hutool>5.8.5</hutool>
+        <hutool.version>5.8.5</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
-        <mybatis>3.5.3.1</mybatis>
-        <mybatis-flex.version>1.4.3</mybatis-flex.version>
+        <mybatis.version>3.5.3.1</mybatis.version>
         <xxl.version>2.4.0</xxl.version>
+        <snack3.version>3.2.57</snack3.version>
     </properties>
 
     <dependencyManagement>
@@ -81,8 +81,25 @@
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl.version}</version>
             </dependency>
-        </dependencies>
 
+            <!--        工具类-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!--        json包-->
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>snack3</artifactId>
+                <version>${snack3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
     <dependencies>
         <dependency>
@@ -90,23 +107,8 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!--        json包-->
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>snack3</artifactId>
-            <version>3.2.57</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
-        <!--        工具类-->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.5</version>
-        </dependency>
+
+
     </dependencies>
     <repositories>
         <repository>
