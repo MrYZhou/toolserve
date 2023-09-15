@@ -1,6 +1,6 @@
-package com.lar.security.outh.server;
+package com.lar.oauth.server;
 
-import com.lar.security.outh.repository.UserEntity;
+import com.lar.oauth.repository.UserEntity;
 import org.noear.wood.DbContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

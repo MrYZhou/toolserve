@@ -1,4 +1,4 @@
-package com.lar.security.outh.repository;
+package com.lar.oauth.repository;
 
 import lombok.Data;
 

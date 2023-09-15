@@ -1,12 +1,12 @@
-package com.lar.security.outh;
+package com.lar.oauth;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import com.lar.security.outh.model.UserQuery;
-import com.lar.security.outh.model.UserView;
-import com.lar.security.outh.repository.UserEntity;
-import com.lar.security.outh.server.UserService;
-import com.lar.security.outh.util.PasswordUtil;
+import com.lar.oauth.model.UserQuery;
+import com.lar.oauth.model.UserView;
+import com.lar.oauth.repository.UserEntity;
+import com.lar.oauth.server.UserService;
+import com.lar.util.PasswordUtil;
 import com.lar.util.RedisUtil;
 import com.lar.vo.AppResult;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/user")
 @Slf4j
-public class UserController {
+public class OAuthController {
     @Autowired
     RedisUtil redisUtil;
     // 复杂的业务推荐
