@@ -1,4 +1,4 @@
-package com.lar.oauth.model;
+package com.lar.user.model;
 
 import lombok.Data;
 
