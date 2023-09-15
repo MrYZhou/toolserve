@@ -1,6 +1,6 @@
-package com.lar.oauth.server;
+package com.lar.user.server;
 
-import com.lar.oauth.repository.UserEntity;
+import com.lar.user.repository.UserEntity;
 import org.noear.wood.DbContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

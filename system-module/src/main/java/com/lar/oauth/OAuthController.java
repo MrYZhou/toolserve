@@ -2,10 +2,10 @@ package com.lar.oauth;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import com.lar.oauth.model.UserQuery;
-import com.lar.oauth.model.UserView;
-import com.lar.oauth.repository.UserEntity;
-import com.lar.oauth.server.UserService;
+import com.lar.user.model.UserQuery;
+import com.lar.user.model.UserView;
+import com.lar.user.repository.UserEntity;
+import com.lar.user.server.UserService;
 import com.lar.util.PasswordUtil;
 import com.lar.util.RedisUtil;
 import com.lar.vo.AppResult;
