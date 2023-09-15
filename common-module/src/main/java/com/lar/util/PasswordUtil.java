@@ -1,4 +1,4 @@
-package com.lar.security.outh.util;
+package com.lar.util;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
 
