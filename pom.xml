@@ -131,7 +131,14 @@
             <url>https://repo.maven.apache.org/maven2</url>
         </repository>
     </repositories>
-
+    <!--    maven命令需要的插件也走国内镜像库-->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <build>
         <!--                <finalName> ${project.artifactId}-${project.version}-</finalName>-->
