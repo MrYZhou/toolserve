@@ -6,8 +6,8 @@
 
     <modules>
         <module>common-module</module>
-        <module>main-module</module>
         <module>system-module</module>
+        <module>main-module</module>
     </modules>
 
     <parent>
