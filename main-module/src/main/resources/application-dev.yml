@@ -80,6 +80,16 @@ sa-token:
   is-log: false
   #关闭控制台banner
   is-print: off
+  sso:
+    # 打开模式三（使用Http请求校验ticket）
+    is-http: true
+    # SSO-Server端 ticket校验地址
+    check-ticket-url: http://sa-sso-server.com:9000/sso/checkTicket
+
+forest:
+  # 关闭 forest 请求日志打印
+  log-enabled: false
+
 # 定时任务
 xxl:
   open: false
