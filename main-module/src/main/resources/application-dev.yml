@@ -117,6 +117,7 @@ xxl:
       logRetentionDays: 30
 #短信验证码,参考https://wind.kim/
 sms:
+  isPrint: false
   alibaba:
     #阿里云的accessKey
     accessKeyId: 您的accessKey
