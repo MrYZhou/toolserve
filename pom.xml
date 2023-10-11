@@ -7,6 +7,7 @@
     <modules>
         <module>common-module</module>
         <module>system-module</module>
+        <module>security-module</module>
         <module>main-module</module>
     </modules>
 
@@ -63,6 +64,12 @@
                 <artifactId>common-module</artifactId>
                 <version>${app.version}</version>
             </dependency>
+            <!--            安全模块依赖版本-->
+            <dependency>
+                <groupId>com.lar</groupId>
+                <artifactId>security-module</artifactId>
+                <version>${app.version}</version>
+            </dependency>
             <!--            系统模板-->
             <dependency>
                 <groupId>com.lar</groupId>
@@ -98,6 +105,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
 

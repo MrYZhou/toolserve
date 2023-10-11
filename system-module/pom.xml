@@ -37,6 +37,12 @@
             <groupId>com.lar</groupId>
             <artifactId>common-module</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.lar</groupId>
+            <artifactId>security-module</artifactId>
+        </dependency>
+
         <!--        kafka-->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
