@@ -18,7 +18,11 @@
             <artifactId>sms4j-spring-boot-starter</artifactId>
             <version>2.2.0</version>
         </dependency>
-
+        <!--        excel-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+        </dependency>
         <!--        文件存储-->
         <dependency>
             <groupId>cn.xuyanwu</groupId>
