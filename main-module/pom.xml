@@ -33,11 +33,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-        <!--        excel-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>easyexcel</artifactId>
-        </dependency>
+        <!--       系统模块-->
         <dependency>
             <groupId>com.lar</groupId>
             <artifactId>system-module</artifactId>
