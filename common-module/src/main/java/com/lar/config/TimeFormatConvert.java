@@ -28,11 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Configuration
-public class LocalDateTimeFormatConfig {
-    private static final String DEFAULT_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
-    private static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd";
-    private static final String DEFAULT_TIME_PATTERN = "HH:mm:ss";
-
+public class TimeFormatConvert {
     @Bean
     @Primary
     public ObjectMapper objectMapper() {
@@ -40,12 +36,12 @@ public class LocalDateTimeFormatConfig {
         ObjectMapper objectMapper = new ObjectMapper();
         JavaTimeModule javaTimeModule = new JavaTimeModule();
 
-        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_PATTERN)));
-        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN)));
-        javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_TIME_PATTERN)));
-        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_PATTERN)));
-        javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN)));
-        javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DEFAULT_TIME_PATTERN)));
+        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(TimeFormat.DateTime)));
+        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(TimeFormat.Date)));
+        javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(TimeFormat.Time)));
+        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(TimeFormat.DateTime)));
+        javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(TimeFormat.Date)));
+        javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(TimeFormat.Time)));
 
         javaTimeModule.addSerializer(Date.class, new DateSerializer());
         javaTimeModule.addDeserializer(Date.class, new DateDeserializer());
@@ -54,10 +50,16 @@ public class LocalDateTimeFormatConfig {
         return objectMapper;
     }
 
+    public interface TimeFormat {
+        String DateTime = "yyyy-MM-dd HH:mm:ss";
+        String Date = "yyyy-MM-dd";
+        String Time = "HH:mm:ss";
+    }
+
     public static class DateSerializer extends JsonSerializer<Date> {
         @Override
         public void serialize(Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            SimpleDateFormat formatter = new SimpleDateFormat(DEFAULT_DATE_TIME_PATTERN);
+            SimpleDateFormat formatter = new SimpleDateFormat(TimeFormat.DateTime);
             String formattedDate = formatter.format(date);
             jsonGenerator.writeString(formattedDate);
         }
