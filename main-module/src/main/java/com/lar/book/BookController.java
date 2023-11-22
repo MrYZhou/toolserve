@@ -2,6 +2,8 @@ package com.lar.book;
 
 import com.lar.vo.AppResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +22,11 @@ public class BookController {
         bookModel.setLocalDateTime(LocalDateTime.now());
         bookModel.setLocalDate(LocalDate.now());
         bookModel.setLocalTime(LocalTime.now());
+        return AppResult.success(bookModel);
+    }
+    @PostMapping
+    public AppResult<?> save(@RequestBody BookModel bookModel){
+
         return AppResult.success(bookModel);
     }
 }
