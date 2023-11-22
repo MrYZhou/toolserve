@@ -86,6 +86,7 @@ public class TimeFormatConvert {
                     String pattern = declaredField.getAnnotation(JsonFormat.class).pattern();
                     if (pattern != null && !"".equals(pattern)) {
                         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+                        formatter.setTimeZone(TimeZone.getDefault());
                         gen.writeString(formatter.format(value));
                         return true;
                     }
