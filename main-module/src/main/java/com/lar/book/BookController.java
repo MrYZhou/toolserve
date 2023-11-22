@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @RestController
@@ -16,6 +18,8 @@ public class BookController {
         BookModel bookModel = new BookModel();
         bookModel.setDate(new Date());
         bookModel.setLocalDateTime(LocalDateTime.now());
+        bookModel.setLocalDate(LocalDate.now());
+        bookModel.setLocalTime(LocalTime.now());
         return AppResult.success(bookModel);
     }
 }
