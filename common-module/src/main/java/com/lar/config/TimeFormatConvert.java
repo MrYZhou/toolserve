@@ -1,6 +1,5 @@
 package com.lar.config;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -15,6 +14,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Configuration
 public class TimeFormatConvert {
@@ -60,20 +61,30 @@ public class TimeFormatConvert {
         @Override
         public void serialize(Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             SimpleDateFormat formatter = new SimpleDateFormat(TimeFormat.DateTime);
+            formatter.setLenient(true);
+            formatter.setTimeZone(TimeZone.getDefault());
             String formattedDate = formatter.format(date);
             jsonGenerator.writeString(formattedDate);
         }
     }
 
     public static class DateDeserializer extends JsonDeserializer<Date> {
+        @SneakyThrows
         @Override
-        public Date deserialize(JsonParser p, DeserializationContext deserializationContext) throws IOException, JacksonException {
-            long timestamp = p.getValueAsLong();
-            if (timestamp > 0) {
-                return new Date(timestamp);
-            } else {
+        public Date deserialize(JsonParser p, DeserializationContext deserializationContext) {
+            if (p.getText() == null || "".equals(p.getText().trim())) {
                 return null;
             }
+            SimpleDateFormat formatter = new SimpleDateFormat(TimeFormat.DateTime);
+            formatter.setLenient(true);
+            formatter.setTimeZone(TimeZone.getDefault());
+            if(p.getText().length()<=10){
+                formatter = new SimpleDateFormat(TimeFormat.Date);
+                if (p.getText().charAt(4) != '-') {
+                    formatter = new SimpleDateFormat(TimeFormat.Time);
+                }
+            }
+            return formatter.parse(p.getText());
         }
     }
 
