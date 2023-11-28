@@ -16,7 +16,7 @@ public class HttpUtil {
      */
     public static String callHttpRequest(String path, String requestMethod, String requestParams, Map headerObject, String token) {
         HttpRequest httpRequest = HttpRequest.post(path);
-        if ("GET".equals(requestMethod)) httpRequest = HttpRequest.get(path);
+        if ("GET".equalsIgnoreCase(requestMethod)) httpRequest = HttpRequest.get(path);
         httpRequest.header(Header.AUTHORIZATION, token)
                 .body(requestParams)
                 .timeout(20000);
