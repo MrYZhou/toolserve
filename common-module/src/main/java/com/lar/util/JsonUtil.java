@@ -2,7 +2,7 @@ package com.lar.util;
 
 import org.noear.snack.ONode;
 
-public class CommonUtil {
+public class JsonUtil {
     public static <T> T toBean(Object obj, Class<?> tClass) {
         return ONode.deserialize(ONode.stringify(obj), tClass);
     }
