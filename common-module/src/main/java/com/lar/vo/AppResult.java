@@ -1,5 +1,7 @@
 package com.lar.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +9,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class AppResult<T> {
 
     private Integer code;
@@ -15,10 +18,6 @@ public class AppResult<T> {
 
     private T data;
 
-    public AppResult(Integer code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
 
     public static <T> AppResult<T> success() {
         AppResult<T> jsonData = new AppResult<T>();
