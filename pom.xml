@@ -29,6 +29,7 @@
         <easyexcel.version>3.3.2</easyexcel.version>
         <hutool.version>5.8.5</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
+        <wood.version>1.2.6</wood.version>
         <mybatisplus.version>3.5.4.1</mybatisplus.version>
         <xxl.version>2.4.0</xxl.version>
         <snack3.version>3.2.57</snack3.version>
@@ -56,11 +57,18 @@
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
             </dependency>
+<!--            orm-->
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>wood.plus</artifactId>
+                <version>${wood.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatisplus.version}</version>
             </dependency>
+
             <!--            基础模块依赖版本-->
             <dependency>
                 <groupId>com.lar</groupId>
