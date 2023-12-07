@@ -1,6 +1,7 @@
 package com.lar.config;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -31,12 +32,23 @@ import java.util.Date;
 import java.util.TimeZone;
 
 @Configuration
-public class TimeFormatConvert {
+public class ObjectMapperConfig {
+
+    ObjectMapper objectMapper = new ObjectMapper();
     @Bean
     @Primary
     public ObjectMapper objectMapper() {
+        this.setJavaTime(objectMapper);
+        this.setNullKey(objectMapper);
+        return objectMapper;
+    }
+    // 处理空的key不返回
+    private void setNullKey(ObjectMapper objectMapper) {
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    }
+    // 处理日期序列化问题
+    private void setJavaTime(ObjectMapper objectMapper) {
         // 序列化为时间字符串给前端,和前端时间字符串反序列化为日期对象
-        ObjectMapper objectMapper = new ObjectMapper();
         JavaTimeModule javaTimeModule = new JavaTimeModule();
 
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(TimeFormat.DateTime)));
@@ -48,9 +60,7 @@ public class TimeFormatConvert {
 
         javaTimeModule.addSerializer(Date.class, new DateSerializer());
         javaTimeModule.addDeserializer(Date.class, new DateDeserializer());
-
         objectMapper.registerModule(javaTimeModule);
-        return objectMapper;
     }
 
     public interface TimeFormat {
