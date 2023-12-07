@@ -37,8 +37,7 @@
         <!--		orm-->
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>wood</artifactId>
-            <version>1.1.5</version>
+            <artifactId>wood.plus</artifactId>
         </dependency>
         <!--file操作包-->
         <dependency>
