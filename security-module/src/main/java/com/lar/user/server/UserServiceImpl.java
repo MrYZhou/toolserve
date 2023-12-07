@@ -13,14 +13,20 @@ public class UserServiceImpl implements UserService {
 
 
     @Autowired
-    private DbContext dbContext;
+    private DbContext db;
+
 
     @Override
     public UserEntity getUserByUserName(String username) {
         try {
-            return dbContext.sql("select * from sys_user where username=?", username).getItem(UserEntity.class);
+            return db.sql("select * from sys_user where username=?", username).getItem(UserEntity.class);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    @Override
+    public Long insertUser(UserEntity userEntity) {
+
+        return db.mapperBase(UserEntity.class).insert(userEntity, true);
     }
 }
