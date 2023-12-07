@@ -3,6 +3,7 @@ package com.lar.oauth;
 import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.lar.enums.AppConfig;
 import com.lar.user.model.UserQuery;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -35,6 +37,8 @@ public class AuthController {
     // 复杂的业务推荐
     @Autowired
     private UserService userService;
+    @Autowired
+    private DbContext db;
 
     @PostMapping("/info" )
     public AppResult<Object> getUser(@RequestBody UserQuery userQuery) {
@@ -60,7 +64,13 @@ public class AuthController {
     public AppResult<?> registe(@RequestBody UserView user) throws SQLException {
         UserEntity entity = JsonUtil.toBean(user, UserEntity.class);
         entity.setPassword(PasswordUtil.encode(entity.getPassword(), AppConfig.SALT));
-        entity.setId(RandomUtil.randomNumbers(10));
+        entity.setId(IdUtil.getSnowflakeNextIdStr());
+        List<UserEntity> users = db.mapperBase(UserEntity.class).selectByMap(new HashMap<>() {{
+            put("username", user.getUsername());
+        }});
+        if(users!=null && users.size()>0){
+            return AppResult.fail("账户已注册");
+        }
         userService.insertUser(entity);
         return AppResult.success("注册成功");
     }
