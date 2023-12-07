@@ -49,7 +49,7 @@ public class AuthController {
     @PostMapping("/login" )
     public AppResult<Object> doLogin(@RequestBody UserView user) throws SQLException {
         UserEntity userEntity = userService.getUserByUserName(user.getUsername());
-        String encryptPassword = PasswordUtil.encode(user.getPassword(), userEntity.getSalt());
+        String encryptPassword = PasswordUtil.encode(user.getPassword(), AppConfig.SALT);
         if (encryptPassword.equals(userEntity.getPassword())) {
             StpUtil.login(userEntity.getId());
             String token = StpUtil.getTokenValue();
@@ -92,11 +92,10 @@ public class AuthController {
     @RequestMapping("logout" )
     public SaResult logout() {
         StpUtil.logout();
-        StpUtil.logout(10001);                    // 强制指定账号注销下线
-        StpUtil.logout(10001, "PC" );              // 强制指定账号指定端注销下线
-        StpUtil.logoutByTokenValue("token" );      // 强制指定 Token 注销下线
+//        StpUtil.logout(StpUtil.getLoginId());                    // 强制指定账号注销下线
+//        StpUtil.logout(StpUtil.getLoginId(), "PC" );              // 强制指定账号指定端注销下线
+//        StpUtil.logoutByTokenValue("token" );      // 强制指定 Token 注销下线
 
-        log.info("注销操作" );
         return SaResult.ok();
     }
 
