@@ -1,6 +1,8 @@
 package com.lar.user.repository;
 
 import lombok.Data;
+import org.noear.wood.annotation.PrimaryKey;
+import org.noear.wood.annotation.Table;
 
 import java.util.Date;
 
@@ -9,14 +11,16 @@ import java.util.Date;
  */
 
 @Data
+@Table("sys_user")
 public class UserEntity {
 
     /** 主键 */
+    @PrimaryKey
     private String id;
     /** 用户名 */
-    private String userName;
+    private String username;
     /** 昵称 */
-    private String nickName;
+    private String nickname;
     /** 密码 */
     private String password;
     /** 账号状态（0正常 1停用） */

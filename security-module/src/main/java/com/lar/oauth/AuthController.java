@@ -1,16 +1,22 @@
 package com.lar.oauth;
 
+import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
+import cn.hutool.core.util.RandomUtil;
+import com.lar.enums.AppConfig;
 import com.lar.user.model.UserQuery;
 import com.lar.user.model.UserView;
 import com.lar.user.repository.UserEntity;
 import com.lar.user.server.UserService;
+import com.lar.util.JsonUtil;
 import com.lar.util.PasswordUtil;
 import com.lar.util.RedisUtil;
 import com.lar.vo.AppResult;
 import lombok.extern.slf4j.Slf4j;
+import org.noear.wood.DbContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/user" )
@@ -49,10 +56,13 @@ public class AuthController {
         return AppResult.fail("登录失败" );
     }
 
-    @PostMapping("/registe" )
-    public AppResult<Object> registe(@RequestBody UserView user) throws SQLException {
-
-        return AppResult.success();
+    @PostMapping("/register" )
+    public AppResult<?> registe(@RequestBody UserView user) throws SQLException {
+        UserEntity entity = JsonUtil.toBean(user, UserEntity.class);
+        entity.setPassword(PasswordUtil.encode(entity.getPassword(), AppConfig.SALT));
+        entity.setId(RandomUtil.randomNumbers(10));
+        userService.insertUser(entity);
+        return AppResult.success("注册成功");
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
