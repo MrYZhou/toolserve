@@ -19,7 +19,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -34,10 +33,9 @@ import java.util.TimeZone;
 @Configuration
 public class ObjectMapperConfig {
 
-    ObjectMapper objectMapper = new ObjectMapper();
     @Bean
-    @Primary
     public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
         this.setJavaTime(objectMapper);
         this.setNullKey(objectMapper);
         return objectMapper;
