@@ -7,7 +7,6 @@
         <groupId>com.lar</groupId>
         <artifactId>toolbox</artifactId>
         <version>3.0.0</version>
-        <relativePath/>
     </parent>
     <artifactId>main-module</artifactId>
     <version>3.0.0</version>

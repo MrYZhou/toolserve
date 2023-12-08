@@ -9,6 +9,7 @@ server:
 #  resultList: data.records #默认data.list
 
 spring:
+  main.allow-bean-definition-overriding: true
   lifecycle:
     timeout-per-shutdown-phase: 60s #关机缓冲时间,默认30s
   servlet:
