@@ -5,13 +5,13 @@
     <parent>
         <artifactId>toolbox</artifactId>
         <groupId>com.lar</groupId>
-        <version>3.0.0</version>
+        <version>${app.version}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>system-module</artifactId>
-    <version>3.0.0</version>
-    <description>system-module</description>
+    <version>${app.version}</version>
+    <description>系统功能</description>
     <dependencies>
         <!--        sms消息-->
 <!--        <dependency>-->

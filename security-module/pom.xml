@@ -5,13 +5,13 @@
     <parent>
         <artifactId>toolbox</artifactId>
         <groupId>com.lar</groupId>
-        <version>3.0.0</version>
+        <version>${app.version}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>security-module</artifactId>
-    <version>3.0.0</version>
-    <description>security-module</description>
+    <version>${app.version}</version>
+    <description>登录相关</description>
     <dependencies>
 
         <!--        基础模块-->
