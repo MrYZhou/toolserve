@@ -2,7 +2,6 @@ package com.lar.oauth;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import cn.hutool.core.util.IdUtil;
 import com.lar.enums.AppConfig;
 import com.lar.user.model.UserView;
 import com.lar.user.repository.UserEntity;
@@ -12,6 +11,7 @@ import com.lar.util.PasswordUtil;
 import com.lar.util.RedisUtil;
 import com.lar.vo.AppResult;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.data.id.IdUtil;
 import org.noear.wood.DbContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

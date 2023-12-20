@@ -27,12 +27,13 @@
         <java.version>17</java.version>
         <boot.version>3.1.1</boot.version>
         <easyexcel.version>3.3.2</easyexcel.version>
-        <hutool.version>5.8.5</hutool.version>
+        <hutool.version>6.0.0-M8</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
         <wood.version>1.2.6</wood.version>
         <mybatisplus.version>3.5.4.1</mybatisplus.version>
         <xxl.version>2.4.0</xxl.version>
         <snack3.version>3.2.57</snack3.version>
+        <sms.version>3.0.4</sms.version>
     </properties>
 
     <dependencyManagement>
@@ -56,6 +57,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.dromara.sms4j</groupId>
+                <artifactId>sms4j-spring-boot-starter</artifactId>
+                <version>${sms.version}</version>
             </dependency>
 <!--            orm-->
             <dependency>
@@ -95,7 +102,7 @@
 
             <!--        工具类-->
             <dependency>
-                <groupId>cn.hutool</groupId>
+                <groupId>org.dromara.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
