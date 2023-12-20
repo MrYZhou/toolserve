@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.lar</groupId>
         <artifactId>toolbox</artifactId>
-        <version>3.0.0</version>
+        <version>${app.version}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>main-module</artifactId>
-    <version>3.0.0</version>
-    <description>main-module</description>
+    <version>${app.version}</version>
+    <description>业务服务</description>
     <properties>
         <java.version>17</java.version>
     </properties>

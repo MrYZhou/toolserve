@@ -5,13 +5,14 @@
     <parent>
         <artifactId>toolbox</artifactId>
         <groupId>com.lar</groupId>
-        <version>3.0.0</version>
+        <version>${app.version}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>common-module</artifactId>
-    <version>3.0.0</version>
+    <version>${app.version}</version>
+    <description>基础依赖模块</description>
     <dependencies>
         <!--web服务-->
         <dependency>
