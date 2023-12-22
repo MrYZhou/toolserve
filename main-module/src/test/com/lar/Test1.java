@@ -1,7 +1,11 @@
 package com.lar;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.noear.dami.spring.boot.annotation.DamiTopic;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 @SpringBootTest
@@ -18,4 +22,6 @@ public class Test1 {
 
         System.out.println(stopWatch.getTotalTimeMillis());
     }
+
+
 }

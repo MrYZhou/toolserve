@@ -35,6 +35,7 @@
         <snack3.version>3.2.57</snack3.version>
         <sms.version>3.0.4</sms.version>
         <dubbo.version>3.2.7</dubbo.version>
+        <dami.version>0.56</dami.version>
     </properties>
 
     <dependencyManagement>
@@ -47,6 +48,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>dami-springboot-starter</artifactId>
+                <version>${dami.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
