@@ -167,15 +167,30 @@ sms:
     #华为分配的app请求地址
     url: https://XXXXX.cn-north-4.XXXXXXXX.com:443
 
+dubbo:
+  application:
+    name: dubbo-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+#    zookeeper
+#      address: zookeeper://${zookeeper.address:127.0.0.1}:2181
+    #    nacos
+#    address: nacos://127.0.0.1:30099?username=nacos&password=nacos&namespace=05359530-c877-4806-82cb-9128e27bd7ae
+#    register-mode: instance
+#    parameters:
+#      namespace: 05359530-c877-4806-82cb-9128e27bd7ae
+#    group: dubbo1
 #日志配置
-#logging:
-#  config: classpath:logback-larry.xml
-#  file:
-#    path: d:/toolserver/logs/${spring.application.name}
-#  level:
-#    #    应用自身的日志等级
-#    admin: info
-#    org.springframework.web: error
+logging:
+  config: classpath:logback-larry.xml # 日志位置
+  file:
+    path: d:/toolserver/logs/${spring.application.name}  # 外置日志文件路径
+  level:
+    #    应用自身的日志等级
+    admin: info
+    org.springframework.web: error
 
 
 #监控地址 127.0.0.1:8088/monitor
