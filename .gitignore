@@ -119,6 +119,7 @@ dist
 *.rebel.xml
 .idea/*
 *.class
+target/*
 *.jar
 *.jar.*
 */target
@@ -132,4 +133,3 @@ bin/
 .factorypath
 #main-module/main/resources/config/
 resources/config/
-
