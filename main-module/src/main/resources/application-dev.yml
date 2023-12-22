@@ -192,7 +192,6 @@ logging:
     admin: info
     org.springframework.web: error
 
-
 #监控地址 127.0.0.1:8088/monitor
 #management:
 #  endpoints:
