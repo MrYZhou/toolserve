@@ -25,7 +25,6 @@
     <properties>
         <app.version>3.0.0</app.version>
         <java.version>17</java.version>
-        <boot.version>3.1.1</boot.version>
         <easyexcel.version>3.3.2</easyexcel.version>
         <hutool.version>6.0.0-M8</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
@@ -36,52 +35,58 @@
         <sms.version>3.0.4</sms.version>
         <dubbo.version>3.2.7</dubbo.version>
         <dami.version>0.56</dami.version>
+        <folkmq.version>1.0.24</folkmq.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+<!--            web应用-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
-                <version>${boot.version}</version>
             </dependency>
+<!--            热部署-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
             </dependency>
+            <!--            测试集成-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+            </dependency>
+            <!--            本地docker-->
             <dependency>
                 <groupId>org.noear</groupId>
                 <artifactId>dami-springboot-starter</artifactId>
                 <version>${dami.version}</version>
             </dependency>
+            <!--            远程调用-->
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-spring-boot-starter</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>${boot.version}</version>
-                <scope>test</scope>
-            </dependency>
+            <!--            excel-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
             </dependency>
-
+            <!--            短信-->
             <dependency>
                 <groupId>org.dromara.sms4j</groupId>
                 <artifactId>sms4j-spring-boot-starter</artifactId>
                 <version>${sms.version}</version>
             </dependency>
-<!--            orm-->
+            <!--            orm-->
             <dependency>
                 <groupId>org.noear</groupId>
                 <artifactId>wood.plus</artifactId>
                 <version>${wood.version}</version>
             </dependency>
+            <!--            orm-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -106,6 +111,7 @@
                 <artifactId>system-module</artifactId>
                 <version>${app.version}</version>
             </dependency>
+            <!--            任务调度-->
             <dependency>
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
@@ -124,6 +130,7 @@
                 <artifactId>snack3</artifactId>
                 <version>${snack3.version}</version>
             </dependency>
+            <!--        json包-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
