@@ -19,12 +19,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
+        <version>3.2.1</version>
     </parent>
 
     <properties>
         <app.version>3.0.0</app.version>
         <java.version>17</java.version>
+        <boot.version>3.2.1</boot.version>
         <easyexcel.version>3.3.2</easyexcel.version>
         <hutool.version>6.0.0-M8</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
@@ -44,16 +45,19 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
+                <version>${boot.version}</version>
             </dependency>
 <!--            热部署-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
+                <version>${boot.version}</version>
             </dependency>
             <!--            测试集成-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
+                <version>${boot.version}</version>
                 <scope>test</scope>
             </dependency>
             <!--            本地docker-->
