@@ -19,13 +19,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>${boot.version}</version>
     </parent>
 
     <properties>
         <app.version>3.0.0</app.version>
         <java.version>17</java.version>
-        <boot.version>3.2.1</boot.version>
+        <boot.version>3.1.5</boot.version>
         <easyexcel.version>3.3.2</easyexcel.version>
         <hutool.version>6.0.0-M8</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
@@ -71,6 +71,12 @@
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-spring-boot-starter</artifactId>
                 <version>${dubbo.version}</version>
+            </dependency>
+<!--            消息队列-->
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>folkmq-transport-smartsocket</artifactId>
+                <version>${folkmq.version}</version>
             </dependency>
             <!--            excel-->
             <dependency>

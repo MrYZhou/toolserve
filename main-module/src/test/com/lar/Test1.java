@@ -3,7 +3,13 @@ package com.lar;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.noear.dami.spring.boot.annotation.DamiTopic;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.noear.folkmq.FolkMQ;
+//import org.noear.folkmq.client.MqClient;
+//import org.noear.folkmq.client.MqMessage;
+//import org.springframework.beans.factory.annotation.Autowired;
+import org.noear.folkmq.FolkMQ;
+import org.noear.folkmq.client.MqClient;
+import org.noear.folkmq.client.MqMessage;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
@@ -23,5 +29,20 @@ public class Test1 {
         System.out.println(stopWatch.getTotalTimeMillis());
     }
 
+    @Test
+    public void testfolk() throws Exception {
+        //创建客户端，并连接
+        MqClient client = FolkMQ.createClient("folkmq://127.0.0.1:18602")
+                .connect();
+
+        //订阅主题，并指定加入的消费者分组
+        client.subscribe("demo", "demoapp", message -> {
+            System.out.println("========================================");
+            System.out.println(message);
+        });
+
+        //发布消息
+        client.publishAsync("demo", new MqMessage("hello world!"));
+    }
 
 }
