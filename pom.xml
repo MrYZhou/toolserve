@@ -30,7 +30,7 @@
         <hutool.version>6.0.0-M8</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
         <wood.version>1.2.6</wood.version>
-        <mybatisplus.version>3.5.4.1</mybatisplus.version>
+        <mybatisplus.version>3.5.5</mybatisplus.version>
         <xxl.version>2.4.0</xxl.version>
         <snack3.version>3.2.57</snack3.version>
         <sms.version>3.0.4</sms.version>
@@ -99,7 +99,7 @@
             <!--            orm-->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatisplus.version}</version>
             </dependency>
 
