@@ -63,4 +63,24 @@
         </dependency>
     </dependencies>
 
+    <build>
+<!--        ${project.artifactId} 是当前模块名字
+            ${project.version} 是当前版本
+-->
+        <finalName>toolserve-${project.version}</finalName>
+        <plugins>
+<!--            不要将此插件放到顶级父工程中，只在需要打成可执行jar的地方添加就好了-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
