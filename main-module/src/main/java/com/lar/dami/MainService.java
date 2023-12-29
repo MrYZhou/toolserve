@@ -1,6 +1,6 @@
 package com.lar.dami;
 
-import com.lar.service.ServiceApi;
+import com.lar.api.SystemApi;
 import com.lar.vo.AppResult;
 import org.noear.dami.spring.boot.annotation.DamiTopic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/localCall")
-@DamiTopic("toolserve.event")
+@DamiTopic("toolserve.systemEvent")
 public class MainService {
     @Autowired
-    ServiceApi serviceApi;
+    SystemApi serviceApi;
     public void reload(String name){
         System.out.println("reload book:"+name);
     }

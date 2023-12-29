@@ -37,6 +37,7 @@
         <dubbo.version>3.2.7</dubbo.version>
         <dami.version>0.56</dami.version>
         <folkmq.version>1.0.24</folkmq.version>
+        <satoken.version>1.34.0</satoken.version>
     </properties>
 
     <dependencyManagement>
@@ -145,6 +146,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <version>${satoken.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
