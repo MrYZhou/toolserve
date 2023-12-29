@@ -1,4 +1,4 @@
-package com.lar.security;
+package com.lar.config;
 
 import cn.dev33.satoken.stp.StpInterface;
 import org.springframework.stereotype.Component;

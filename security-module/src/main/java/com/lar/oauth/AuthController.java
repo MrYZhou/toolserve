@@ -1,5 +1,6 @@
 package com.lar.oauth;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.lar.enums.AppConfig;
@@ -163,6 +164,7 @@ public class AuthController {
 
     // 查询权限   ---- http://localhost:8081/jur/getPermission
     @RequestMapping("getPermission")
+    @SaCheckLogin
     public SaResult getPermission() {
         // 查询权限信息 ，如果当前会话未登录，会返回一个空集合
         List<String> permissionList = StpUtil.getPermissionList();
