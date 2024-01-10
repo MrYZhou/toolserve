@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,16 +37,20 @@ public class ObjectMapperConfig {
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-        this.setJavaTime(objectMapper);
-        this.setNullKey(objectMapper);
+        this.timeHandle(objectMapper);
+        this.jsonKeyHandle(objectMapper);
         return objectMapper;
     }
-    // 处理空的key不返回
-    private void setNullKey(ObjectMapper objectMapper) {
+
+    private void jsonKeyHandle(ObjectMapper objectMapper) {
+        // 后端返回不显示空key
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        // 忽略前端传来的未知属性得解析
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
     }
     // 处理日期序列化问题
-    private void setJavaTime(ObjectMapper objectMapper) {
+    private void timeHandle(ObjectMapper objectMapper) {
         // 序列化为时间字符串给前端,和前端时间字符串反序列化为日期对象
         JavaTimeModule javaTimeModule = new JavaTimeModule();
 
