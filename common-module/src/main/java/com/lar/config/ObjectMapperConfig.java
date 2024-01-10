@@ -115,14 +115,14 @@ public class ObjectMapperConfig {
                 return null;
             }
             SimpleDateFormat formatter = new SimpleDateFormat(TimeFormat.DateTime);
-            formatter.setLenient(true);
-            formatter.setTimeZone(TimeZone.getDefault());
             if (p.getText().length() <= 10) {
                 formatter = new SimpleDateFormat(TimeFormat.Date);
                 if (p.getText().charAt(4) != '-') {
                     formatter = new SimpleDateFormat(TimeFormat.Time);
                 }
             }
+            formatter.setLenient(true);
+            formatter.setTimeZone(TimeZone.getDefault());
             return formatter.parse(p.getText());
         }
     }
