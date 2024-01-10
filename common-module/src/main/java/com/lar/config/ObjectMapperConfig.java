@@ -111,7 +111,7 @@ public class ObjectMapperConfig {
         @SneakyThrows
         @Override
         public Date deserialize(JsonParser p, DeserializationContext deserializationContext) {
-            if (p.getText() == null || "".equals(p.getText().trim())) {
+            if (p.getText() == null || p.getText().trim().isEmpty()) {
                 return null;
             }
             SimpleDateFormat formatter = new SimpleDateFormat(TimeFormat.DateTime);
