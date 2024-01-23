@@ -2,14 +2,16 @@ package com.lar.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AppResult<T> {
+public class AppResult<T>{
 
     private Integer code;
 
