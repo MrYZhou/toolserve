@@ -1,5 +1,6 @@
 package com.lar.config.exception;
 
+import cn.dev33.satoken.util.SaResult;
 import com.alibaba.fastjson.JSON;
 import com.lar.enums.AppResultCode;
 import com.lar.vo.AppResult;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
   @ResponseBody
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public AppResult<Object> methodArgumentNotValidException(MethodArgumentNotValidException e) {
+  public AppResult<?> methodArgumentNotValidException(MethodArgumentNotValidException e) {
     Map<String, String> map = new HashMap<>(16);
     String message = e.getMessage();
     String json = JSON.toJSONString(message);
@@ -27,11 +28,16 @@ public class GlobalExceptionHandler {
 
   @ResponseBody
   @ExceptionHandler(RuntimeException.class)
-  public AppResult runTimeException(RuntimeException e) {
+  public AppResult<?> runTimeException(RuntimeException e) {
     Map<String, String> map = new HashMap<>(16);
     String message = e.getMessage();
     String json = JSON.toJSONString(message);
     AppResult result = AppResult.fail(AppResultCode.ValidateError.getCode(), json);
     return result;
+  }
+  // 全局异常拦截
+  @ExceptionHandler
+  public AppResult<?> handlerException(Exception e) {
+    return AppResult.fail(e.getMessage());
   }
 }
