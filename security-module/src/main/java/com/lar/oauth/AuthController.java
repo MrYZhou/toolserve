@@ -44,15 +44,24 @@ public class AuthController {
     public AppResult<Object> doLogin(@RequestBody UserView user) throws SQLException {
         // 前置校验
         UserEntity userEntity = userService.getUserByUserName(user.getUsername());
-        if(userEntity==null) return AppResult.fail("用户不存在");
+        if (userEntity == null) return AppResult.fail("用户不存在");
         String encryptPassword = PasswordUtil.encode(user.getPassword(), AppConfig.SALT);
         if (!encryptPassword.equals(userEntity.getPassword())) {
             return AppResult.fail("密码错误");
         }
 
-        // 主线逻辑
+        // 主线逻辑, false是不记住我，true是记住我.但是这个主要是必须用的是基于cookie的方式
+        // 如果是前后端分离模式主要其实是要给后端token.后端没法做更多
+        // uniapp
+        // 1.临时记住我。getApp().globalData.satoken = "xxxx-xxxx-xxxx-xxxx-xxx";
+        // 2.永久记住 uni.setStorageSync("satoken", "xxxx-xxxx-xxxx-xxxx-xxx");
+        // pc
+        //1.临时记住我。sessionStorage.setItem("satoken", "xxxx-xxxx-xxxx-xxxx-xxx");
+        //2.永久记住.localStorage.setItem("satoken", "xxxx-xxxx-xxxx-xxxx-xxx");
         StpUtil.login(userEntity.getId());
         String token = StpUtil.getTokenValue();
+
+        // 结果返回的处理
         HashMap<String, String> map = new HashMap<>();
         map.put("token", token);
         return AppResult.success(map);
