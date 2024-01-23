@@ -99,9 +99,9 @@ public class SaTokenConfigure implements WebMvcConfigurer {
          */
 
         registry.addInterceptor(new SaInterceptor(handle -> {
-                    SaRouter.match("/**")	// 拦截的 path 列表，可以写多个 */
-                            .notMatch(WhiteList.get())		// 排除掉的 path 列表，可以写多个
-                            .check(r -> StpUtil.checkLogin());		// 要执行的校验动作，可以写完整的 lambda 表达式
+                    SaRouter.match("/**")    // 拦截的 path 列表，可以写多个 */
+                            .notMatch(WhiteList.get())        // 排除掉的 path 列表，可以写多个
+                            .check(r -> StpUtil.checkLogin());        // 要执行的校验动作，可以写完整的 lambda 表达式
 
                     // 根据路由划分模块，不同模块不同鉴权
                     SaRouter.match("/user/**", r -> StpUtil.checkPermission("user"));
@@ -112,8 +112,8 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                     SaRouter.match("/comment/**", r -> StpUtil.checkPermission("comment"));
 
                 })
-                // 关闭掉注解鉴权能力,可以提高一定性能
-                .isAnnotation(false)
+                        // 关闭掉注解鉴权能力,可以提高一定性能
+                        .isAnnotation(false)
         ).addPathPatterns("/**");
 
     }
