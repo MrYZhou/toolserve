@@ -83,6 +83,9 @@ spring:
 
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
 sa-token:
+  # token前缀
+#  token-prefix: Bearer
+  token-prefix: larry
   # token名称 (同时也是cookie名称)
   token-name: token
   # token有效期，单位s 默认30天, -1代表永不过期
@@ -94,8 +97,10 @@ sa-token:
   # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
   is-share: true
   # token风格
-  # random-32 随机32位字符串
-  token-style: random-32
+  # 1.uuid    —— uuid风格 (默认风格)
+  # 2.simple-uuid uuid风格无中杠
+  # 3.random-32 随机32位字符串
+  token-style: simple-uuid
   # 是否输出操作日志
   is-log: false
   #关闭控制台banner
