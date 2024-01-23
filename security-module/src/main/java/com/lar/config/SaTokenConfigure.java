@@ -74,15 +74,16 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 
     /**
      * 注意：拦截器模式，只能在Controller层进行注解鉴权，当需要在service层也可以使用需要使用 AOP注解鉴权
-     *
+     * <p>
      * Sa-Token 整合 SpringAOP 实现注解鉴权
      * <dependency>
-     *     <groupId>cn.dev33</groupId>
-     *     <artifactId>sa-token-spring-aop</artifactId>
-     *     <version>1.34.0</version>
+     * <groupId>cn.dev33</groupId>
+     * <artifactId>sa-token-spring-aop</artifactId>
+     * <version>1.34.0</version>
      * </dependency>
-     *
+     * <p>
      * 但如果引入需要删除此方法，否则会在Controller层校验两次
+     *
      * @param registry
      */
     @Override
@@ -95,8 +96,26 @@ public class SaTokenConfigure implements WebMvcConfigurer {
          *         @SaCheckBasic: HttpBasic校验 —— 只有通过 Basic 认证后才能进入该方法。
          *         @SaCheckDisable("comment")：账号服务封禁校验 —— 校验当前账号指定服务是否被封禁。
          *         @SaIgnore：忽略校验 —— 表示被修饰的方法或类无需进行注解鉴权和路由拦截器鉴权,可以游客访问。
-        */
-        registry.addInterceptor(new SaInterceptor()).addPathPatterns("/**");
+         */
+
+        registry.addInterceptor(new SaInterceptor(handle -> {
+                    SaRouter.match("/**")	// 拦截的 path 列表，可以写多个 */
+                            .notMatch(WhiteList.get())		// 排除掉的 path 列表，可以写多个
+                            .check(r -> StpUtil.checkLogin());		// 要执行的校验动作，可以写完整的 lambda 表达式
+
+                    // 根据路由划分模块，不同模块不同鉴权
+                    SaRouter.match("/user/**", r -> StpUtil.checkPermission("user"));
+                    SaRouter.match("/admin/**", r -> StpUtil.checkPermission("admin"));
+                    SaRouter.match("/goods/**", r -> StpUtil.checkPermission("goods"));
+                    SaRouter.match("/orders/**", r -> StpUtil.checkPermission("orders"));
+                    SaRouter.match("/notice/**", r -> StpUtil.checkPermission("notice"));
+                    SaRouter.match("/comment/**", r -> StpUtil.checkPermission("comment"));
+
+                })
+                // 关闭掉注解鉴权能力,可以提高一定性能
+                .isAnnotation(false)
+        ).addPathPatterns("/**");
+
     }
 
 }

@@ -1,6 +1,7 @@
 package com.lar.oauth;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.lar.enums.AppConfig;
@@ -41,16 +42,20 @@ public class AuthController {
     // 测试登录，浏览器访问： http://localhost:8081/user/login?username=zhang&password=123456
     @PostMapping("/login")
     public AppResult<Object> doLogin(@RequestBody UserView user) throws SQLException {
+        // 前置校验
         UserEntity userEntity = userService.getUserByUserName(user.getUsername());
+        if(userEntity==null) return AppResult.fail("用户不存在");
         String encryptPassword = PasswordUtil.encode(user.getPassword(), AppConfig.SALT);
-        if (encryptPassword.equals(userEntity.getPassword())) {
-            StpUtil.login(userEntity.getId());
-            String token = StpUtil.getTokenValue();
-            HashMap<String, String> map = new HashMap<>();
-            map.put("token", token);
-            return AppResult.success(map);
+        if (!encryptPassword.equals(userEntity.getPassword())) {
+            return AppResult.fail("密码错误");
         }
-        return AppResult.fail("登录失败");
+
+        // 主线逻辑
+        StpUtil.login(userEntity.getId());
+        String token = StpUtil.getTokenValue();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("token", token);
+        return AppResult.success(map);
     }
 
     @PostMapping("/register")
@@ -70,6 +75,8 @@ public class AuthController {
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
     @RequestMapping("isLogin")
+    //使用 @SaIgnore忽略掉路由拦截认证,可以临时测试用很方便
+    @SaIgnore
     public String isLogin() {
 
         return "当前会话是否登录：" + StpUtil.isLogin();
