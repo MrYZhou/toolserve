@@ -2,6 +2,7 @@ package com.lar.oauth;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.lar.enums.AppConfig;
@@ -58,7 +59,15 @@ public class AuthController {
         // pc
         //1.临时记住我。sessionStorage.setItem("satoken", "xxxx-xxxx-xxxx-xxxx-xxx");
         //2.永久记住.localStorage.setItem("satoken", "xxxx-xxxx-xxxx-xxxx-xxx");
-        StpUtil.login(userEntity.getId());
+
+        // 指定token有效期(单位: 秒)，如下所示token七天有效
+        StpUtil.login(userEntity.getId(), new SaLoginModel()
+                .setDevice("PC")                 // 此次登录的客户端设备类型, 用于[同端互斥登录]时指定此次登录的设备类型
+                .setIsLastingCookie(true)        // 是否为持久Cookie（临时Cookie在浏览器关闭时会自动删除，持久Cookie在重新打开后依然存在）
+                .setTimeout(60 * 60 * 24 * 7)    // 指定此次登录token的有效期, 单位:秒 （如未指定，自动取全局配置的 timeout 值）
+//                .setToken("xxxx-xxxx-xxxx-xxxx") // 预定此次登录的生成的Token
+                .setIsWriteHeader(false)         // 是否在登录后将 Token 写入到响应头
+        );
         String token = StpUtil.getTokenValue();
 
         // 结果返回的处理
