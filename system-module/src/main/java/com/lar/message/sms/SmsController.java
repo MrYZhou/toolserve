@@ -1,4 +1,4 @@
-package com.lar.message.phone;
+package com.lar.message.sms;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
