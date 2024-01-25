@@ -6,7 +6,9 @@ public class WhiteList {
 
     static {
         list = new String[]{
-                "user/login",
+                "/user/login",
+                "/user/register",
+                "/websocket/**"
         };
     }
 

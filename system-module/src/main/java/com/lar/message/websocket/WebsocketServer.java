@@ -1,4 +1,4 @@
-package com.lar.message;
+package com.lar.message.websocket;
 
 import jakarta.websocket.*;
 import jakarta.websocket.server.PathParam;
@@ -15,7 +15,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @Component
 @Slf4j
 @ServerEndpoint("/websocket/{userId}")  // 接口路径 ws://localhost:8087/webSocket/userId;
-
 public class WebsocketServer {
 
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -27,6 +26,8 @@ public class WebsocketServer {
     private static final CopyOnWriteArraySet<WebsocketServer> webSockets = new CopyOnWriteArraySet<>();
     // 用来存在线连接数
     private static final Map<String, Session> sessionPool = new HashMap<String, Session>();
+    // key是用户id,value是sessionId
+    private static Map<String,String> userBindMap = new HashMap<>();
 
     /**
      * 链接成功调用的方法
