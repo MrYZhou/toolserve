@@ -11,7 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-
+/**
+ * 进一步优化方案就是用双map获取，在创建的时候，随机新建一个sessionid 从satoken取userid作为key,sessionid为value.
+ * 然后sessionid为key，value是session
+ *
+ */
 @Component
 @Slf4j
 @ServerEndpoint("/websocket/{userId}")  // 接口路径 ws://localhost:8087/webSocket/userId;
