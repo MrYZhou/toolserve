@@ -49,4 +49,19 @@ public class AuthDisableController {
 
         return AppResult.success();
     }
+
+    @PostMapping("/disabledLevel")
+    public AppResult<?> disabledLevel(@RequestBody UserView user) throws SQLException {
+
+        // 封禁指定用户评论能力，期限为 1天
+        // time=-1代表永久封禁
+        StpUtil.disable(10001, "comment", 86400);
+        // 判断：指定账号的指定服务 是否已被封禁 (true=已被封禁, false=未被封禁)
+        StpUtil.isDisable(10001, "comment");
+
+        // 校验：指定账号的指定服务 是否已被封禁，如果被封禁则抛出异常 `DisableServiceException`
+        StpUtil.checkDisable(10001, "comment");
+
+        return AppResult.success();
+    }
 }
