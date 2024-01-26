@@ -14,9 +14,13 @@ import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.strategy.SaStrategy;
 import cn.dev33.satoken.util.SaResult;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -26,7 +30,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author click33
  */
 @Configuration
-public class SaTokenConfigure implements WebMvcConfigurer {
+public class SaTokenConfigure implements WebMvcConfigurer, InitializingBean {
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        // 重写Sa-Token的注解处理器，增加注解合并功能
+        SaStrategy.me.getAnnotation = (element, annotationClass) -> {
+            return AnnotatedElementUtils.getMergedAnnotation(element, annotationClass);
+        };
+    }
+
 
     /**
      * 注册 [Sa-Token 全局过滤器]
@@ -116,5 +128,6 @@ public class SaTokenConfigure implements WebMvcConfigurer {
         ).addPathPatterns("/**");
 
     }
+
 
 }
