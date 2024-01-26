@@ -3,15 +3,15 @@ package com.lar.config;
 import cn.dev33.satoken.config.SaTokenConfig;
 import cn.dev33.satoken.stp.StpLogic;
 
-public class StpCustomUtil {
+public class StpAdminUtil {
 
     /**
      * 账号体系标识,用于在一套系统实现多套账号体系
      */
-    public static final String TYPE = "custom";
+    public static final String TYPE = "admin";
 
     // 使用匿名子类 重写`stpLogic对象`的一些方法
-    public static StpLogic stpLogic = new StpLogic("custom") {
+    public static StpLogic stpLogic = new StpLogic("admin") {
 
         // 首先自定义一个 Config 对象
         SaTokenConfig config = new SaTokenConfig()
@@ -29,7 +29,11 @@ public class StpCustomUtil {
         // 重写 StpLogic 类下的 `splicingKeyTokenName` 函数，返回一个与 `StpUtil` 不同的token名称, 防止冲突
         @Override
         public String splicingKeyTokenName() {
-            return super.splicingKeyTokenName() + "-custom";
+            return super.splicingKeyTokenName() + "-admin";
         }
     };
+
+    public static void checkPermission(String admin) {
+
+    }
 }

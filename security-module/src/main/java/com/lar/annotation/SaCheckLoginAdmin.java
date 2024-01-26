@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
 @SaCheckLogin(type = "user")
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE})
-public @interface SaCheckLoginCustom {
+public @interface SaCheckLoginAdmin {
 }
