@@ -1,6 +1,7 @@
 package com.lar.oauth;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.util.SaResult;
 import com.lar.user.model.UserView;
 import com.lar.vo.AppResult;
 import lombok.extern.slf4j.Slf4j;
@@ -64,4 +65,25 @@ public class AuthDisableController {
 
         return AppResult.success();
     }
+
+    // 封禁指定账号  ---- http://localhost:8081/disable/disable?userId=10001
+    @RequestMapping("disable")
+    public AppResult<?> disable(long userId) {
+        /*
+         * 账号封禁：
+         * 	参数1：要封禁的账号id
+         * 	参数2：要封禁的时间，单位：秒，86400秒=1天
+         */
+        StpUtil.disable(userId, 86400);
+        return AppResult.success("账号 " + userId + " 封禁成功");
+    }
+
+    // 解封指定账号  ---- http://localhost:8081/disable/untieDisable?userId=10001
+    @RequestMapping("untieDisable")
+    public AppResult<?> untieDisable(long userId) {
+        StpUtil.untieDisable(userId);
+        return AppResult.success("账号 " + userId + " 解封成功");
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.lar.oauth;
 
+import cn.dev33.satoken.annotation.SaCheckDisable;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckSafe;
 import cn.dev33.satoken.annotation.SaIgnore;
@@ -153,6 +154,7 @@ public class AuthController {
      * @return
      */
     @GetMapping("allPermission")
+    @SaCheckDisable
     public SaResult allPermission() {
 
         // 获取：当前账号所拥有的权限集合
