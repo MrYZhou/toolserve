@@ -2,7 +2,6 @@ package com.lar.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -34,9 +33,9 @@ public class AppResult<T>{
         return jsonData;
     }
 
-    public static <T> AppResult<T> success(Object object) {
-        AppResult<T> jsonData = new AppResult<T>();
-        jsonData.setData((T) object);
+    public static <T> AppResult<T> success(T object) {
+        AppResult<T> jsonData = new AppResult<>();
+        jsonData.setData(object);
         jsonData.setCode(200);
         jsonData.setMsg("Success");
         return jsonData;
