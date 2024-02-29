@@ -224,6 +224,36 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>com.ly.smart-doc</groupId>-->
+<!--                <artifactId>smart-doc-maven-plugin</artifactId>-->
+<!--                <version>3.0.2</version>-->
+<!--                <configuration>-->
+<!--                    <configFile>./src/main/resources/smart-doc.json</configFile>-->
+<!--                    <projectName>${project.description}</projectName>-->
+<!--                    <includes>-->
+<!--                        <include>toolbox:*</include>-->
+<!--                        &lt;!&ndash; 使用了mybatis-plus的Page分页需要include所使用的源码包 &ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <include>com.baomidou:mybatis-plus-extension</include>&ndash;&gt;-->
+<!--                        &lt;!&ndash; 使用了mybatis-plus的IPage分页需要include mybatis-plus-core&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <include>com.baomidou:mybatis-plus-core</include>&ndash;&gt;-->
+<!--                        &lt;!&ndash; 使用了jpa的分页需要include所使用的源码包 &ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <include>org.springframework.data:spring-data-commons</include>&ndash;&gt;-->
+<!--                    </includes>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        &lt;!&ndash;如果不需要在执行编译时启动smart-doc，则将phase注释掉&ndash;&gt;-->
+<!--                        <phase>compile</phase>-->
+<!--                        <goals>-->
+<!--                            &lt;!&ndash;smart-doc提供了html、openapi、markdown等goal，可按需配置&ndash;&gt;-->
+<!--                            <goal>openapi</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
         </plugins>
         <resources>
             <resource>
