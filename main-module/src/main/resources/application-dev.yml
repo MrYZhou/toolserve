@@ -179,14 +179,14 @@ dubbo:
     name: dubbo
     port: -1
   registry:
-#    zookeeper
+#    zookeeper配置
 #      address: zookeeper://${zookeeper.address:127.0.0.1}:2181
-    #    nacos
-#    address: nacos://127.0.0.1:30099?username=nacos&password=nacos&namespace=05359530-c877-4806-82cb-9128e27bd7ae
-#    register-mode: instance
-#    parameters:
-#      namespace: 05359530-c877-4806-82cb-9128e27bd7ae
-#    group: dubbo1
+#    nacos配置
+    address: nacos://127.0.0.1:30099?username=nacos&password=nacos
+    register-mode: instance
+    parameters:
+      namespace: 05359530-c877-4806-82cb-9128e27bd7ae
+    group: dubbo-server
 #日志配置
 logging:
   config: classpath:logback-larry.xml # 日志位置
