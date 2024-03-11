@@ -22,8 +22,7 @@ public class GlobalExceptionHandler {
     Map<String, String> map = new HashMap<>(16);
     String message = e.getMessage();
     String json = JSON.toJSONString(message);
-    AppResult<Object> result = AppResult.fail(AppResultCode.ValidateError.getCode(), json);
-    return result;
+    return AppResult.fail(AppResultCode.ValidateError.getCode(), json);
   }
 
   @ResponseBody
@@ -32,8 +31,7 @@ public class GlobalExceptionHandler {
     Map<String, String> map = new HashMap<>(16);
     String message = e.getMessage();
     String json = JSON.toJSONString(message);
-    AppResult result = AppResult.fail(AppResultCode.ValidateError.getCode(), json);
-    return result;
+    return AppResult.fail(AppResultCode.ValidateError.getCode(), json);
   }
   // 全局异常拦截
   @ExceptionHandler
