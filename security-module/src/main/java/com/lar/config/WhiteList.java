@@ -8,7 +8,8 @@ public class WhiteList {
         list = new String[]{
                 "/user/login",
                 "/user/register",
-                "/websocket/**"
+                "/websocket/**",
+                "/localCall"
         };
     }
 

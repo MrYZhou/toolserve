@@ -3,7 +3,7 @@ package com.lar.api;
 import org.noear.dami.spring.boot.annotation.DamiTopic;
 
 /**
- * 提供common的api层的实现，是一一对应的
+ * 提供api-module对应的实现层
  */
 @DamiTopic("toolserve.systemEvent")
 public class SystemService {
