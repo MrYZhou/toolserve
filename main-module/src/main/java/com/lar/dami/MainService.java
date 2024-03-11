@@ -10,16 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/localCall")
-//@DamiTopic("toolserve.systemEvent")
 public class MainService {
     @Autowired
     SystemApi serviceApi;
-//    public void reload(String name){
-//        System.out.println("reload book:"+name);
-//    }
     @GetMapping
     public AppResult<?> list(){
-        serviceApi.test2("test");
+        serviceApi.testService("test");
         return AppResult.success();
     }
 }
