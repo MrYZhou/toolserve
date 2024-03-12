@@ -74,6 +74,11 @@
                 <artifactId>dubbo-spring-boot-starter</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-zookeeper-spring-boot-starter</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
 <!--            消息队列-->
             <dependency>
                 <groupId>org.noear</groupId>

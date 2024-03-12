@@ -13,7 +13,7 @@ public class MainService {
     @Autowired
     SystemApi serviceApi;
     @GetMapping
-    public AppResult<?> list(){
+    public AppResult<?> test(){
         serviceApi.testService("test");
         return AppResult.success();
     }

@@ -9,7 +9,8 @@ public class WhiteList {
                 "/user/login",
                 "/user/register",
                 "/websocket/**",
-                "/localCall"
+                "/localCall",
+                "/localCall2"
         };
     }
 
