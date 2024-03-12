@@ -15,22 +15,28 @@ import com.lar.util.JsonUtil;
 import com.lar.util.PasswordUtil;
 import com.lar.util.RedisUtil;
 import com.lar.vo.AppResult;
+import com.wf.captcha.SpecCaptcha;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.data.id.IdUtil;
+import org.dromara.hutool.core.util.RandomUtil;
 import org.noear.wood.DbContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth")
 @Slf4j
 public class AuthController {
     @Autowired
@@ -40,11 +46,32 @@ public class AuthController {
     private UserService userService;
     @Autowired
     private DbContext db;
-
+    // 验证码:https://github.com/ele-admin/EasyCaptcha
+    @ResponseBody
+    @RequestMapping("/captcha")
+    public AppResult<Object> captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
+        String verCode = specCaptcha.text().toLowerCase();
+        String key = RandomUtil.randomNumbers(10);
+        // 存入redis并设置过期时间为30分钟
+        redisUtil.setEx(key, verCode, 30, TimeUnit.MINUTES);
+        // 将key和base64返回给前端
+        return AppResult.success(new HashMap<>(){{
+            put("key", key);
+            put("image", specCaptcha.toBase64());
+        }});
+    }
 
     // 测试登录，浏览器访问： http://localhost:8081/user/login?username=zhang&password=123456
     @PostMapping("/login")
     public AppResult<Object> doLogin(@RequestBody UserView user) throws SQLException {
+        // 获取redis中的验证码
+        String verCode = user.getVerKey();
+        String redisCode = redisUtil.get(verCode);
+        // 判断验证码
+        if (verCode==null || !redisCode.equals(verCode.trim().toLowerCase())) {
+            return AppResult.fail("验证码不正确");
+        }
         // 前置校验
         UserEntity userEntity = userService.getUserByUserName(user.getUsername());
         if (userEntity == null) return AppResult.fail("用户不存在");
