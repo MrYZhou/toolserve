@@ -14,12 +14,6 @@
     <description>api解耦层</description>
     <dependencies>
 
-        <!--        基础模块-->
-<!--        <dependency>-->
-<!--            <groupId>com.lar</groupId>-->
-<!--            <artifactId>common-module</artifactId>-->
-<!--            <version>3.0.0</version>-->
-<!--        </dependency>-->
     </dependencies>
 
 </project>
