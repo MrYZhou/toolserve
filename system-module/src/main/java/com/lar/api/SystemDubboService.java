@@ -7,6 +7,6 @@ import org.apache.dubbo.config.annotation.DubboService;
 public class SystemDubboService implements SystemDubboApi{
     @Override
     public String getName() {
-        return null;
+        return "dubbo server";
     }
 }
