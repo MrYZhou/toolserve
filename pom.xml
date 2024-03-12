@@ -76,7 +76,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-zookeeper-spring-boot-starter</artifactId>
+                <artifactId>dubbo-zookeeper-curator5-spring-boot-starter</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
 <!--            消息队列-->
