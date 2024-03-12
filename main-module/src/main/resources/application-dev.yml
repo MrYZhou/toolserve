@@ -182,10 +182,10 @@ dubbo:
     address: zookeeper://${zookeeper.address:127.0.0.1}:2181
 #    nacos配置
 #    address: nacos://127.0.0.1:30099?username=nacos&password=nacos
-#      register-mode: instance
-#      parameters:
-#        namespace: 69c4eecb-05bd-4041-81fe-1473f95f578c1
-#      group: dubbo-server
+#    register-mode: instance
+#    parameters:
+#      namespace: 69c4eecb-05bd-4041-81fe-1473f95f578c1
+#    group: dubbo-server
 
 
 #日志配置
