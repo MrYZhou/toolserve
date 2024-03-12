@@ -10,6 +10,7 @@
     <description>toolbox-serve</description>
 
     <modules>
+        <module>api-module</module>
         <module>common-module</module>
         <module>system-module</module>
         <module>security-module</module>
@@ -160,6 +161,10 @@
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>dami-springboot-starter</artifactId>
         </dependency>
     </dependencies>
     <repositories>
