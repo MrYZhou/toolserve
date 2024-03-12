@@ -4,6 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckDisable;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckSafe;
 import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
@@ -12,7 +13,6 @@ import com.lar.user.model.UserView;
 import com.lar.user.repository.UserEntity;
 import com.lar.user.server.UserService;
 import com.lar.util.JsonUtil;
-import com.lar.util.PasswordUtil;
 import com.lar.util.RedisUtil;
 import com.lar.vo.AppResult;
 import com.wf.captcha.SpecCaptcha;
@@ -75,7 +75,7 @@ public class AuthController {
         // 前置校验
         UserEntity userEntity = userService.getUserByUserName(user.getUsername());
         if (userEntity == null) return AppResult.fail("用户不存在");
-        String encryptPassword = PasswordUtil.encode(user.getPassword(), AppConfig.SALT);
+        String encryptPassword = SaSecureUtil.md5BySalt(user.getPassword(), AppConfig.SALT);
         if (!encryptPassword.equals(userEntity.getPassword())) {
             return AppResult.fail("密码错误");
         }
@@ -119,7 +119,7 @@ public class AuthController {
     @PostMapping("/register")
     public AppResult<?> registe(@RequestBody UserView user) throws SQLException {
         UserEntity entity = JsonUtil.toBean(user, UserEntity.class);
-        entity.setPassword(PasswordUtil.encode(entity.getPassword(), AppConfig.SALT));
+        entity.setPassword(SaSecureUtil.md5BySalt(entity.getPassword(), AppConfig.SALT));
         entity.setId(IdUtil.getSnowflakeNextIdStr());
         List<UserEntity> users = db.mapperBase(UserEntity.class).selectByMap(new HashMap<>() {{
             put("username", user.getUsername());
