@@ -1,17 +1,10 @@
 package com.lar;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.noear.dami.spring.boot.annotation.DamiTopic;
-//import org.noear.folkmq.FolkMQ;
-//import org.noear.folkmq.client.MqClient;
-//import org.noear.folkmq.client.MqMessage;
-//import org.springframework.beans.factory.annotation.Autowired;
 import org.noear.folkmq.FolkMQ;
 import org.noear.folkmq.client.MqClient;
 import org.noear.folkmq.client.MqMessage;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 @SpringBootTest
@@ -21,7 +14,7 @@ public class Test1 {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
-        for (int i = 0; i < 10000 ; i++) {
+        for (int i = 0; i < 10000; i++) {
             System.out.println(1);
         }
         stopWatch.stop();
@@ -32,8 +25,7 @@ public class Test1 {
     @Test
     public void testfolk() throws Exception {
         //创建客户端，并连接
-        MqClient client = FolkMQ.createClient("folkmq://127.0.0.1:18602")
-                .connect();
+        MqClient client = FolkMQ.createClient("folkmq://127.0.0.1:18602").connect();
 
         //订阅主题，并指定加入的消费者分组
         client.subscribe("demo", "demoapp", message -> {
