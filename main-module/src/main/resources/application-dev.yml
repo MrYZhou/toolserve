@@ -7,7 +7,7 @@ server:
 #dictman:
 #  primaryKey: id    #默认表主键是解析id
 #  resultList: data.records #默认data.list
-
+devState: true
 spring:
   main.allow-bean-definition-overriding: true
   lifecycle:
@@ -79,7 +79,7 @@ spring:
         domain: "" # 访问域名，例如：“http://127.0.0.1:8030/local-plus/”，注意后面要和 path-patterns 保持一致，“/”结尾，本地存储建议使用相对路径，方便后期更换域名
         base-path: local-plus/ # 基础路径
         path-patterns: /local-plus/** # 访问路径
-        storage-path: D:/Temp/ # 存储路径
+        storage-path: D:/toolserve/storage/ # 存储路径
 
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
 sa-token:

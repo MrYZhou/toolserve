@@ -18,6 +18,7 @@ import cn.dev33.satoken.strategy.SaStrategy;
 import cn.dev33.satoken.util.SaResult;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -31,12 +32,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class SaTokenConfigure implements WebMvcConfigurer, InitializingBean {
+    @Value("${devState}")
+    private String devState;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         // 重写Sa-Token的注解处理器，增加注解合并功能
-        SaStrategy.me.getAnnotation = (element, annotationClass) -> {
-            return AnnotatedElementUtils.getMergedAnnotation(element, annotationClass);
-        };
+        SaStrategy.me.getAnnotation = AnnotatedElementUtils::getMergedAnnotation;
     }
 
 
@@ -45,6 +47,7 @@ public class SaTokenConfigure implements WebMvcConfigurer, InitializingBean {
      */
     @Bean
     public SaServletFilter getSaServletFilter() {
+        if ("true".equals(devState)) return new SaServletFilter().addExclude("/**");
         return new SaServletFilter()
 
                 // 指定 [拦截路由] 与 [放行路由]
@@ -57,9 +60,7 @@ public class SaTokenConfigure implements WebMvcConfigurer, InitializingBean {
                 })
 
                 // 异常处理函数：每次认证函数发生异常时执行此函数
-                .setError(e -> {
-                    return SaResult.error(e.getMessage());
-                })
+                .setError(e -> SaResult.error(e.getMessage()))
 
                 // 前置函数：在每次认证函数之前执行
                 .setBeforeAuth(obj -> {
@@ -80,8 +81,7 @@ public class SaTokenConfigure implements WebMvcConfigurer, InitializingBean {
                     SaRouter.match(SaHttpMethod.OPTIONS)
                             .free(r -> System.out.println("--------OPTIONS预检请求，不做处理"))
                             .back();
-                })
-                ;
+                });
     }
 
     /**
@@ -113,6 +113,7 @@ public class SaTokenConfigure implements WebMvcConfigurer, InitializingBean {
         registry.addInterceptor(new SaInterceptor(handle -> {
                     SaRouter.match("/**")    // 拦截的 path 列表，可以写多个 */
                             .notMatch(WhiteList.get())        // 排除掉的 path 列表，可以写多个
+                            .notMatch("true".equals(devState)?"/**":"")
                             .check(r -> StpUtil.checkLogin());        // 要执行的校验动作，可以写完整的 lambda 表达式
 
                     // 根据路由划分模块，不同模块不同鉴权
