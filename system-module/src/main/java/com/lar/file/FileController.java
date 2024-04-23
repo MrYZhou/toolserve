@@ -2,6 +2,7 @@ package com.lar.file;
 
 import cn.xuyanwu.spring.file.storage.FileInfo;
 import cn.xuyanwu.spring.file.storage.FileStorageService;
+import com.lar.util.FileTool;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -43,6 +44,8 @@ public class FileController {
      */
     @PostMapping("/upload")
     public FileInfo upload(MultipartFile file) {
+        File file1 = FileTool.multipartFileToFile(file);
+
         return fileStorageService.of(file).upload();
     }
 
