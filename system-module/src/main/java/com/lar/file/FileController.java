@@ -44,7 +44,6 @@ public class FileController {
      */
     @PostMapping("/upload")
     public FileInfo upload(MultipartFile file) {
-        File file1 = FileTool.multipartFileToFile(file);
 
         return fileStorageService.of(file).upload();
     }
@@ -84,6 +83,5 @@ public class FileController {
                 .setPlatform("aliyun-oss-1")    //使用指定的存储平台
                 .upload();
     }
-
 
 }

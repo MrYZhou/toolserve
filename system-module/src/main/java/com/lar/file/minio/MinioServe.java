@@ -56,11 +56,7 @@ public class MinioServe {
 
     } catch (MinioException e) {
       System.out.println("Error occurred: " + e);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    } catch (InvalidKeyException e) {
+    } catch (IOException | NoSuchAlgorithmException | InvalidKeyException e) {
       e.printStackTrace();
     }
   }
