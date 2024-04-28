@@ -91,6 +91,11 @@
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-base</artifactId>
+                <version>4.5.0</version>
+            </dependency>
             <!--            短信-->
             <dependency>
                 <groupId>org.dromara.sms4j</groupId>
