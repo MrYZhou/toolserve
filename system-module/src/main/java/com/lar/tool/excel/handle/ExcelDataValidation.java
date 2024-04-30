@@ -1,7 +1,10 @@
 package com.lar.tool.excel.handle;
 
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.params.ExcelExportEntity;
+
 import com.lar.tool.excel.ExcelHelper;
-import com.lar.tool.excel.ExcelPreHandle;
+import com.lar.tool.excel.ExcelPostHandle;
 import org.apache.poi.ss.usermodel.DataValidation;
 import org.apache.poi.ss.usermodel.DataValidationHelper;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -12,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +23,8 @@ import java.util.Map;
  * 下拉选择（单选）、单选框组、开关导入EXCEL内生成【数据验证】下拉框
  */
 @Component
-public class ExcelDataValidation implements ExcelPreHandle {
+public class ExcelDataValidation implements ExcelPostHandle {
+    String sheetName;
     /**
      * workbook增加数据验证
      *
@@ -43,5 +48,13 @@ public class ExcelDataValidation implements ExcelPreHandle {
     @Override
     public void execute(ExcelHelper data, Map<String, Object> params) {
 //        JnpfKeyConsts.SWITCH
+        Workbook workbook = data.getWorkbook();
+        List<ExcelExportEntity> list = data.getEntities();
+        ExportParams exportParams = data.getExportParams();
+        this.sheetName = exportParams.getSheetName();
+        addDataValidation(workbook,sheetName,0,new String[]{"1","2"});
+        for (ExcelExportEntity export : list) {
+
+        }
     }
 }
