@@ -4,6 +4,7 @@ import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.params.ExcelExportEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -24,26 +25,49 @@ import java.util.Map;
 public class ExcelHelper {
     boolean initPre = false;
     boolean initPost = false;
-    // excel参数
+    /**
+     * excel参数
+     */
     ExportParams exportParams;
-    // 导出字段信息
+    /**
+     * 导出字段信息
+     */
     List<ExcelExportEntity> entities;
     @Autowired
     private ApplicationContext applicationContext;
     private Workbook workbook;
     private List<ExcelFunction> preHandleFunctions = new ArrayList<>();
     private List<ExcelFunction> postHandleFunctions = new ArrayList<>();
-    private Map<String, Object> extraParams;
+    /**
+     * 额外参数
+     */
+    private Map<String, Object> extraParams=new HashMap<>();
+    /**
+     * 存在子表
+     */
+    private boolean complexTable;
+
 
     public void init(ExportParams exportParams, List<ExcelExportEntity> entities) {
         this.exportParams = exportParams;
         this.entities = entities;
+        this.preDataHandle();
+    }
+
+    private void preDataHandle() {
+        for (ExcelExportEntity entity : this.entities) {
+            if(CollectionUtils.isNotEmpty(entity.getList())) {
+                this.complexTable = true;
+                break;
+            }
+        }
     }
 
     public void init(Workbook workbook, ExportParams exportParams, List<ExcelExportEntity> entities) {
         this.workbook = workbook;
         this.exportParams = exportParams;
         this.entities = entities;
+        this.preDataHandle();
     }
 
     public void init(Workbook workbook, ExportParams exportParams, List<ExcelExportEntity> entities, Map<String, Object> extraParams) {
@@ -51,10 +75,11 @@ public class ExcelHelper {
         this.exportParams = exportParams;
         this.entities = entities;
         this.extraParams = extraParams;
+        this.preDataHandle();
     }
 
     private void initPreHandle() {
-        Collection<ExcelPreHandle> handles = applicationContext.getBeansOfType(ExcelPreHandle.class).values();
+        Collection<jnpf.excel.ExcelPreHandle> handles = applicationContext.getBeansOfType(ExcelPreHandle.class).values();
         handles.forEach(handle -> addPreHandle(handle::execute));
         this.initPre = true;
     }
@@ -76,7 +101,12 @@ public class ExcelHelper {
         if (!initPost) {
             this.initPostHandle();
         }
-        postHandleFunctions.forEach(item -> item.apply(this, new HashMap<>()));
+        postHandleFunctions.forEach(item -> item.apply(this, this.extraParams));
+        // 移除标题的括号文字
+        this.removeTitleConclusion();
+    }
+
+    private void removeTitleConclusion() {
     }
 
     public void addPreHandle(ExcelFunction... functions) {

@@ -1,8 +1,12 @@
 package com.lar.tool.excel.handle;
 
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.params.ExcelExportEntity;
+import cn.afterturn.easypoi.handler.inter.ICommentHandler;
+
 import com.lar.tool.excel.ExcelHelper;
 import com.lar.tool.excel.ExcelPreHandle;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.Comment;
@@ -14,15 +18,20 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * excel添加批注
  */
 @Component
 public class ExcelCommentHandle implements ExcelPreHandle {
+    String sheetName;
+    Map<String,String> commentMap = new HashMap<>();
 
     /**
      * workbook增加标题批注
@@ -53,7 +62,32 @@ public class ExcelCommentHandle implements ExcelPreHandle {
     @Override
     public void execute(ExcelHelper data, Map<String, Object> params) {
         List<ExcelExportEntity> list = data.getEntities();
+        ExportParams exportParams = data.getExportParams();
 
-        System.out.println(111);
+        params.put("sheetName", sheetName);
+        exportParams.setCommentHandler(new CommentHandle());
+        this.sheetName = exportParams.getSheetName();
+        for (ExcelExportEntity export : list) {
+            this.addComment(export);
+        }
+    }
+
+    public void addComment(ExcelExportEntity export){
+        if(!CollectionUtils.isEmpty(export.getList())){
+            export.getList().forEach(this::addComment);
+        }
+        // 输出的标题
+        String name = export.getName();
+        Pattern pattern = Pattern.compile("(.*)\\((.*?)\\)");
+        Matcher matcher = pattern.matcher(name);
+        if (matcher.find()) {
+            commentMap.put(name,matcher.group(2));
+        }
+    }
+    class CommentHandle implements ICommentHandler {
+        @Override
+        public String getComment(String name) {
+            return commentMap.get(name);
+        }
     }
 }
