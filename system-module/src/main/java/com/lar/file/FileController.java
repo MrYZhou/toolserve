@@ -1,13 +1,16 @@
 package com.lar.file;
 
+import cn.xuyanwu.spring.file.storage.Downloader;
 import cn.xuyanwu.spring.file.storage.FileInfo;
 import cn.xuyanwu.spring.file.storage.FileStorageService;
-import com.lar.util.FileTool;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,12 +44,25 @@ public class FileController {
 
     /**
      * 上传文件
+     *
+     * @return
      */
     @PostMapping("/upload")
     public FileInfo upload(MultipartFile file) {
 
-        return fileStorageService.of(file).upload();
+        FileInfo upload = fileStorageService.of(file).setPath("/i18n/").setSaveFilename("1.xlsx").upload();
+        return upload;
     }
+
+    @GetMapping("/download")
+    public byte[] download(@RequestParam(value = "url") String url) {
+        FileInfo fileInfo = fileStorageService.getFileInfoByUrl(url);
+        Downloader download = fileStorageService.download(fileInfo);
+        return  download.bytes();
+    }
+
+
+
 
     /**
      * 上传文件，成功返回文件 url
