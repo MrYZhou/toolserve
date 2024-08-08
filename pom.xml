@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <groupId>com.lar</groupId>
@@ -22,8 +23,9 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.1.5</version>
     </parent>
-
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <app.version>3.0.0</app.version>
         <java.version>17</java.version>
         <boot.version>3.1.5</boot.version>
@@ -43,13 +45,13 @@
 
     <dependencyManagement>
         <dependencies>
-<!--            web应用-->
+            <!--            web应用-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${boot.version}</version>
             </dependency>
-<!--            热部署-->
+            <!--            热部署-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
@@ -79,7 +81,7 @@
                 <artifactId>dubbo-zookeeper-curator5-spring-boot-starter</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
-<!--            消息队列-->
+            <!--            消息队列-->
             <dependency>
                 <groupId>org.noear</groupId>
                 <artifactId>folkmq-transport-smartsocket</artifactId>
@@ -163,7 +165,7 @@
                 <artifactId>sa-token-spring-boot3-starter</artifactId>
                 <version>${satoken.version}</version>
             </dependency>
-<!--            验证码-->
+            <!--            验证码-->
             <dependency>
                 <groupId>com.github.whvcse</groupId>
                 <artifactId>easy-captcha</artifactId>
@@ -235,6 +237,13 @@
                         <arg>-Xlint:deprecation</arg>
                         <arg>-Xlint:unchecked</arg>
                     </compilerArgs>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.lar.MainModuleApplication</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
@@ -245,36 +254,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-
-<!--            <plugin>-->
-<!--                <groupId>com.ly.smart-doc</groupId>-->
-<!--                <artifactId>smart-doc-maven-plugin</artifactId>-->
-<!--                <version>3.0.2</version>-->
-<!--                <configuration>-->
-<!--                    <configFile>./src/main/resources/smart-doc.json</configFile>-->
-<!--                    <projectName>${project.description}</projectName>-->
-<!--                    <includes>-->
-<!--                        <include>toolbox:*</include>-->
-<!--                        &lt;!&ndash; 使用了mybatis-plus的Page分页需要include所使用的源码包 &ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <include>com.baomidou:mybatis-plus-extension</include>&ndash;&gt;-->
-<!--                        &lt;!&ndash; 使用了mybatis-plus的IPage分页需要include mybatis-plus-core&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <include>com.baomidou:mybatis-plus-core</include>&ndash;&gt;-->
-<!--                        &lt;!&ndash; 使用了jpa的分页需要include所使用的源码包 &ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <include>org.springframework.data:spring-data-commons</include>&ndash;&gt;-->
-<!--                    </includes>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        &lt;!&ndash;如果不需要在执行编译时启动smart-doc，则将phase注释掉&ndash;&gt;-->
-<!--                        <phase>compile</phase>-->
-<!--                        <goals>-->
-<!--                            &lt;!&ndash;smart-doc提供了html、openapi、markdown等goal，可按需配置&ndash;&gt;-->
-<!--                            <goal>openapi</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
         </plugins>
         <resources>
             <resource>
