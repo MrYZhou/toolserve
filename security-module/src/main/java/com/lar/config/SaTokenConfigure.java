@@ -1,13 +1,6 @@
 package com.lar.config;
 
 import cn.dev33.satoken.SaManager;
-import cn.dev33.satoken.annotation.SaCheckBasic;
-import cn.dev33.satoken.annotation.SaCheckDisable;
-import cn.dev33.satoken.annotation.SaCheckLogin;
-import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.dev33.satoken.annotation.SaCheckRole;
-import cn.dev33.satoken.annotation.SaCheckSafe;
-import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.filter.SaServletFilter;
 import cn.dev33.satoken.interceptor.SaInterceptor;
@@ -17,7 +10,6 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.strategy.SaStrategy;
 import cn.dev33.satoken.util.SaResult;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -99,7 +91,7 @@ public class SaTokenConfigure implements WebMvcConfigurer, InitializingBean {
      * @param registry
      */
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(@SuppressWarnings("null") InterceptorRegistry registry) {
         /** 注册 Sa-Token 拦截器，打开注解式鉴权功能
          *         @SaCheckLogin: 登录校验 —— 只有登录之后才能进入该方法。
          *         @SaCheckRole("admin"): 角色校验 —— 必须具有指定角色标识才能进入该方法。

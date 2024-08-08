@@ -1,7 +1,6 @@
 package com.lar.oauth;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
 import com.lar.user.model.UserView;
 import com.lar.vo.AppResult;
 import lombok.extern.slf4j.Slf4j;

@@ -12,6 +12,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public AppResult<Object> upload(MultipartFile multipartFile, HttpServletRequest httpServletRequest) {
 
+        @SuppressWarnings("unused")
         String user = httpServletRequest.getParameter("user");
         HashMap<String, String> map = new HashMap<>();
         map.put("url", "http://www.baidu.com");

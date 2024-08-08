@@ -41,6 +41,7 @@ public class AppResult<T>{
         return jsonData;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> AppResult<T> page(List<T> list, PaginationVO<T> pagination) {
         AppResult<T> jsonData = new AppResult<T>();
         PageListVO<T> vo = new PageListVO<>();

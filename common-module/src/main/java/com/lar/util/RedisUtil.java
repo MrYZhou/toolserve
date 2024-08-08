@@ -269,6 +269,7 @@ public class RedisUtil {
      * @param value   值,true为1, false为0
      * @return
      */
+    @SuppressWarnings("null")
     public boolean setBit(String key, long offset, boolean value) {
         return redisTemplate.opsForValue().setBit(key, offset, value);
     }
@@ -293,6 +294,7 @@ public class RedisUtil {
      * @param value
      * @return 之前已经存在返回false, 不存在返回true
      */
+    @SuppressWarnings("null")
     public boolean setIfAbsent(String key, String value) {
         return redisTemplate.opsForValue().setIfAbsent(key, value);
     }
@@ -333,6 +335,7 @@ public class RedisUtil {
      * @param maps
      * @return 之前已经存在返回false, 不存在返回true
      */
+    @SuppressWarnings("null")
     public boolean multiSetIfAbsent(Map<String, String> maps) {
         return redisTemplate.opsForValue().multiSetIfAbsent(maps);
     }

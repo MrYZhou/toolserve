@@ -31,6 +31,7 @@ public class WebsocketServer {
     // 用来存在线连接数
     private static final Map<String, Session> sessionPool = new HashMap<String, Session>();
     // key是用户id,value是sessionId
+    @SuppressWarnings("unused")
     private static Map<String,String> userBindMap = new HashMap<>();
 
     /**
