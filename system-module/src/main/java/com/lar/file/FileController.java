@@ -4,10 +4,11 @@ import cn.xuyanwu.spring.file.storage.Downloader;
 import cn.xuyanwu.spring.file.storage.FileInfo;
 import cn.xuyanwu.spring.file.storage.FileStorageService;
 import lombok.AllArgsConstructor;
+import lombok.Cleanup;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,8 +24,8 @@ import java.io.IOException;
 @RequestMapping(value = "/file")
 @AllArgsConstructor
 public class FileController {
-    @Autowired
-    private FileService fileService;
+    // @Autowired
+    // private FileService fileService;
 
 
     @Autowired
@@ -35,7 +36,7 @@ public class FileController {
     public byte[] preview(String fileVersionId) throws IOException {
 
         File file = new File("C:\\Users\\lg\\Desktop\\vue\\xlj\\static\\1.jpeg");
-        FileInputStream inputStream = new FileInputStream(file);
+        @Cleanup FileInputStream inputStream = new FileInputStream(file);
         byte[] bytes = new byte[inputStream.available()];
         inputStream.read(bytes, 0, inputStream.available());
         return bytes;

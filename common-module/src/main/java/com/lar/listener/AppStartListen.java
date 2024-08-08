@@ -23,7 +23,7 @@ public class AppStartListen implements ApplicationListener<ContextRefreshedEvent
 
 
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+    public void onApplicationEvent(@SuppressWarnings("null") ContextRefreshedEvent event) {
         // 当应用启动的时候
     }
 }
