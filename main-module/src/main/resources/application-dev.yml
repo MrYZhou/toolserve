@@ -56,8 +56,8 @@ spring:
   #   数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    #    此处须配置自己的数据库地址和端口，否则启动失败
-    url: jdbc:mysql://127.0.0.1:3306/study?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    #    此处须配置自己的数据库地址和端口，否则启动失败.注意地址不能127.0.0.1否则会导致docker中无法访问
+    url: jdbc:mysql://192.168.20.143:3306/study?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
       &allowPublicKeyRetrieval=true
     username: root
     password: root
