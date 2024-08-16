@@ -5,12 +5,12 @@
     <parent>
         <artifactId>toolbox</artifactId>
         <groupId>com.lar</groupId>
-        <version>${app.version}</version>
+        <version>3.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>api-module</artifactId>
-    <version>${app.version}</version>
+    <version>3.0.0</version>
     <description>api解耦层</description>
     <dependencies>
 
