@@ -1,7 +1,7 @@
 FROM openjdk:17-slim
 
 WORKDIR /java
-ADD main-module/target/toolserve-3.0.0.jar /java/app.jar
+ADD target/toolserve-3.0.0.jar /java/app.jar
 ENTRYPOINT ["java","-jar","/java/app.jar"]
 
 EXPOSE 8081

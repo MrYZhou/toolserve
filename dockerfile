@@ -1,7 +1,7 @@
 # 第一阶段：构建并提取分层
 FROM openjdk:17-slim AS builder
 WORKDIR /java
-ARG JAR_FILE=main-module/target/toolserve-3.0.0.jar
+ARG JAR_FILE=target/toolserve-3.0.0.jar
 COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
