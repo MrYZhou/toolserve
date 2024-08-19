@@ -1,4 +1,4 @@
-package com.lar.book;
+package com.lar.main.book;
 
 public enum OrderStatusEnum {
     UN_PAID(0, "订单未支付"),

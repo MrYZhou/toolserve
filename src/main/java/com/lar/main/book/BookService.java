@@ -1,4 +1,4 @@
-package com.lar.book;
+package com.lar.main.book;
 
 public interface BookService {
 }
