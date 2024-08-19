@@ -1,7 +1,5 @@
 package com.lar;
 
-import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
-
 import cn.xuyanwu.spring.file.storage.spring.EnableFileStorage;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -21,8 +19,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 //存储
 @EnableFileStorage
-// dubbo
-@EnableDubbo
 public class MainModuleApplication implements ApplicationListener<ApplicationStartedEvent> {
 
 
