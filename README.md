@@ -33,3 +33,11 @@
 使用
 
 启动MainModuleApplication类
+
+
+
+构建
+docker build -t toolserve  .
+docker build -t toolserve -f ./dockerfile2 .
+
+docker run -p 8081:8081 toolserve
