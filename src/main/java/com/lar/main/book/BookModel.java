@@ -1,4 +1,4 @@
-package com.lar.book;
+package com.lar.main.book;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

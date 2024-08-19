@@ -18,7 +18,7 @@ import java.util.Date;
 public class BookController {
     @GetMapping
     public AppResult<?> list(){
-        com.lar.book.BookModel bookModel = new com.lar.book.BookModel();
+        BookModel bookModel = new BookModel();
         bookModel.setDate(new Date());
         bookModel.setLocalDateTime(LocalDateTime.now());
         bookModel.setLocalDate(LocalDate.now());
@@ -26,7 +26,7 @@ public class BookController {
         return AppResult.success(bookModel);
     }
     @PostMapping
-    public AppResult<?> save(@RequestBody com.lar.book.BookModel bookModel){
+    public AppResult<?> save(@RequestBody BookModel bookModel){
 
         return AppResult.success(bookModel);
     }

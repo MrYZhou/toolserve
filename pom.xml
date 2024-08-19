@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${boot.version}</version>
+            <version>3.3.2</version>
         </dependency>
         <!--            热部署-->
         <dependency>
@@ -170,12 +170,6 @@
             <artifactId>sa-token-sso</artifactId>
             <version>1.36.0</version>
         </dependency>
-        <!-- Http请求工具 -->
-        <!--        <dependency>-->
-        <!--            <groupId>com.dtflys.forest</groupId>-->
-        <!--            <artifactId>forest-spring-boot-starter</artifactId>-->
-        <!--            <version>1.5.26</version>-->
-        <!--        </dependency>-->
 
         <!-- 提供Redis连接池 -->
         <dependency>
@@ -275,42 +269,41 @@
         <finalName>${project.artifactId}-${project.version}-</finalName>
         <pluginManagement>
             <plugins>
-                <!--                <plugin>-->
-                <!--                    <groupId>org.apache.maven.plugins</groupId>-->
-                <!--                    <artifactId>maven-resources-plugin</artifactId>-->
-                <!--                    <version>3.2.0</version>-->
-                <!--                    <configuration>-->
-                <!--                        <useDefaultDelimiters>true</useDefaultDelimiters>-->
-                <!--                    </configuration>-->
-                <!--                </plugin>-->
-                <!-- JAR 插件 -->
-                <!--                <plugin>-->
-                <!--                    <groupId>org.apache.maven.plugins</groupId>-->
-                <!--                    <artifactId>maven-jar-plugin</artifactId>-->
-                <!--                    <version>3.2.0</version> &lt;!&ndash; 使用适当的版本 &ndash;&gt;-->
-                <!--                    <configuration>-->
-                <!--                        <archive>-->
-                <!--                            <manifest>-->
-                <!--                                <addClasspath>true</addClasspath>-->
-                <!--                                <classpathPrefix>lib/</classpathPrefix>-->
-                <!--                                <mainClass>com.lar.MainModuleApplication</mainClass>-->
-                <!--                            </manifest>-->
-                <!--                        </archive>-->
-                <!--                    </configuration>-->
-                <!--                </plugin>-->
-                <!--                <plugin>-->
-                <!--                    <groupId>org.apache.maven.plugins</groupId>-->
-                <!--                    <artifactId>maven-compiler-plugin</artifactId>-->
-                <!--                    <version>3.12.1</version>-->
-                <!--                    <configuration>-->
-                <!--                        <release>${java.version}</release>-->
-                <!--                        <encoding>${project.build.sourceEncoding}</encoding>-->
-                <!--                        <compilerArgs>-->
-                <!--                            <arg>-Xlint:deprecation</arg>-->
-                <!--                            <arg>-Xlint:unchecked</arg>-->
-                <!--                        </compilerArgs>-->
-                <!--                    </configuration>-->
-                <!--                </plugin>-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.2.0</version>
+                    <configuration>
+                        <useDefaultDelimiters>true</useDefaultDelimiters>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.0</version> <!-- 使用适当的版本 -->
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
+                                <mainClass>com.lar.MainModuleApplication</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.12.1</version>
+                    <configuration>
+                        <release>${java.version}</release>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <compilerArgs>
+                            <arg>-Xlint:deprecation</arg>
+                            <arg>-Xlint:unchecked</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <!-- 跳过单元测试 -->
                     <groupId>org.apache.maven.plugins</groupId>
