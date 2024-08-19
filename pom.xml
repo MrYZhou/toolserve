@@ -232,6 +232,21 @@
                         <useDefaultDelimiters>true</useDefaultDelimiters>
                     </configuration>
                 </plugin>
+                <!-- JAR 插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.0</version> <!-- 使用适当的版本 -->
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
+                                <mainClass>com.lar.MainModuleApplication</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -243,13 +258,6 @@
                             <arg>-Xlint:deprecation</arg>
                             <arg>-Xlint:unchecked</arg>
                         </compilerArgs>
-                        <archive>
-                            <manifest>
-                                <addClasspath>true</addClasspath>
-                                <classpathPrefix>lib/</classpathPrefix>
-                                <mainClass>com.lar.MainModuleApplication</mainClass>
-                            </manifest>
-                        </archive>
                     </configuration>
                 </plugin>
                 <plugin>
