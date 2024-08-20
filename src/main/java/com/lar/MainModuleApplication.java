@@ -23,7 +23,7 @@ public class MainModuleApplication implements ApplicationListener<ApplicationSta
 
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplicationBuilder().sources(MainModuleApplication.class).bannerMode(Banner.Mode.OFF).build(args);
+        SpringApplication app = new SpringApplicationBuilder().sources(MainModuleApplication.class).bannerMode(Banner.Mode.CONSOLE).build(args);
         app.run();
     }
 

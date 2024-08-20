@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonStreamContext;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -86,7 +87,9 @@ public class ObjectMapperConfig {
 
         private Boolean hasJsonFormatAnnotation(Date value, JsonGenerator gen) {
             // 获取value来源的类
-            Class<?> aClass = gen.getCurrentValue().getClass();
+            JsonStreamContext context = gen.getOutputContext();
+
+            Class<?> aClass = context.getCurrentValue().getClass();
             // 获取字段名
             String currentName = gen.getOutputContext().getCurrentName();
             try {
