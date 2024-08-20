@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StopWatch;
 
 @SpringBootTest
-public class Test1 {
+public class MainTest {
     @Test
     public void test1() throws Exception {
         StopWatch stopWatch = new StopWatch();
