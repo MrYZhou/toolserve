@@ -91,7 +91,7 @@ public class SaTokenConfigure implements WebMvcConfigurer, InitializingBean {
      * @param registry
      */
     @Override
-    public void addInterceptors(@SuppressWarnings("null") InterceptorRegistry registry) {
+    public void addInterceptors(InterceptorRegistry registry) {
         /** 注册 Sa-Token 拦截器，打开注解式鉴权功能
          *         @SaCheckLogin: 登录校验 —— 只有登录之后才能进入该方法。
          *         @SaCheckRole("admin"): 角色校验 —— 必须具有指定角色标识才能进入该方法。
