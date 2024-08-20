@@ -1,4 +1,4 @@
-package com.lar.system.message.websocketNew;
+package com.lar.system.message.websocket;
 
 import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.http.server.ServerHttpRequest;

@@ -1,4 +1,4 @@
-package com.lar.system.message.websocketNew;
+package com.lar.system.message.websocket;
 
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
