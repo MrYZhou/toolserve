@@ -1,4 +1,4 @@
-package com.lar.system.message.websocketNew;
+package com.lar.system.message.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
