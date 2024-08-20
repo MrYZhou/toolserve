@@ -268,13 +268,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.lar.MainModuleApplication</mainClass>
-                        </manifest>
-                    </archive>
+                    <mainClass>com.lar.MainModuleApplication</mainClass>
                 </configuration>
             </plugin>
             <!-- 配置Maven编译器插件 -->
