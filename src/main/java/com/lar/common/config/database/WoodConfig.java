@@ -1,11 +1,18 @@
 package com.lar.common.config.database;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import lombok.Data;
 import org.noear.wood.DbContext;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+
+import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource")
@@ -37,25 +44,28 @@ public class WoodConfig {
 
     @Bean
     public DbContext getDbContext2() throws Exception {
-        DruidDataSource dataSource = new DruidDataSource();
-        // 设置基本属性
-        dataSource.setUrl(url); // 数据库连接 URL
-        dataSource.setUsername(username); // 数据库用户名
-        dataSource.setPassword(password); // 数据库密码
-        // 可选：设置其他配置项
-        dataSource.setInitialSize(15); // 初始化连接数量
-        dataSource.setMaxActive(30); // 最大连接数量
-        dataSource.setMinIdle(15); // 最小空闲连接数量
-        dataSource.setMinEvictableIdleTimeMillis(60000); // 连接空闲时间达到可驱逐的最小时间（毫秒）
-        dataSource.setMaxEvictableIdleTimeMillis(25200000); // 连接空闲时间达到可驱逐的最大时间（毫秒）
-        dataSource.setTestOnBorrow(false); // 获取连接时是否测试连接的有效性
-        dataSource.setTestOnReturn(false); // 归还连接时是否测试连接的有效性
-        dataSource.setTestWhileIdle(true); // 是否在空闲时测试连接的有效性
-        dataSource.setValidationQuery("SELECT 1"); // 测试连接有效性的 SQL 查询
-        dataSource.setValidationQueryTimeout(5); // 测试查询的超时时间（秒）
-        dataSource.setKeepAlive(true); // 启用连接保活
-        dataSource.setTimeBetweenEvictionRunsMillis(60000); // 驱逐线程执行任务的时间间隔（毫秒）
-        dataSource.setKeepAliveBetweenTimeMillis(120000); // 保活检查的时间间隔（毫秒）
+        Properties props = new Properties();
+        props.setProperty("url", url);
+        props.setProperty("username", username);
+        props.setProperty("password", password);
+        props.setProperty("driverClassName", "com.mysql.cj.jdbc.Driver");
+
+        // 可选：设置其他配置
+        props.setProperty("initialSize", "15"); // 初始化连接数
+        props.setProperty("maxActive", "30"); // 最大连接数
+        props.setProperty("minIdle", "15"); // 核心连接数
+        props.setProperty("minEvictableIdleTimeMillis", "60000"); // 连接会被销毁的最小空闲时间（毫秒）
+        props.setProperty("maxEvictableIdleTimeMillis", "25200000"); // 连接会被销毁的最大空闲时间（毫秒）
+        props.setProperty("testOnBorrow", "false"); // 获取连接时是否校验连接有效性
+        props.setProperty("testOnReturn", "false"); // 归还连接时是否校验连接有效性
+        props.setProperty("testWhileIdle", "true"); // 是否对空闲连接进行有效性校验
+        props.setProperty("validationQuery", "SELECT 1"); // 校验连接时执行的SQL语句
+        props.setProperty("validationQueryTimeout", "5"); // 校验连接的最大等待时间（秒）
+        props.setProperty("keepAlive", "true"); // 连接保活的总开关
+        props.setProperty("keepAliveBetweenTimeMillis", "120000"); // 连接保活的时间间隔（毫秒）
+        props.setProperty("timeBetweenEvictionRunsMillis", "60000"); // 销毁线程执行任务的频率（毫秒）
+
+        DataSource dataSource = DruidDataSourceFactory.createDataSource(props);
         return new DbContext("", dataSource);
     }
 }
