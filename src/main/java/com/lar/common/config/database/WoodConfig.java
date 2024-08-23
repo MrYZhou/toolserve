@@ -23,24 +23,25 @@ public class WoodConfig {
     private String username;
     private String password;
 
-//    @Bean
-//    public DbContext getDbContext() {
-//        // 创建HikariCP连接池
-//        HikariConfig config = new HikariConfig();
-//        config.setJdbcUrl(url);
-//        config.setUsername(username);
-//        config.setPassword(password);
-//        config.setMaximumPoolSize(30); // 设置最大连接池大小
-//        config.setMinimumIdle(30); // 设置最小空闲连接数
-//        config.setIdleTimeout(120000); // 设置非核心连接的空闲超时时间（毫秒）
-//        config.setMaxLifetime(60000); // 设置连接的最大生命周期（毫秒）
-//        config.setConnectionTestQuery("SELECT 1"); // 设置连接验证时执行的SQL语句
-//        config.setValidationTimeout(5000); // 设置连接验证的超时时间（毫秒）
-//        config.setKeepaliveTime(120000); // 设置连接保活的时间间隔（毫秒）
-//        config.setConnectionTimeout(5000); // 设置获取连接的最大等待时间（毫秒）
-//        HikariDataSource dataSource = new HikariDataSource(config);
-//        return new DbContext("", dataSource);
-//    }
+    @Bean
+    @Primary
+    public DbContext getDbContext() {
+        // 创建HikariCP连接池
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(url);
+        config.setUsername(username);
+        config.setPassword(password);
+        config.setMaximumPoolSize(30); // 设置最大连接池大小
+        config.setMinimumIdle(30); // 设置最小空闲连接数
+        config.setIdleTimeout(120000); // 设置非核心连接的空闲超时时间（毫秒）
+        config.setMaxLifetime(60000); // 设置连接的最大生命周期（毫秒）
+        config.setConnectionTestQuery("SELECT 1"); // 设置连接验证时执行的SQL语句
+        config.setValidationTimeout(5000); // 设置连接验证的超时时间（毫秒）
+        config.setKeepaliveTime(120000); // 设置连接保活的时间间隔（毫秒）
+        config.setConnectionTimeout(5000); // 设置获取连接的最大等待时间（毫秒）
+        HikariDataSource dataSource = new HikariDataSource(config);
+        return new DbContext("", dataSource);
+    }
 
     @Bean
     public DbContext getDbContext2() throws Exception {
