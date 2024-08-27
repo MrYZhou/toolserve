@@ -131,5 +131,3 @@ bin/
 .project
 .classpath
 .factorypath
-#main-module/main/resources/config/
-resources/config/
