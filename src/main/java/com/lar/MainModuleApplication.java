@@ -9,6 +9,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.util.ResourceUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * bean扫描 ,默认是SpringBootApplication注解的所在包为根路径
@@ -30,6 +36,19 @@ public class MainModuleApplication implements ApplicationListener<ApplicationSta
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
+        try {
+            // 加载 resources 目录下的文件
+            File file2 = ResourceUtils.getFile("classpath:config/");
+            File absoluteFile = file2.getAbsoluteFile();
 
+            File file = ResourceUtils.getFile("classpath:config/config.properties");
+            try (FileInputStream fis = new FileInputStream(file)) {
+                // 读取文件内容
+                String content = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
+                System.out.println(content);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
