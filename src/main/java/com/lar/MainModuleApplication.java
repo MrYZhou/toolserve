@@ -39,7 +39,6 @@ public class MainModuleApplication implements ApplicationListener<ApplicationSta
         try {
             // 加载 resources 目录下的文件
             File file2 = ResourceUtils.getFile("classpath:config/");
-            File absoluteFile = file2.getAbsoluteFile();
 
             File file = ResourceUtils.getFile("classpath:config/config.properties");
             try (FileInputStream fis = new FileInputStream(file)) {
