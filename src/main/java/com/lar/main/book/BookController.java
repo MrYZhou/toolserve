@@ -1,7 +1,9 @@
 package com.lar.main.book;
 
 
+import com.lar.common.aop.MenuCheck;
 import com.lar.common.vo.AppResult;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import java.util.Date;
 @RequestMapping("/book")
 public class BookController {
     @GetMapping
+    @Async
     public AppResult<?> list(){
         BookModel bookModel = new BookModel();
         bookModel.setDate(new Date());
@@ -34,6 +37,7 @@ public class BookController {
         return AppResult.success(bookModel);
     }
     @PostMapping
+    @MenuCheck
     public AppResult<?> save(@RequestBody BookModel bookModel){
 
         return AppResult.success(bookModel);
