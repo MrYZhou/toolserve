@@ -3,6 +3,7 @@ package com.lar.main.book;
 
 import com.lar.common.vo.AppResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,13 @@ public class BookController {
         bookModel.setLocalDateTime(LocalDateTime.now());
         bookModel.setLocalDate(LocalDate.now());
         bookModel.setLocalTime(LocalTime.now());
+        return AppResult.success(bookModel);
+    }
+    @GetMapping("/{id}")
+    public AppResult<?> getInfo(@PathVariable String id){
+        BookModel bookModel = new BookModel();
+        bookModel.setName("111");
+        bookModel.setPrice(10.0);
         return AppResult.success(bookModel);
     }
     @PostMapping

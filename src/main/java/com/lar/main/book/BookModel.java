@@ -15,4 +15,6 @@ public class BookModel {
     private LocalDateTime localDateTime;
     private LocalDate localDate;
     private LocalTime localTime;
+    private String name;
+    private Double price;
 }
