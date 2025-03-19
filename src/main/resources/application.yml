@@ -5,8 +5,16 @@ spring:
     active: dev
 
   rabbitmq:
+    enabled: false
     host: 47.120.11.197 # 主机名
     port: 5672 # 端口
     virtual-host: / # 虚拟主机
     username: guest # 用户名
     password: guest # 密码
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+
+#系统的整体配置
+# 后续可以把配置写在一个jar里面，利用springboot机制来提供yml的属性配置提示
+toolserver:
+  rabbitmqEnabled: true

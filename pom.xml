@@ -10,7 +10,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.0</version>
+        <version>3.4.3</version>
         <relativePath/>
     </parent>
     <properties>
@@ -18,7 +18,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <app.version>3.0.0</app.version>
         <java.version>17</java.version>
-        <boot.version>3.4.0</boot.version>
+        <boot.version>3.4.3</boot.version>
         <easyexcel.version>3.3.2</easyexcel.version>
         <hutool.version>6.0.0-M8</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
