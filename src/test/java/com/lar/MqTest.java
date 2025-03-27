@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.StopWatch;
 
 @SpringBootTest
 public class MqTest {
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
     @Test
     public void testSimpleQueue() {
         // 队列名称
@@ -20,7 +20,6 @@ public class MqTest {
         rabbitTemplate.convertAndSend(queueName, message);
     }
 
-
     @Test
     public void testSendDirectExchange() {
         // 交换机名称
@@ -30,7 +29,5 @@ public class MqTest {
         // 发送消息
         rabbitTemplate.convertAndSend(exchangeName, "red", message);
     }
-
-
 
 }

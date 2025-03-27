@@ -38,7 +38,6 @@ public class MainModuleApplication implements ApplicationListener<ApplicationSta
     public void onApplicationEvent(ApplicationStartedEvent event) {
         try {
             // 加载 resources 目录下的文件
-            File file2 = ResourceUtils.getFile("classpath:config/");
 
             File file = ResourceUtils.getFile("classpath:config/config.properties");
             try (FileInputStream fis = new FileInputStream(file)) {

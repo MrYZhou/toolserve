@@ -121,10 +121,8 @@ dist
 *.class
 target/*
 *.jar
-*.jar.*
 */target
 *.iml
-.vscode
 .settings/
 bin/
 #java
