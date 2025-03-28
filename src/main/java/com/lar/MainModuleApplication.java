@@ -1,7 +1,8 @@
 package com.lar;
 
-
 import cn.xuyanwu.spring.file.storage.spring.EnableFileStorage;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,21 +19,23 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * bean扫描 ,默认是SpringBootApplication注解的所在包为根路径
- * &#064;SpringBootApplication  相当于@ComponentScans({  &#064;ComponentScan("com.lar")  })
+ * &#064;SpringBootApplication 相当于@ComponentScans({
+ * &#064;ComponentScan("com.lar") })
  */
 @SpringBootApplication
 // 允许异步
 @EnableAsync
-//存储
+// 存储
 @EnableFileStorage
 public class MainModuleApplication implements ApplicationListener<ApplicationStartedEvent> {
-
+    @Value("${toolserver.author}")
+    private String author;
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplicationBuilder().sources(MainModuleApplication.class).bannerMode(Banner.Mode.CONSOLE).build(args);
+        SpringApplication app = new SpringApplicationBuilder().sources(MainModuleApplication.class)
+                .bannerMode(Banner.Mode.CONSOLE).build(args);
         app.run();
     }
-
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
@@ -44,6 +47,11 @@ public class MainModuleApplication implements ApplicationListener<ApplicationSta
                 // 读取文件内容
                 String content = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
                 System.out.println(content);
+            }
+
+            try {
+                Runtime.getRuntime().exec("git config user.name " + author);
+            } catch (Exception e) {
             }
         } catch (IOException e) {
             e.printStackTrace();

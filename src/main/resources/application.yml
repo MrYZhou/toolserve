@@ -17,4 +17,5 @@ spring:
 #系统的整体配置
 # 后续可以把配置写在一个jar里面，利用springboot机制来提供yml的属性配置提示
 toolserver:
+  author: larry
   rabbitmqEnabled: true
