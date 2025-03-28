@@ -2,5 +2,6 @@
   "java.compile.nullAnalysis.mode": "automatic",
   "java.configuration.updateBuildConfiguration": "automatic",
   "maven.view": "flat",
+  // 控制台中文乱码
   "terminal.integrated.defaultProfile.windows": "PowerShell"
 }
