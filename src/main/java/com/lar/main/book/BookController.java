@@ -3,7 +3,8 @@ package com.lar.main.book;
 
 import com.lar.common.aop.MenuCheck;
 import com.lar.common.vo.AppResult;
-import org.springframework.scheduling.annotation.Async;
+import com.lar.main.book.model.BookModel;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,17 +17,20 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
+/**
+ * 控制层
+ */
 @RestController
 @RequestMapping("/book")
 public class BookController {
-    @GetMapping
-    @Async
+    @PostMapping("list")
     public AppResult<?> list(){
         BookModel bookModel = new BookModel();
         bookModel.setDate(new Date());
         bookModel.setLocalDateTime(LocalDateTime.now());
         bookModel.setLocalDate(LocalDate.now());
         bookModel.setLocalTime(LocalTime.now());
+        // bookModel.setName("Java");
         return AppResult.success(bookModel);
     }
     @GetMapping("/{id}")

@@ -1,4 +1,4 @@
-package com.lar.main.book;
+package com.lar.main.book.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
+/**
+ * 前后端转换模型
+ */
 @Data
 public class BookModel {
     @JsonFormat(pattern="yyyy-MM",locale="zh")
