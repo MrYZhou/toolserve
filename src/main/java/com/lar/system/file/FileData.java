@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class FileData {
     String name;
+    String token;
 }
