@@ -6,4 +6,5 @@ import lombok.Data;
 public class FileData {
     String name;
     String token;
+    String itemId;
 }

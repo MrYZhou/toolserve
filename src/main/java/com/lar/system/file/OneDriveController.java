@@ -6,6 +6,9 @@ import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
+import com.lar.common.util.JsonUtil;
+import com.lar.common.vo.AppResult;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Cleanup;
 import org.apache.commons.io.FileUtils;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayInputStream;
@@ -24,14 +28,23 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/onedrive")
 public class OneDriveController {
     // 获取授权码
     @GetMapping("/redirectUri")
-    public String redirectUri(String code) {
+    public String redirectUri(@RequestParam("code") String code) {
         System.out.println(code);
+        // 增加上用户和code绑定关系
+        return code;
+    }
+
+    @GetMapping("/redirectUri2")
+    public String redirectUri2(@RequestParam("uid")String uid,@RequestParam("code") String code) {
+        System.out.println(code);
+        // 增加上用户和code绑定关系
         return code;
     }
 
@@ -95,9 +108,17 @@ public class OneDriveController {
 
     // 获取onedrive的文件列表内容
     @PostMapping("/list")
-    public String list(@RequestBody FileData params) throws IOException {
+    public AppResult<?> list(@RequestBody FileData params) throws IOException {
+        // 如果获取子集id,默认是根目录的内容
+        String itemId = params.getItemId() != null ? params.getItemId() : "root";
+        String list = "https://graph.microsoft.com/v1.0/me/drive/items/" + itemId + "/children";
+        String token = params.getToken();
+        String body = HttpRequest.get(list)
+                .header(Header.AUTHORIZATION, token)
+                .execute().body();
+        Map result = JsonUtil.toBean(body,Map.class);
 
-        return "";
+        return AppResult.success(result.get("value"));
     }
 
 
