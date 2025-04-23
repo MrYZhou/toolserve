@@ -19,3 +19,26 @@ spring:
 toolserver:
   author: larry
   rabbitmqEnabled: true
+
+
+
+#google访问相关
+google:
+  client:
+    # Google Drive新建的应用获取
+    client-id: YOUR_CLIENT_ID
+    # Google Drive新建的应用获取
+    client-secret: YOUR_CLIENT_SECRET
+    # OAuth 2.0授权流程中用于接收授权码的回调URI。用户完成授权后，Google会重定向到这个URI，并附上一个授权码
+    redirect-uri: http://127.0.0.1:8081/googledrive/redirectUri
+    # 指定此授权范围是访问Google Drive的权限
+    scopes: https://www.googleapis.com/auth/drive
+
+onedrive:
+  client:
+    # onedrive新建的应用获取
+    client-id: YOUR_CLIENT_ID
+    # onedrive新建的应用获取
+    client-secret: YOUR_CLIENT_SECRET
+    # OAuth 2.0授权流程中用于接收授权码的回调URI。用户完成授权后，Google会重定向到这个URI，并附上一个授权码
+    redirect-uri: http://127.0.0.1:8083/oauth/callback
