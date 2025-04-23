@@ -11,9 +11,12 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.lar.common.vo.AppResult;
 import com.lar.system.file.FileData;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -114,7 +117,17 @@ public class GoogleDriveController {
     public void download(@PathVariable("realFileId")  String fileId, HttpServletResponse response) throws IOException, GeneralSecurityException {
         Drive drive = driveServiceBuilder.getDriveService("12");
         String fileName = this.getFileName(drive,fileId);
-        ByteArrayOutputStream stream = this.downloadFile(drive,fileId);
+        ByteArrayOutputStream fileStream = this.downloadFile(drive,fileId);
+
+        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + fileName + "\"");
+        response.setContentLength(fileStream.size());
+
+        try (ServletOutputStream outputStream = response.getOutputStream()) {
+            outputStream.write(fileStream.toByteArray());
+            outputStream.flush();
+        }
 
     }
     public String getFileName( Drive drive , String fileId) throws IOException {
