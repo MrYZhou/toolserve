@@ -1,5 +1,8 @@
 package com.lar.system.file.google;
 
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
+import com.google.api.client.auth.oauth2.TokenResponseException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
@@ -7,6 +10,7 @@ import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.lar.common.vo.AppResult;
@@ -29,6 +33,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,28 +50,64 @@ public class GoogleDriveController {
     private String scopes;
     @Autowired
     private GoogleDriveServiceBuilder driveServiceBuilder;
-
+    @GetMapping("/redirectUri2")
+    public String redirectUri(@RequestParam String code, @RequestParam String state) throws IOException {
+        return code;
+    }
     // 回调授权码
     @GetMapping("/redirectUri")
-    public AppResult<?> redirectUri(@RequestParam String code, @RequestParam String state) throws IOException {
+    public AppResult<?> redirectUri2(@RequestParam String code, @RequestParam String state) throws IOException {
+        GoogleTokenResponse tokenResponse = null;
         // 验证state正确
         // 换取访问令牌
-        GoogleTokenResponse tokenResponse = new GoogleAuthorizationCodeTokenRequest(
-                new NetHttpTransport(),
-                GsonFactory.getDefaultInstance(),
-                "https://oauth2.googleapis.com/token",
-                clientId,
-                clientSecret,
-                code,
-                redirectUri)
-                .execute();
-        String accessToken = tokenResponse.getAccessToken();
-        String refreshToken = tokenResponse.getRefreshToken();
+
+        try{
+            HashMap map = new HashMap();
+            map.put("code", code);
+            map.put("redirect_uri", redirectUri);
+            map.put("client_id", clientId);
+            map.put("client_secret", clientSecret);
+            map.put("grant_type", "authorization_code");
+            String body = HttpRequest.post("https://oauth2.googleapis.com/token")
+                    .setHttpProxy("127.0.0.1", 7890) // 国内开发，使用代理，否则会连接超时。
+                    .setSSLProtocol("TLSv1.2")  // 指定 TLS 版本
+                    .form(map)
+                    .disableCookie()  // 可选：避免会话干扰
+                    .execute().body();
+
+            System.out.println(body);
+
+//            tokenResponse = new GoogleAuthorizationCodeTokenRequest(
+//                    new NetHttpTransport(),
+//                    GsonFactory.getDefaultInstance(),
+//                    "https://accounts.google.com/o/oauth2/v2/auth",
+//                    clientId,
+//                    clientSecret,
+//                    redirectUri)
+//                    .setScopes(Collections.singleton(scopes))
+//                    .setCode(code)
+//                    .setGrantType("authorization_code")
+//                    .execute();
+//            System.out.println(tokenResponse);
+//            String accessToken = tokenResponse.getAccessToken();
+//            String refreshToken = tokenResponse.getRefreshToken();
+        }  catch (Exception e) {
+            System.out.println(e.getMessage());
+            AppResult.fail(e.getMessage());
+        }
         // 把token存储
 
         return AppResult.success(tokenResponse);
     }
-
+    /** V2版本的授权 **/
+    @GetMapping("/auth2")
+    public AppResult<?> auth2() throws Exception {
+        String userId="123";
+       String authUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+       authUrl+="?client_id="+clientId+"&redirect_uri="+redirectUri+"&access_type=offline&state="+userId
+               +"&response_type=code&scope="+scopes;
+        return AppResult.success(authUrl);
+    }
 
     // 生成授权URL
     @GetMapping("/auth")
@@ -74,7 +115,7 @@ public class GoogleDriveController {
 
         String userId = "123";
         String authUrl = new GoogleAuthorizationCodeRequestUrl(
-                clientSecret,
+                clientId,
                 redirectUri,
                 Collections.singleton(scopes))
                 .setState(userId) // 设置当前用户的标识

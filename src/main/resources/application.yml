@@ -26,13 +26,14 @@ toolserver:
 google:
   client:
     # Google Drive新建的应用获取
-    client-id: YOUR_CLIENT_ID
+    client-id: 663018976908-ttr6qsb6k7t8s2742no14iob1eluv7pu.apps.googleusercontent.com
     # Google Drive新建的应用获取
-    client-secret: YOUR_CLIENT_SECRET
+    client-secret:
     # OAuth 2.0授权流程中用于接收授权码的回调URI。用户完成授权后，Google会重定向到这个URI，并附上一个授权码
     redirect-uri: http://127.0.0.1:8081/googledrive/redirectUri
     # 指定此授权范围是访问Google Drive的权限
-    scopes: https://www.googleapis.com/auth/drive
+    scopes: https://www.googleapis.com/auth/drive.file
+    needProxy: true
 
 onedrive:
   client:
