@@ -1,22 +1,23 @@
 package com.lar.system.file.google;
 
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpUtil;
-import com.google.api.client.auth.oauth2.TokenResponseException;
+import cn.hutool.http.HttpResponse;
+import cn.hutool.json.JSONUtil;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
+import com.lar.common.util.JsonUtil;
+import com.lar.common.util.RedisUtil;
 import com.lar.common.vo.AppResult;
-import com.lar.system.file.FileData;
+import com.lar.system.file.model.DocFileData;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -31,102 +32,120 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/googledrive")
+@Slf4j
 public class GoogleDriveController {
-    @Value("${google.client.client-id:}")
+    @Value("${google.client.client-id:663018976908-ttr6qsb6k7t8s2742no14iob1eluv7pu.apps.googleusercontent.com}")
     private String clientId;
-    @Value("${google.client.client-secret:}")
+    @Value("${google.client.client-secret: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}")
     private String clientSecret;
-    @Value("${google.client.redirect-uri:}")
+    @Value("${google.client.redirect-uri:http://127.0.0.1:38000/api/file/googledrive/redirectUri}")
     private String redirectUri;
-    @Value("${google.client.scopes:https://www.googleapis.com/auth/drive}")
+    @Value("${google.client.scopes:https://www.googleapis.com/auth/drive.file}")
     private String scopes;
+    @Value("${google.client.needProxy:true}")
+    private Boolean needProxy;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+
     @Autowired
     private GoogleDriveServiceBuilder driveServiceBuilder;
-    @GetMapping("/redirectUri2")
-    public String redirectUri(@RequestParam String code, @RequestParam String state) throws IOException {
-        return code;
+
+    // 授权码检测
+    @GetMapping("/checkAuth")
+    public AppResult<?> checkAuth() throws IOException {
+        // 获取当前用户的token信息，如果不存在进行授权
+        GoogleTokenResponse token = driveServiceBuilder.getToken("userid");
+        Map<String, Object> map = new HashMap<>();
+        if (token == null) {
+            map.put("authUrl", authUrl());
+        } else {
+            map.put("access_token", token.getAccessToken());
+        }
+        return AppResult.success(map);
     }
+
     // 回调授权码
     @GetMapping("/redirectUri")
-    public AppResult<?> redirectUri2(@RequestParam String code, @RequestParam String state) throws IOException {
-        GoogleTokenResponse tokenResponse = null;
-        // 验证state正确
+    public AppResult<?> redirectUri(@RequestParam("code") String code, @RequestParam("state") String state) throws IOException {
+        GoogleTokenResponse tokenResponse = new GoogleTokenResponse();
         // 换取访问令牌
-
-        try{
+        try {
             HashMap map = new HashMap();
             map.put("code", code);
             map.put("redirect_uri", redirectUri);
             map.put("client_id", clientId);
             map.put("client_secret", clientSecret);
             map.put("grant_type", "authorization_code");
-            String body = HttpRequest.post("https://oauth2.googleapis.com/token")
-                    .setHttpProxy("127.0.0.1", 7890) // 国内开发，使用代理，否则会连接超时。
+            HttpRequest httpRequest = HttpRequest.post("https://oauth2.googleapis.com/token")
                     .setSSLProtocol("TLSv1.2")  // 指定 TLS 版本
                     .form(map)
-                    .disableCookie()  // 可选：避免会话干扰
-                    .execute().body();
+                    .disableCookie();// 可选：避免会话干扰
+            if (needProxy) {
+                httpRequest.setHttpProxy("127.0.0.1", 7890); // 国内开发，使用代理，否则会连接超时。
+            }
+            String body = httpRequest.execute().body();
+            Map data = JsonUtil.toBean(body, Map.class);
+            tokenResponse.setAccessToken(data.get("access_token").toString());
+            tokenResponse.setRefreshToken(data.get("refresh_token").toString());
 
-            System.out.println(body);
+            // 计算过期时间
+            int expiresInSeconds = (int) data.get("expires_in");
+            driveServiceBuilder.setExpireTime(tokenResponse, expiresInSeconds, "expirationTimeStr");
+//            redisUtil.insert(state + "googledrive", JsonUtil.getObjectToString(tokenResponse),36000);
 
-//            tokenResponse = new GoogleAuthorizationCodeTokenRequest(
-//                    new NetHttpTransport(),
-//                    GsonFactory.getDefaultInstance(),
-//                    "https://accounts.google.com/o/oauth2/v2/auth",
-//                    clientId,
-//                    clientSecret,
-//                    redirectUri)
-//                    .setScopes(Collections.singleton(scopes))
-//                    .setCode(code)
-//                    .setGrantType("authorization_code")
-//                    .execute();
-//            System.out.println(tokenResponse);
-//            String accessToken = tokenResponse.getAccessToken();
-//            String refreshToken = tokenResponse.getRefreshToken();
-        }  catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            AppResult.fail(e.getMessage());
+            return AppResult.fail(e.getMessage());
         }
-        // 把token存储
-
-        return AppResult.success(tokenResponse);
+        return AppResult.success("Authorization Successful");
     }
-    /** V2版本的授权 **/
+
+    /**
+     * V2版本的授权
+     **/
     @GetMapping("/auth2")
     public AppResult<?> auth2() throws Exception {
-        String userId="123";
-       String authUrl = "https://accounts.google.com/o/oauth2/v2/auth";
-       authUrl+="?client_id="+clientId+"&redirect_uri="+redirectUri+"&access_type=offline&state="+userId
-               +"&response_type=code&scope="+scopes;
+        String userId = "123";
+        String authUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+        authUrl += "?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&access_type=offline&state=" + userId
+                + "&response_type=code&scope=" + scopes;
         return AppResult.success(authUrl);
     }
 
     // 生成授权URL
     @GetMapping("/auth")
     public AppResult<?> startOAuth() throws Exception {
+        return AppResult.success(this.authUrl());
+    }
 
-        String userId = "123";
+    public String authUrl() {
         String authUrl = new GoogleAuthorizationCodeRequestUrl(
                 clientId,
                 redirectUri,
-                Collections.singleton(scopes))
-                .setState(userId) // 设置当前用户的标识
-                .setAccessType("offline")
+                Collections.singleton(scopes)) // 配置访问范围
+                .setState("userid") // 设置当前用户的标识
+                .setAccessType("offline") // 服务器返回refresh_token
+                .setApprovalPrompt("force") // 重新发起授权，避免refresh_token在授权过不在生成的情况
                 .build();
-        return AppResult.success(authUrl);
+        log.info("auth url: {}", authUrl);
+        return authUrl;
     }
 
     // 获取googledrive的文件列表内容
     @PostMapping("/list")
-    public AppResult<?> list(@RequestBody FileData params) throws GeneralSecurityException, IOException {
+    public AppResult<?> list(@RequestBody DocFileData params) throws GeneralSecurityException, IOException {
         String userId = "123";
         Drive drive = driveServiceBuilder.getDriveService(userId);
         FileList result = drive.files().list()
@@ -153,12 +172,30 @@ public class GoogleDriveController {
 
         return AppResult.success(collect);
     }
-    // 下载文件
-    @PostMapping("/download/{fileId}")
-    public void download(@PathVariable("realFileId")  String fileId, HttpServletResponse response) throws IOException, GeneralSecurityException {
-        Drive drive = driveServiceBuilder.getDriveService("12");
-        String fileName = this.getFileName(drive,fileId);
-        ByteArrayOutputStream fileStream = this.downloadFile(drive,fileId);
+
+    // 下载文件原生
+    @GetMapping("/download/{fileId}")
+    public void download(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException, GeneralSecurityException {
+        GoogleTokenResponse token = driveServiceBuilder.getToken("userid");
+        String downloadUrl = "https://drive.google.com/uc?id=" + fileId + "&export=download";
+        HttpRequest httpRequest = HttpRequest.get(downloadUrl)
+                .header(Header.AUTHORIZATION, token.getAccessToken());
+        if (needProxy) {
+            httpRequest.setHttpProxy("127.0.0.1", 7890); // 国内开发，使用代理，否则会连接超时。
+        }
+        HttpResponse execute = httpRequest.execute();
+        try (OutputStream outputStream = response.getOutputStream()) {
+            response.setContentType("application/octet-stream");
+            IoUtil.copy(execute.bodyStream(), outputStream, IoUtil.DEFAULT_BUFFER_SIZE);
+        }
+    }
+
+    // 下载文件原生
+    @GetMapping("/download2/{fileId}")
+    public void download2(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException, GeneralSecurityException {
+        Drive drive = driveServiceBuilder.getDriveService("userid");
+        String fileName = this.getFileName(drive, fileId);
+        ByteArrayOutputStream fileStream = this.downloadFile(drive, fileId);
 
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
@@ -171,12 +208,14 @@ public class GoogleDriveController {
         }
 
     }
-    public String getFileName( Drive drive , String fileId) throws IOException {
+
+    public String getFileName(Drive drive, String fileId) throws IOException {
         return drive.files().get(fileId)
                 .execute()
                 .getName();
     }
-    public ByteArrayOutputStream downloadFile( Drive drive ,String fileId) throws IOException {
+
+    public ByteArrayOutputStream downloadFile(Drive drive, String fileId) throws IOException {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             drive.files().get(fileId)

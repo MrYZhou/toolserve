@@ -1,4 +1,4 @@
-package com.lar.system.file.onedrive;
+package com.lar.system.file.sharepoint;
 
 
 import cn.hutool.http.Header;
@@ -8,6 +8,7 @@ import com.lar.common.util.RedisUtil;
 import com.lar.common.vo.AppResult;
 import com.lar.system.file.model.DocFileData;
 import com.lar.system.file.model.OneDriveModel;
+import com.lar.system.file.onedrive.OneDriveServiceBuilder;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -29,39 +30,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
-@RequestMapping("/onedrive")
+@RequestMapping("/sharepoint")
 @Slf4j
-public class OneDriveController {
+public class SharePointController {
     @Autowired
     OneDriveServiceBuilder driveServiceBuilder;
     @Autowired
     private RedisUtil redisUtil;
 
-    @Value("${onedrive.client.client-id:d6029edc-9b6b-45b9-bac4-bef3370a6510}")
+    @Value("${sharepoint.client.client-id:d6029edc-9b6b-45b9-bac4-bef3370a6510}")
     private String clientId;
-    @Value("${onedrive.client.client-secret:BdD8Q~6iMK676URfgVz6OUUH3NiLfFemNXdufdez}")
+    @Value("${sharepoint.client.client-secret:BdD8Q~6iMK676URfgVz6OUUH3NiLfFemNXdufdez}")
     private String clientSecret;
-    @Value("${onedrive.client.redirect-uri:http://localhost:38000/api/file/onedrive/redirectUri}")
+    @Value("${sharepoint.client.redirect-uri:http://localhost:38000/api/file/sharepoint/redirectUri}")
     private String redirectUri;
-    @Value("${onedrive.client.scopes:files.readwrite offline_access}")
+    @Value("${sharepoint.client.scopes:files.readwrite offline_access}")
     private String scopes;
     @Autowired
     private RestTemplate restTemplate;
 
 
-    // onedrive授权码检测
+    // sharepoint授权码检测
     @GetMapping("/checkAuth")
     public AppResult<?> checkAuth() throws IOException {
         // 获取当前用户的token信息，如果不存在进行授权
@@ -83,12 +79,18 @@ public class OneDriveController {
         log.info("auth url: {}", authUrl);
         return authUrl;
     }
-
-    // 获取授权码
     @GetMapping("/redirectUri")
+    public AppResult<?> redirectUri2(@RequestParam("state") String state, @RequestParam("code") String code) {
+        OneDriveModel tokenResponse = new OneDriveModel();
+        String tokenUrl = "https://login.live.com/oauth20_token.srf";
+        return AppResult.success(code);
+    }
+    // 获取授权码
+    @GetMapping("/redirectUri2")
     public AppResult<?> redirectUri(@RequestParam("state") String state, @RequestParam("code") String code) {
         OneDriveModel tokenResponse = new OneDriveModel();
         String tokenUrl = "https://login.live.com/oauth20_token.srf";
+
         // 换取访问令牌
         try {
             HashMap map = new HashMap();
@@ -101,9 +103,8 @@ public class OneDriveController {
                     .setSSLProtocol("TLSv1.2")  // 指定 TLS 版本
                     .form(map)
                     .disableCookie();// 可选：避免会话干扰
-//            if (needProxy) {
-//                httpRequest.setHttpProxy("127.0.0.1", 7890); // 国内开发，使用代理，否则会连接超时。
-//            }
+
+
             String body = httpRequest.execute().body();
             Map data = JsonUtil.toBean(body, Map.class);
             tokenResponse.setAccessToken(data.get("access_token").toString());
@@ -111,7 +112,7 @@ public class OneDriveController {
             // 计算过期时间
             int expiresInSeconds = (int) data.get("expires_in");
             driveServiceBuilder.setExpireTime(tokenResponse, expiresInSeconds);
-//            redisUtil.insert(state + "onedrive", JsonUtil.getObjectToString(tokenResponse), 36000);
+//            redisUtil.insert(state + "sharepoint", JsonUtil.getObjectToString(tokenResponse), 36000);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -185,7 +186,7 @@ public class OneDriveController {
 //    }
 
 
-    // 下载文件，onedrive下载文件
+    // 下载文件，sharepoint下载文件
 //    @PostMapping("/download/{itemId}")
 //    public void download(@PathVariable("itemId") String itemId, HttpServletResponse response) throws IOException {
 //        String tempDownloadUrl = "https://my.microsoftpersonalcontent.com/personal/9417dd4c80831e92/_layouts/15/download.aspx?UniqueId=c124051f-8667-4136-ade8-ddde07186dc4&Translate=false&tempauth=v1e.eyJzaXRlaWQiOiIzYmE0OWQyOC00ZDcwLTRjOWEtYWMxOC1iOGRhZTA4NTM0ZDYiLCJhcHBfZGlzcGxheW5hbWUiOiLmtYvor5VhcHAyIiwiYXBwaWQiOiJkNjAyOWVkYy05YjZiLTQ1YjktYmFjNC1iZWYzMzcwYTY1MTAiLCJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbXkubWljcm9zb2Z0cGVyc29uYWxjb250ZW50LmNvbUA5MTg4MDQwZC02YzY3LTRjNWItYjExMi0zNmEzMDRiNjZkYWQiLCJleHAiOiIxNzQ1MDUyNTkzIn0.nOADkpjtyy25z5JG0nbBLkDKhNi0y_tLDfM4netwKCePRvTE9afFigwaFYZMCxT59aTckZ9NUQ6bsCbNr17Jyk1k86ahaLpQErAsViqpLiIfNobBidMC1ghoOXB1MYBo8MVz9vtfD45lmZQV6WqMLt4ooGYsNUaPCSG3hgN9goc_232geUib67hM3mowo4ZNoVYPN2D08NXUnPflF2CsmJsJ-fqpB5UgucF2KAT092Uq13h2QjoqkzGyKl9YS3WEpBUTM6kLVBaXcE6Yr0hzZ1h-m_kMaiHGCOsyQr3Ml76GrdqHrOk0tG5dIOuRIXZMuC8pkb118XMsmRRvcok4_vnwJsvqDLJ9r5O5dkaj3Pe8ZMWdq6paXiiON4bdVb6V47b4VwYzA4KBHxI48k5auEaYU5vUzjbdjpEoOyfHPvHFc07e2nvxId3WebDc3A-I.FREvrEUFQUjA4lHP90G4Dk8TpohgtrnHPxeEV7XWlFs&ApiVersion=2.0";
@@ -224,7 +225,7 @@ public class OneDriveController {
         return AppResult.success();
     }
 
-    // 下载文件，通过id从onedrive下载文件内容回来
+    // 下载文件，通过id从sharepoint下载文件内容回来
     @GetMapping("/download/{itemId}")
     public ResponseEntity<Resource> download(@PathVariable("itemId") String itemId, HttpServletResponse response) throws IOException {
         String downloadUrl = "https://graph.microsoft.com/v1.0/me/drive/items/" + itemId + "/content";
@@ -251,7 +252,7 @@ public class OneDriveController {
                 .body(resource);
     }
 
-    // 获取onedrive的文件列表内容
+    // 获取sharepoint的文件列表内容
     @PostMapping("/list")
     public AppResult<?> list(@RequestBody DocFileData params) throws IOException {
         // 如果获取子集id,默认是根目录的内容
@@ -259,8 +260,8 @@ public class OneDriveController {
 
         String list = "https://graph.microsoft.com/v1.0/me/drive/items/" + itemId + "/children";
         // 如果有关键字查询
-        if(StringUtils.isNotEmpty(params.getKeyword())){
-            list = "https://graph.microsoft.com/v1.0/me/drive/root/search(q='"+params.getKeyword()+"')";
+        if (StringUtils.isNotEmpty(params.getKeyword())) {
+            list = "https://graph.microsoft.com/v1.0/me/drive/root/search(q='" + params.getKeyword() + "')";
         }
 
         OneDriveModel model = driveServiceBuilder.getToken("userid");
@@ -281,13 +282,13 @@ public class OneDriveController {
 //    public void revoke() throws IOException {
 //        String userId = userProvider.get().getUserId();
 //        // 获取当前的token
-//        Object data = redisUtil.getString(userId + "onedrive");
+//        Object data = redisUtil.getString(userId + "sharepoint");
 //        if (Objects.isNull(data)) {
 ////            return AppResult.success("");
 //        }
 //        OneDriveModel model = JsonUtil.toBean(data, OneDriveModel.class);
 //        // 删除Redis中的令牌
-//        redisUtil.remove(userId + "onedrive");
+//        redisUtil.remove(userId + "sharepoint");
 //    }
 
 }
