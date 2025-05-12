@@ -47,8 +47,8 @@ onedrive:
 sharepoint:
   client:
     # sharepoint新建的应用获取
-    client-id: 395c5aba-f43c-4852-9b78-52815f473977
+    client-id: YOUR_CLIENT_ID
     # sharepoint新建的应用获取
-    client-secret: KBS8Q~4e9Jll-Y9EfmcsDJAM7_eGi.62aKwlKcya
+    client-secret: YOUR_CLIENT_SECRET
     # OAuth 2.0授权流程中用于接收授权码的回调URI。用户完成授权后，Google会重定向到这个URI，并附上一个授权码
     redirect-uri: http://127.0.0.1:8081/sharepoint/redirectUri
