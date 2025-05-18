@@ -3,9 +3,10 @@ package com.lar.system.file;
 import cn.xuyanwu.spring.file.storage.Downloader;
 import cn.xuyanwu.spring.file.storage.FileInfo;
 import cn.xuyanwu.spring.file.storage.FileStorageService;
+import com.lar.common.util.FileCryptoUtil;
+import com.lar.common.util.FileTool;
 import lombok.AllArgsConstructor;
 import lombok.Cleanup;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,9 +50,10 @@ public class FileController {
      * @return
      */
     @PostMapping("/upload")
-    public FileInfo upload(MultipartFile file) {
-
-        FileInfo upload = fileStorageService.of(file).setPath("/i18n/").setSaveFilename("1.xlsx").upload();
+    public FileInfo upload(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+        File file = FileTool.multipartFileToFile(multipartFile);
+        FileCryptoUtil.encryptFile(file);
+        FileInfo upload = fileStorageService.of(file).setPath("i18n/").setSaveFilename(multipartFile.getOriginalFilename()).upload();
         return upload;
     }
 
@@ -59,10 +61,8 @@ public class FileController {
     public byte[] download(@RequestParam(value = "url") String url) {
         FileInfo fileInfo = fileStorageService.getFileInfoByUrl(url);
         Downloader download = fileStorageService.download(fileInfo);
-        return  download.bytes();
+        return download.bytes();
     }
-
-
 
 
     /**

@@ -43,6 +43,8 @@ onedrive:
     client-secret: YOUR_CLIENT_SECRET
     # OAuth 2.0授权流程中用于接收授权码的回调URI。用户完成授权后，Google会重定向到这个URI，并附上一个授权码
     redirect-uri: http://127.0.0.1:8081/oauth/callback
+    # 租户id
+    tenantId: cc143140-bdab-4c5a-9a90-129fa198920a
 
 sharepoint:
   client:
