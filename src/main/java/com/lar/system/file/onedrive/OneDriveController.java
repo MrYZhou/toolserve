@@ -126,8 +126,8 @@ public class OneDriveController {
     public String upload(@RequestBody DocFileData params) throws IOException {
 
         String uploadUrl = "https://graph.microsoft.com/v1.0/me/drive/root:/uploadfile/";
-        File file = new File("D:\\Users\\JNPF\\Desktop\\project\\toolserve\\src\\main\\resources\\config\\1.docx");
-        uploadUrl = uploadUrl + "1.docx:/content";
+        File file = new File("D:\\Users\\JNPF\\Desktop\\project\\toolserve\\src\\main\\resources\\config\\2.docx");
+        uploadUrl = uploadUrl + "2.docx:/content";
 
         byte[] bytes = FileUtils.readFileToByteArray(file);
         String body = HttpRequest.put(uploadUrl)

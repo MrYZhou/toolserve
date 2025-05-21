@@ -51,9 +51,9 @@ public class FileController {
      */
     @PostMapping("/upload")
     public FileInfo upload(@RequestParam("file") MultipartFile multipartFile) throws IOException {
-        File file = FileTool.multipartFileToFile(multipartFile);
-        FileCryptoUtil.encryptFile(file);
-        FileInfo upload = fileStorageService.of(file).setPath("i18n/").setSaveFilename(multipartFile.getOriginalFilename()).upload();
+        byte[] bytes = multipartFile.getBytes();
+        byte[] bytesCrypt = FileCryptoUtil.encryptFile(bytes);
+        FileInfo upload = fileStorageService.of(bytes).setPath("i18n/").setSaveFilename(multipartFile.getOriginalFilename()).upload();
         return upload;
     }
 
