@@ -1,12 +1,14 @@
 package com.lar.system.file;
 
+import cn.hutool.http.HttpUtil;
 import cn.xuyanwu.spring.file.storage.Downloader;
 import cn.xuyanwu.spring.file.storage.FileInfo;
 import cn.xuyanwu.spring.file.storage.FileStorageService;
 import com.lar.common.util.FileCryptoUtil;
-import com.lar.common.util.FileTool;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Cleanup;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,20 +17,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 @RestController
 @RequestMapping(value = "/file")
 @AllArgsConstructor
+@Slf4j
 public class FileController {
     // @Autowired
     // private FileService fileService;
+    @Autowired
+    private RestTemplate restTemplate;
 
-
+    @Autowired
+    private FileCryptoUtil fileCryptoUtil;
     @Autowired
     private FileStorageService fileStorageService;
 
@@ -62,6 +72,36 @@ public class FileController {
         FileInfo fileInfo = fileStorageService.getFileInfoByUrl(url);
         Downloader download = fileStorageService.download(fileInfo);
         return download.bytes();
+    }
+
+    @GetMapping("/downloadFile")
+    public void kkfileFiledownload(@RequestParam("url") String downloadUrl, HttpServletResponse response) {
+        try (OutputStream os = response.getOutputStream()) {
+            // 下载并解密文件
+            byte[] encryptedBytes = HttpUtil.downloadBytes(downloadUrl);
+            byte[] decryptedBytes = fileCryptoUtil.decryptFile(encryptedBytes);
+
+            // 设置响应头
+            URLConnection conn = new URL(downloadUrl).openConnection();
+            String contentType = conn.getContentType();
+            String fileName = "downloadFile";
+            int lastSlashIndex = downloadUrl.lastIndexOf('/');
+            if (lastSlashIndex != -1) {
+                fileName = downloadUrl.substring(lastSlashIndex + 1);
+            }
+
+            response.setContentType(contentType != null ? contentType : "application/octet-stream");
+            response.setHeader("Content-Disposition",
+                    "attachment;filename=" + new String(fileName.getBytes("utf-8"), "utf-8"));
+            response.setContentLength(decryptedBytes.length);
+
+            // 直接写入解密后的字节流
+            os.write(decryptedBytes);
+            os.flush();
+        } catch (Exception e) {
+            log.error("kkfile文件下载失败", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
 
