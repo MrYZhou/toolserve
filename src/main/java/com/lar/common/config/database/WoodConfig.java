@@ -38,6 +38,7 @@ public class WoodConfig {
         config.setValidationTimeout(5000); // 设置连接验证的超时时间（毫秒）
         config.setKeepaliveTime(120000); // 设置连接保活的时间间隔（毫秒）
         config.setConnectionTimeout(5000); // 设置获取连接的最大等待时间（毫秒）
+        config.setLeakDetectionThreshold(120000); // 设置检测连接被占用但未归还的时间阈值，超过该时间未关闭的连接会被标记为泄漏
         HikariDataSource dataSource = new HikariDataSource(config);
         return new DbContext("", dataSource);
     }
