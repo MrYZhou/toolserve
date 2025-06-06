@@ -174,7 +174,7 @@
             <!--日志最大的历史7天-->
             <maxHistory>7</maxHistory>
             <!-- 日志文件的最大大小 -->
-            <maxFileSize>10MB</maxFileSize>
+            <maxFileSize>50MB</maxFileSize>
             <!-- 总日志文件大小不超过3GB -->
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
@@ -228,31 +228,31 @@
     <!-- 异步输出 DEBUG -->
     <appender name="ASYNC_FILE_DEBUG" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
-        <queueSize>256</queueSize>
+        <queueSize>512</queueSize>
         <appender-ref ref="FILE_DEBUG"/>
     </appender>
     <!-- 异步输出 INFO -->
     <appender name="ASYNC_FILE_INFO" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
-        <queueSize>256</queueSize>
+        <queueSize>512</queueSize>
         <appender-ref ref="FILE_INFO"/>
     </appender>
     <!-- 异步输出 WARN -->
     <appender name="ASYNC_FILE_WARN" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
-        <queueSize>256</queueSize>
+        <queueSize>512</queueSize>
         <appender-ref ref="FILE_WARN"/>
     </appender>
     <!-- 异步输出 ERROR -->
     <appender name="ASYNC_FILE_ERROR" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
-        <queueSize>256</queueSize>
+        <queueSize>512</queueSize>
         <appender-ref ref="FILE_ERROR"/>
     </appender>
     <!-- 异步输出 ALL -->
     <appender name="ASYNC_FILE_ALL" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
-        <queueSize>256</queueSize>
+        <queueSize>512</queueSize>
         <appender-ref ref="FILE_ALL"/>
     </appender>
 
@@ -268,50 +268,9 @@
     <!-- 异步输出 控制台 -->
     <appender name="ASYNC_STDOUT" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
-        <queueSize>256</queueSize>
+        <queueSize>512</queueSize>
         <appender-ref ref="STDOUT"/>
     </appender>
-
-
-    <!--<appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        &lt;!&ndash; 必填：目标：LogStash的 IP:Port &ndash;&gt;
-        <destination>192.168.0.50:50000</destination>
-        &lt;!&ndash; 可选：保持程序存活时间 &ndash;&gt;
-        <keepAliveDuration>5 minutes</keepAliveDuration>
-        &lt;!&ndash; 可选：重连延迟时长 &ndash;&gt;
-        <reconnectionDelay>10 second</reconnectionDelay>
-        &lt;!&ndash; 可选：等待策略 &ndash;&gt;
-        <waitStrategyType>sleeping</waitStrategyType>
-        &lt;!&ndash;  ============ encoder必须配置,有多种可选 ============= &ndash;&gt;
-        &lt;!&ndash; 编码器二：LoggingEventCompositeJsonEncoder &ndash;&gt;
-        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
-                &lt;!&ndash; 时间戳：时区 &ndash;&gt;
-                <timestamp>
-                    <timeZone>UTC</timeZone>
-                </timestamp>
-                &lt;!&ndash; 模式 &ndash;&gt;
-                <pattern>
-                    <pattern>
-                        {
-                        "severity": "%level",
-                        "service": "${SERVICE_NAME:-}",
-                        "trace": "%X{X-B3-TraceId:-}",
-                        "span": "%X{X-B3-SpanId:-}",
-                        "exportable": "%X{X-Span-Export:-}",
-                        "pid": "${PID:-}",
-                        "thread": "%thread",
-                        "class": "%logger{40}",
-                        "msg": "%message"
-                        &lt;!&ndash;"idx_pre": "elk-original-third-access",&ndash;&gt;
-                        &lt;!&ndash;"json": "#asJson{%message}"  这个asJson可以把对应的字符串作为json对象取出来，这样es可以对json里面的字段索引了&ndash;&gt;
-                        }
-                    </pattern>
-                </pattern>
-            </providers>
-        </encoder>
-    </appender>-->
-
 
     <root level="${LOG_LEVEL}">
         <appender-ref ref="ASYNC_STDOUT"/>
@@ -320,9 +279,8 @@
         <appender-ref ref="ASYNC_FILE_WARN"/>
         <appender-ref ref="ASYNC_FILE_DEBUG"/>
         <appender-ref ref="ASYNC_FILE_ALL"/>
-        <!--<appender-ref ref="LOGSTASH"/>-->
     </root>
     <!--    取消logback启动日志信息-->
-    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
 </configuration>
