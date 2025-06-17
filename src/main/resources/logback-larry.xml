@@ -10,7 +10,7 @@
     <!--定义日志存放的位置，默认存放在项目启动的相对路径的目录-->
     <springProperty scope="context" name="LOG_PATH" source="logging.file.path" defaultValue="log/${SERVICE_NAME}"/>
 
-    <!-- 服务自定义等级 如需自定义服务日志等级 修改下方的【自定义服务名】与nacos上的log.level.自定义服务名=等级 -->
+    <!-- 服务自定义等级 如需自定义服务日志等级 修改下方的【自定义服务名】与nacos上的log.level.自定义服务名: 等级 -->
     <springProperty scope="context" name="LOG_LEVEL" source="logging.level.admin" defaultValue="INFO"/>
 
     <!-- 日志记录器，日期滚动记录，level为 ERROR 日志 -->

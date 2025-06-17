@@ -5,7 +5,6 @@ spring:
     active: dev
 
   rabbitmq:
-    enabled: false
     host: 47.120.11.197 # 主机名
     port: 5672 # 端口
     virtual-host: / # 虚拟主机
