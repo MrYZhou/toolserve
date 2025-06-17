@@ -27,18 +27,25 @@ public class WoodConfig {
     public DbContext getDbContext() {
         // 创建HikariCP连接池
         HikariConfig config = new HikariConfig();
+        url ="jdbc:mysql://192.168.11.254:3306/tenant?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+        username = "init";
+        password = "nacos11tm3DZ2AcH5E3hdzt";
         config.setJdbcUrl(url);
         config.setUsername(username);
         config.setPassword(password);
-        config.setMaximumPoolSize(30); // 设置最大连接池大小
-        config.setMinimumIdle(30); // 设置最小空闲连接数
-        config.setIdleTimeout(120000); // 设置非核心连接的空闲超时时间（毫秒）
-        config.setMaxLifetime(60000); // 设置连接的最大生命周期（毫秒）
+        config.setMaximumPoolSize(20); // 设置最大连接池大小,峰值容量
+        config.setMinimumIdle(5); // 设置最小空闲连接数,常态空闲连接
+        config.setIdleTimeout(600000); // 设置非核心连接的空闲超时时间,10分钟（毫秒）
+        config.setMaxLifetime(1800000); // 设置连接的最大生命周期,30分钟（毫秒）
         config.setConnectionTestQuery("SELECT 1"); // 设置连接验证时执行的SQL语句
-        config.setValidationTimeout(5000); // 设置连接验证的超时时间（毫秒）
+        config.setValidationTimeout(150000); // 设置连接验证的超时时间（毫秒）
         config.setKeepaliveTime(120000); // 设置连接保活的时间间隔（毫秒）
-        config.setConnectionTimeout(5000); // 设置获取连接的最大等待时间（毫秒）
+        config.setConnectionTimeout(60000); // 设置获取连接的最大等待时间（毫秒）
         config.setLeakDetectionThreshold(120000); // 设置检测连接被占用但未归还的时间阈值，超过该时间未关闭的连接会被标记为泄漏
+        // MySQL特有优化
+        config.addDataSourceProperty("cachePrepStmts", "true");  // 启用预编译缓存
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         HikariDataSource dataSource = new HikariDataSource(config);
         return new DbContext("", dataSource);
     }
