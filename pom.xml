@@ -24,7 +24,6 @@
         <easyexcel.version>3.3.2</easyexcel.version>
         <hutool.version>6.0.0-M8</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
-        <wood.version>1.2.6</wood.version>
         <mybatisplus.version>3.5.5</mybatisplus.version>
         <xxl.version>2.4.2</xxl.version>
         <snack3.version>3.2.57</snack3.version>
@@ -138,12 +137,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
-        </dependency>
-        <!--		orm-->
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>wood.plus</artifactId>
-            <version>${wood.version}</version>
         </dependency>
         <!--file操作包-->
         <dependency>

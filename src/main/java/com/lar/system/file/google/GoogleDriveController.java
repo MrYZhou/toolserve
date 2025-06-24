@@ -82,7 +82,7 @@ public class GoogleDriveController {
         GoogleTokenResponse tokenResponse = new GoogleTokenResponse();
         // 换取访问令牌
         try {
-            HashMap map = new HashMap();
+            HashMap<String, Object> map = new HashMap();
             map.put("code", code);
             map.put("redirect_uri", redirectUri);
             map.put("client_id", clientId);

@@ -55,12 +55,14 @@ spring:
 
   #   数据库配置
   datasource:
-
     #    此处须配置自己的数据库地址和端口，否则启动失败.注意地址不能127.0.0.1否则会导致docker中无法访问
-    url: jdbc:mysql://127.0.0.1:3306/study?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
-      &allowPublicKeyRetrieval=true
+    host: 127.0.0.1
+    port: 3306
+    dbname: study
     username: root
     password: root
+    url: jdbc:mysql://127.0.0.1:3306/study?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+      &allowPublicKeyRetrieval=true
     type:  com.zaxxer.hikari.HikariDataSource
     hikari:
       maximum-pool-size: 20
@@ -98,7 +100,7 @@ sa-token:
   # token有效期，单位s 默认30天, -1代表永不过期
   timeout: 360000
   # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
-  activity-timeout: -1
+  active-timeout: -1
   # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录,false就是单点登录了)
   is-concurrent: false
   # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)

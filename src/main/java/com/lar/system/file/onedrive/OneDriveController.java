@@ -1,6 +1,7 @@
 package com.lar.system.file.onedrive;
 
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import com.lar.common.util.JsonUtil;
@@ -10,8 +11,9 @@ import com.lar.system.file.model.DocFileData;
 import com.lar.system.file.model.OneDriveModel;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.io.FileUtils;
-import org.noear.wood.utils.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -259,7 +261,7 @@ public class OneDriveController {
 
         String list = "https://graph.microsoft.com/v1.0/me/drive/items/" + itemId + "/children";
         // 如果有关键字查询
-        if(StringUtils.isNotEmpty(params.getKeyword())){
+        if(StrUtil.isNotEmpty(params.getKeyword())){
             list = "https://graph.microsoft.com/v1.0/me/drive/root/search(q='"+params.getKeyword()+"')";
         }
 

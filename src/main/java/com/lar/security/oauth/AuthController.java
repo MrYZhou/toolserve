@@ -7,6 +7,7 @@ import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.stp.parameter.SaLoginParameter;
 import cn.dev33.satoken.util.SaResult;
 import com.lar.common.enums.AppConfig;
 import com.lar.common.util.JsonUtil;
@@ -21,7 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.data.id.IdUtil;
 import org.dromara.hutool.core.util.RandomUtil;
-import org.noear.wood.DbContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -44,8 +46,7 @@ public class AuthController {
     // 复杂的业务推荐
     @Autowired
     private UserService userService;
-    @Autowired
-    private DbContext db;
+
 
     // 验证码:https://github.com/ele-admin/EasyCaptcha
     @ResponseBody
@@ -76,7 +77,7 @@ public class AuthController {
         // 前置校验
         UserEntity userEntity = userService.getUserByUserName(user.getUsername());
         if (userEntity == null) return AppResult.fail("用户不存在");
-        String encryptPassword = SaSecureUtil.md5BySalt(user.getPassword(), AppConfig.SALT);
+        String encryptPassword = SaSecureUtil.aesEncrypt(user.getPassword(), AppConfig.SALT);
         if (!encryptPassword.equals(userEntity.getPassword())) {
             return AppResult.fail("密码错误");
         }
@@ -92,8 +93,8 @@ public class AuthController {
         //2.永久记住.localStorage.setItem("satoken", "xxxx-xxxx-xxxx-xxxx-xxx");
 
         try {
-            StpUtil.login(userEntity.getId(), new SaLoginModel()
-                            .setDevice("PC")                 // 此次登录的客户端设备类型, 用于[同端互斥登录]时指定此次登录的设备类型
+            StpUtil.login(userEntity.getId(), new SaLoginParameter()
+                            .setDeviceType("PC")                 // 此次登录的客户端设备类型, 用于[同端互斥登录]时指定此次登录的设备类型
                             .setIsLastingCookie(true)        // 是否为持久Cookie（临时Cookie在浏览器关闭时会自动删除，持久Cookie在重新打开后依然存在）
                             .setTimeout(60 * 60 * 24 * 7)    // 指定此次登录token的有效期, 单位:秒 （如未指定，自动取全局配置的 timeout 值）
 //                .setToken("xxxx-xxxx-xxxx-xxxx") // 预定此次登录的生成的Token
@@ -120,11 +121,9 @@ public class AuthController {
     @PostMapping("/register")
     public AppResult<?> registe(@RequestBody UserView user) throws SQLException {
         UserEntity entity = JsonUtil.toBean(user, UserEntity.class);
-        entity.setPassword(SaSecureUtil.md5BySalt(entity.getPassword(), AppConfig.SALT));
+        entity.setPassword(SaSecureUtil.aesEncrypt(entity.getPassword(), AppConfig.SALT));
         entity.setId(IdUtil.getSnowflakeNextIdStr());
-        List<UserEntity> users = db.mapperBase(UserEntity.class).selectByMap(new HashMap<>() {{
-            put("username", user.getUsername());
-        }});
+        List<UserEntity> users = new ArrayList<>();
         if (users != null && users.size() > 0) {
             return AppResult.fail("账户已注册");
         }

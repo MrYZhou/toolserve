@@ -1,9 +1,8 @@
 package com.lar.security.user.repository;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.noear.wood.annotation.PrimaryKey;
-import org.noear.wood.annotation.Table;
-
 import java.util.Date;
 
 /**
@@ -11,11 +10,9 @@ import java.util.Date;
  */
 
 @Data
-@Table("sys_user")
+@TableName("sys_user")
 public class UserEntity {
-
-    /** 主键 */
-    @PrimaryKey
+    @TableId
     private String id;
     /** 用户名 */
     private String username;
