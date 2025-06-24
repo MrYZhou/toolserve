@@ -26,11 +26,11 @@
         <fastjson.version>1.2.83</fastjson.version>
         <wood.version>1.2.6</wood.version>
         <mybatisplus.version>3.5.5</mybatisplus.version>
-        <xxl.version>2.4.1</xxl.version>
+        <xxl.version>2.4.2</xxl.version>
         <snack3.version>3.2.57</snack3.version>
-        <sms.version>3.0.4</sms.version>
+        <sms.version>3.3.4</sms.version>
         <dami.version>0.56</dami.version>
-        <satoken.version>1.34.0</satoken.version>
+        <satoken.version>1.44.0</satoken.version>
         <commons-io.version>2.16.1</commons-io.version>
     </properties>
 
@@ -159,17 +159,17 @@
             <version>${xxl.version}</version>
         </dependency>
 
-        <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
+        <!-- Sa-Token 整合 Redis  -->
         <dependency>
             <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-dao-redis-jackson</artifactId>
-            <version>1.34.0</version>
+            <artifactId>sa-token-redis-template</artifactId>
+            <version>${satoken.version}</version>
         </dependency>
         <!-- Sa-Token 插件：整合SSO -->
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-sso</artifactId>
-            <version>1.36.0</version>
+            <version>${satoken.version}</version>
         </dependency>
 
         <!-- 提供Redis连接池 -->

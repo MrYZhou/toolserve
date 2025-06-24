@@ -7,9 +7,9 @@ import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.strategy.SaStrategy;
+import cn.dev33.satoken.strategy.SaAnnotationStrategy;
 import cn.dev33.satoken.util.SaResult;
-import org.springframework.beans.factory.InitializingBean;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,16 +23,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author click33
  */
 @Configuration
-public class SaTokenConfigure implements WebMvcConfigurer, InitializingBean {
+public class SaTokenConfigure implements WebMvcConfigurer {
     @Value("${devState}")
     private String devState;
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    public void rewriteSaStrategy() {
         // 重写Sa-Token的注解处理器，增加注解合并功能
-        SaStrategy.me.getAnnotation = AnnotatedElementUtils::getMergedAnnotation;
+        SaAnnotationStrategy.instance.getAnnotation = AnnotatedElementUtils::getMergedAnnotation;
     }
-
 
     /**
      * 注册 [Sa-Token 全局过滤器]
@@ -105,7 +104,7 @@ public class SaTokenConfigure implements WebMvcConfigurer, InitializingBean {
         registry.addInterceptor(new SaInterceptor(handle -> {
                     SaRouter.match("/**")    // 拦截的 path 列表，可以写多个 */
                             .notMatch(WhiteList.get())        // 排除掉的 path 列表，可以写多个
-                            .notMatch("true".equals(devState)?"/**":"")
+                            .notMatch("true".equals(devState) ? "/**" : "")
                             .check(r -> StpUtil.checkLogin());        // 要执行的校验动作，可以写完整的 lambda 表达式
 
                     // 根据路由划分模块，不同模块不同鉴权
