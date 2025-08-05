@@ -14,8 +14,8 @@ spring:
     timeout-per-shutdown-phase: 60s #关机缓冲时间,默认30s
   servlet:
     multipart: #文件传输配置
-      max-file-size: 100MB #单个数据大小限制
-      max-request-size: 100MB #请求总数据大小限制
+      max-file-size: 2GB #单个数据大小限制
+      max-request-size: 2GB #请求总数据大小限制
       enabled: true  #是否启用分段上传支持
   data:
     #===================== Redis配置 =====================
@@ -178,7 +178,12 @@ sms:
     #华为分配的app请求地址
     url: https://XXXXX.cn-north-4.XXXXXXXX.com:443
 
-
+# 文件上传配置
+upload:
+  temp:
+    dir: ./temp-uploads
+  final:
+    dir: ./uploads
 #日志配置
 logging:
   config: classpath:logback-larry.xml # 日志位置

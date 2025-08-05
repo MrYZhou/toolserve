@@ -20,7 +20,6 @@ toolserver:
   rabbitmqEnabled: true
 
 
-
 #google访问相关
 google:
   client:
